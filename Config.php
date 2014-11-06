@@ -54,10 +54,9 @@ class Config
      */
     public static function checkDependencies($extensions = []) {
         foreach ($extensions as $extension) {
-            $name = '';
-            $repo = '';
-            $reason = self::DEFAULT_REASON;
-            extract($extension);
+            $name = empty($extension[0]) ? '' : $extension[0];
+            $repo = empty($extension[1]) ? '' : $extension[1];
+            $reason = empty($extension[2]) ? '' :self::DEFAULT_REASON;
             self::checkDependency($name, $repo, $reason);
         }
     }
