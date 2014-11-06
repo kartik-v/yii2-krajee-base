@@ -1,7 +1,7 @@
 yii2-krajee-base
 ================
 
-This is a base library and components for all [Yii2 extensions by Krajee](http://demos.krajee.com). One can use this base library for creating one's own extensions if needed.
+This is a base library with set of foundation classes and components used by all [Yii2 extensions by Krajee](http://demos.krajee.com). One can refer this base library during creation of one's own extensions if needed.
 
 > NOTE: This extension depends on the [yiisoft/yii2-bootstrap](https://github.com/yiisoft/yii2/tree/master/extensions/bootstrap) extension. Check the 
 [composer.json](https://github.com/kartik-v/yii2-krajee-base/blob/master/composer.json) for this extension's requirements and dependencies. 
@@ -33,7 +33,7 @@ Extends Yii [Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/
 Extends Yii [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
 	
 ### AssetBundle
-Extends Yii [AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
+Extends Yii [AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
 ### Config
 A global configuration and validation helper class for usage across Krajee's Yii 2 extensions.
