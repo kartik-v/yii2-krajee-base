@@ -37,8 +37,8 @@ class Config
         $class = self::NAMESPACE_PREFIX . $name;
         if (!class_exists($class)) {
             throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n".
-                "Please ensure you have installed the '{$repo}' extension. To install you can run from console in your application root:\n\n" .
-                "php composer.phar require " . self::VENDOR_NAME . $repo ": \"@dev\" \n");
+                "Please ensure you have installed the '{$repo}' extension. To install you can run this console command from your application root:\n\n" .
+                "php composer.phar require " . self::VENDOR_NAME . $repo . ": \"@dev\" \n");
         }
     }
 
