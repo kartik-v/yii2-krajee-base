@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
- * @package yii2-widgets
- * @version 3.3.0
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
+ * @package yii2-krajee-base
+ * @version 1.0.0
  */
 
-namespace kartik\widgets;
+namespace kartik\base;
 
 use Yii;
 
 /**
- * Common Asset bundle for all widgets
+ * Common base widget asset bundle for all Krajee widgets
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0

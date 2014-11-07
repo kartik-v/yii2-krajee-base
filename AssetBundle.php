@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-namespace kartik\krajee;
+namespace kartik\base;
 
 /**
  * Base asset bundle for all widgets
