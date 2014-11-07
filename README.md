@@ -10,17 +10,20 @@ To ensure a leaner code base / foundation component for use in all Krajee extens
 
 ## Extension Classes
 
-### Widget
+### [Widget](https://github.com/kartik-v/yii2-krajee-base/blob/master/Widget.php)
 Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/Widget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
 
-### InputWidget
+### [InputWidget](https://github.com/kartik-v/yii2-krajee-base/blob/master/InputWidget.php)
 Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
 	
-### AssetBundle
-Extends Yii [AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
+### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php)
+Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
-### Config
+### [Config](https://github.com/kartik-v/yii2-krajee-base/blob/master/Config.php)
 A global configuration and validation helper class for usage across Krajee's Yii 2 extensions.
+
+##Latest Release
+The latest version of the module is v1.0.0 released on 06-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
 
 ## Latest Release
 The latest version of the module is v1.0.0 released on 06-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
