@@ -2,8 +2,7 @@
 
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-widgets
- * @subpackage yii2-widget-activeform
+ * @package yii2-krajee-base
  * @version 1.0.0
  */
 

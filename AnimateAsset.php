@@ -2,11 +2,11 @@
 
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-widgets
- * @version 3.3.0
+ * @package yii2-krajee-base
+ * @version 1.0.0
  */
 
-namespace kartik\widgets;
+namespace kartik\base;
 
 /**
  * Asset bundle for loading animations
