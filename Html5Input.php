@@ -21,7 +21,6 @@ use yii\helpers\ArrayHelper;
  */
 class Html5Input extends \kartik\base\InputWidget
 {
-
     /**
      * @var string the HTML 5 input type
      */

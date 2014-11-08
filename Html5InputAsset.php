@@ -16,7 +16,6 @@ namespace kartik\base;
  */
 class Html5InputAsset extends \kartik\base\AssetBundle
 {
-
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');
