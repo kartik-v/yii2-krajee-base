@@ -25,9 +25,6 @@ A global configuration and validation helper class for usage across Krajee's Yii
 ##Latest Release
 The latest version of the module is v1.0.0 released on 06-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
 
-## Latest Release
-The latest version of the module is v1.0.0 released on 06-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
-
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
