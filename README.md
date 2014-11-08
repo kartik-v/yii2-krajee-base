@@ -19,6 +19,12 @@ Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/
 ### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php)
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
+### [AnimateAsset](https://github.com/kartik-v/yii2-krajee-base/blob/master/AnimateAsset.php)
+An asset bundle for loading various CSS3 animations and effects.
+
+### [Html5Input](https://github.com/kartik-v/yii2-krajee-base/blob/master/Html5Input.php)
+A modified input widget for rendering HTML5 inputs with bootstrap styling and input group addons for Krajee's Yii 2 extensions.
+
 ### [Config](https://github.com/kartik-v/yii2-krajee-base/blob/master/Config.php)
 A global configuration and validation helper class for usage across Krajee's Yii 2 extensions.
 
