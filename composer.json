@@ -12,9 +12,9 @@
             "homepage": "http://www.krajee.com/"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
-        "yiisoft/yii2-bootstrap": "*"
+        "yiisoft/yii2-bootstrap": "@dev"
     },
     "autoload": {
         "psr-4": {
