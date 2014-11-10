@@ -64,9 +64,9 @@ class Config
         
         if (!class_exists($class)) {
             throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n".
-               "Please ensure you have installed " . $repos. 
+                "Please ensure you have installed " . $repos . 
                 "To install, you can run this console command from your application root:\n\n" .
-               $installs);
+                $installs);
         }
     }
     
