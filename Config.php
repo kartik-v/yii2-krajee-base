@@ -24,10 +24,13 @@ class Config
     const DEFAULT_REASON = "for your selected functionality";
 
     protected static $_validInputWidgets = [
-        '\kartik\select2\Select2' => ['yii2-widgets', 'yii2-widget-select2'],
         '\kartik\typeahead\Typeahead' => ['yii2-widgets', 'yii2-widget-typeahead'],
+        '\kartik\select2\Select2' => ['yii2-widgets', 'yii2-widget-select2'],
+        '\kartik\depdrop\DepDrop' => ['yii2-widgets', 'yii2-widget-depdrop'],
+        '\kartik\touchspin\TouchSpin' => ['yii2-widgets', 'yii2-widget-touchspin'],
         '\kartik\switchinput\SwitchInput' => ['yii2-widgets', 'yii2-widget-switchinput'],
         '\kartik\rating\StarRating' => ['yii2-widgets', 'yii2-widget-rating'],
+        '\kartik\rating\FileInput' => ['yii2-widgets', 'yii2-widget-fileinput'],
         '\kartik\range\RangeInput' => ['yii2-widgets', 'yii2-widget-rangeinput'],
         '\kartik\color\ColorInput' => ['yii2-widgets', 'yii2-widget-colorinput'],
         '\kartik\date\DatePicker' => ['yii2-widgets', 'yii2-widget-datepicker'],
@@ -37,6 +40,7 @@ class Config
         '\kartik\sortinput\SortableInput' => 'yii2-sortinput',
         '\kartik\money\MaskMoney' => 'yii2-money',
         '\kartik\checkbox\CheckboxX' => 'yii2-checkbox',
+        '\kartik\slider\Slider' => 'yii2-slider',
     ];
     
     /**
