@@ -24,15 +24,15 @@ class Config
     const DEFAULT_REASON = "for your selected functionality";
 
     protected static $_validInputWidgets = [
-        '\kartik\select2\Select2' => "yii2-widgets' OR 'kartik-v/yii2-widget-select2",
-        '\kartik\typeahead\Typeahead' => "yii2-widgets' OR 'kartik-v/yii2-widget-typeahead",
-        '\kartik\switchinput\SwitchInput' => "yii2-widgets' OR 'kartik-v/yii2-widget-switchinput",
-        '\kartik\rating\StarRating' => "yii2-widgets' OR 'kartik-v/yii2-widget-rating",
-        '\kartik\range\RangeInput' => "yii2-widgets' OR 'kartik-v/yii2-widget-rangeinput",
-        '\kartik\color\ColorInput' => "yii2-widgets' OR 'kartik-v/yii2-widget-colorinput",
-        '\kartik\date\DatePicker' => "yii2-widgets' OR 'kartik-v/yii2-widget-datepicker",
-        '\kartik\time\TimePicker' => "yii2-widgets' OR 'kartik-v/yii2-widget-timepicker",
-        '\kartik\datetime\DateTimePicker' => "yii2-widgets' OR 'kartik-v/yii2-widget-datetimepicker",
+        '\kartik\select2\Select2' => ['yii2-widgets', 'yii2-widget-select2'],
+        '\kartik\typeahead\Typeahead' => ['yii2-widgets', 'yii2-widget-typeahead'],
+        '\kartik\switchinput\SwitchInput' => ['yii2-widgets', 'yii2-widget-switchinput'],
+        '\kartik\rating\StarRating' => ['yii2-widgets', 'yii2-widget-rating'],
+        '\kartik\range\RangeInput' => ['yii2-widgets', 'yii2-widget-rangeinput'],
+        '\kartik\color\ColorInput' => ['yii2-widgets', 'yii2-widget-colorinput'],
+        '\kartik\date\DatePicker' => ['yii2-widgets', 'yii2-widget-datepicker'],
+        '\kartik\time\TimePicker' => ['yii2-widgets', 'yii2-widget-timepicker'],
+        '\kartik\datetime\DateTimePicker' => ['yii2-widgets', 'yii2-widget-datetimepicker'],
         '\kartik\daterange\DateRangePicker' => 'yii2-daterange',
         '\kartik\sortinput\SortableInput' => 'yii2-sortinput',
         '\kartik\money\MaskMoney' => 'yii2-money',
@@ -42,7 +42,7 @@ class Config
     /**
      * Validate a single extension dependency
      * @param string name the extension class name (without vendor namespace prefix)
-     * @param string repo the extension package repository name (without vendor name prefix)
+     * @param string|array repo the extension package repository names (without vendor name prefix)
      * @param string reason a user friendly message for dependency validation failure
      * @throws InvalidConfigException if extension fails dependency validation
      */
@@ -50,15 +50,26 @@ class Config
         if (empty($name)) {
             return;
         }
+        $command = "php composer.phar require " . self::VENDOR_NAME;
+        $version = ": \"@dev\"";
         $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX . $name;
+        
+        if (is_array($repo)) {
+            $repos = "one of '" . implode("' OR '", $repo) . "' extensions. ";
+            $installs =  $command . implode("{$version}\n\n--- OR ---\n\n" . $command, $repo) . $version;
+        } else {
+            $repos = "the '" . $repo . "' extension. ";
+            $installs = $command . $version;
+        }
+        
         if (!class_exists($class)) {
             throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n".
-                "Please ensure you have installed the '{$repo}' extension. " . 
+               "Please ensure you have installed " . $repos. 
                 "To install, you can run this console command from your application root:\n\n" .
-                "php composer.phar require " . self::VENDOR_NAME . $repo . ": \"@dev\" \n");
+               $installs);
         }
     }
-
+    
     /**
      * Validate multiple extension dependencies
      * @param array extensions the configuration of extensions with each array 
