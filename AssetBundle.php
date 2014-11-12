@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
  * @package yii2-krajee-base
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace kartik\base;
@@ -18,7 +18,7 @@ class AssetBundle extends \yii\web\AssetBundle
 {
     const EMPTY_ASSET = 'N0/@$$3T$';
     const EMPTY_PATH = 'N0/P@T#';
-    
+
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\web\YiiAsset',

@@ -11,6 +11,7 @@
     height: 25px;
     background: transparent url('../img/loading-plugin.gif') center left no-repeat;
 }
+
 .kv-hide {
-    display:none;
+    display: none;
 }

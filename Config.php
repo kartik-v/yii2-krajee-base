@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace kartik\base;
@@ -42,7 +42,7 @@ class Config
         '\kartik\checkbox\CheckboxX' => 'yii2-checkbox',
         '\kartik\slider\Slider' => 'yii2-slider',
     ];
-    
+
     /**
      * Validate a single extension dependency
      * @param string name the extension class name (without vendor namespace prefix)
@@ -50,33 +50,34 @@ class Config
      * @param string reason a user friendly message for dependency validation failure
      * @throws InvalidConfigException if extension fails dependency validation
      */
-    public static function checkDependency($name = '', $repo = '', $reason = self::DEFAULT_REASON) {
+    public static function checkDependency($name = '', $repo = '', $reason = self::DEFAULT_REASON)
+    {
         if (empty($name)) {
             return;
         }
         $command = "php composer.phar require " . self::VENDOR_NAME;
         $version = ": \"@dev\"";
         $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX . $name;
-        
+
         if (is_array($repo)) {
             $repos = "one of '" . implode("' OR '", $repo) . "' extensions. ";
-            $installs =  $command . implode("{$version}\n\n--- OR ---\n\n" . $command, $repo) . $version;
+            $installs = $command . implode("{$version}\n\n--- OR ---\n\n" . $command, $repo) . $version;
         } else {
             $repos = "the '" . $repo . "' extension. ";
             $installs = $command . $version;
         }
-        
+
         if (!class_exists($class)) {
-            throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n".
-                "Please ensure you have installed " . $repos . 
+            throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n" .
+                "Please ensure you have installed " . $repos .
                 "To install, you can run this console command from your application root:\n\n" .
                 $installs);
         }
     }
-    
+
     /**
      * Validate multiple extension dependencies
-     * @param array extensions the configuration of extensions with each array 
+     * @param array extensions the configuration of extensions with each array
      * item setup as required in `checkDependency` method. The following keys
      * can be setup:
      * - name: string, the extension class name (without vendor namespace prefix)
@@ -84,15 +85,16 @@ class Config
      * - reason: string,  a user friendly message for dependency validation failure
      * @throws InvalidConfigException if extension fails dependency validation
      */
-    public static function checkDependencies($extensions = []) {
+    public static function checkDependencies($extensions = [])
+    {
         foreach ($extensions as $extension) {
             $name = empty($extension[0]) ? '' : $extension[0];
             $repo = empty($extension[1]) ? '' : $extension[1];
-            $reason = empty($extension[2]) ? '' :self::DEFAULT_REASON;
+            $reason = empty($extension[2]) ? '' : self::DEFAULT_REASON;
             self::checkDependency($name, $repo, $reason);
         }
     }
-    
+
     /**
      * Gets list of namespaced Krajee input widget classes as an associative
      * array, where the array keys are the namespaced classes, and the array
@@ -100,23 +102,26 @@ class Config
      * belong to.
      * @returns array
      */
-    public static function getInputWidgets() {
+    public static function getInputWidgets()
+    {
         return self::$_validInputWidgets;
     }
-   
+
     /**
      * Check if a namespaced widget is valid input widget
      * @returns boolean
      */
-    public static function isInputWidgetValid($type) {
+    public static function isInputWidgetValid($type)
+    {
         return isset(self::$_validInputWidgets[$type]);
     }
-    
+
     /**
      * Check if a namespaced widget is valid or installed.
      * @throws InvalidConfigException
      */
-    public static function validateInputWidget($type, $reason = self::DEFAULT_REASON) {
+    public static function validateInputWidget($type, $reason = self::DEFAULT_REASON)
+    {
         if (self::isInputWidgetValid($type)) {
             self::checkDependency($type, self::$_validInputWidgets[$type], $reason);
         }

@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace kartik\base;
@@ -24,7 +24,6 @@ use yii\web\View;
  */
 class InputWidget extends \yii\widgets\InputWidget
 {
-
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
 
     /**
@@ -37,7 +36,7 @@ class InputWidget extends \yii\widgets\InputWidget
      * @var mixed show loading indicator while plugin loads
      */
     public $pluginLoading = true;
-    
+
     /**
      * @var array the data (for list inputs)
      */
@@ -82,8 +81,8 @@ class InputWidget extends \yii\widgets\InputWidget
      * @var string the indicator for loading
      */
     protected $_loadIndicator = '';
-    
-    
+
+
     /**
      * @inheritdoc
      */
@@ -91,10 +90,11 @@ class InputWidget extends \yii\widgets\InputWidget
     {
         parent::init();
         if ($this->pluginLoading) {
-            $this->_loadIndicator =  self::LOAD_PROGRESS;
+            $this->_loadIndicator = self::LOAD_PROGRESS;
         }
         if ($this->hasModel()) {
-            $this->name = empty($this->options['name']) ? Html::getInputName($this->model, $this->attribute) : $this->options['name'];
+            $this->name = empty($this->options['name']) ? Html::getInputName($this->model,
+                $this->attribute) : $this->options['name'];
             $this->value = $this->model[Html::getAttributeName($this->attribute)];
         }
         $view = $this->getView();
@@ -110,13 +110,14 @@ class InputWidget extends \yii\widgets\InputWidget
      * @param string $property the name of language property in [[pluginOptions]].
      * Defaults to 'language'.
      */
-    protected function initLanguage($property = 'language') {
+    protected function initLanguage($property = 'language')
+    {
         $lang = substr($this->language, 0, 2);
         if (empty($this->pluginOptions[$property]) && $lang != 'en') {
             $this->pluginOptions[$property] = $lang;
         }
     }
-    
+
     /**
      * Adds an asset to the view
      *
@@ -191,7 +192,7 @@ class InputWidget extends \yii\widgets\InputWidget
         $encOptions = empty($this->_encOptions) ? '{}' : $this->_encOptions;
         $view->registerJs("var {$this->_hashVar} = {$encOptions};\n", View::POS_HEAD);
     }
-    
+
     /**
      * Registers a specific plugin and the related events
      *
@@ -274,7 +275,7 @@ class InputWidget extends \yii\widgets\InputWidget
             'Y' => 'yyyy',
         ]);
     }
-    
+
     /**
      * Parses date format based on attribute type using yii\helpers\FormatConverter
      * Used only within DatePicker and DateTimePicker.
@@ -301,7 +302,7 @@ class InputWidget extends \yii\widgets\InputWidget
             $format = FormatConverter::convertDateIcuToPhp($format, $type);
             $this->pluginOptions['format'] = static::convertDateFormat($format);
         } else {
-           throw InvalidConfigException("Error parsing '{$type}' format.");
+            throw InvalidConfigException("Error parsing '{$type}' format.");
         }
     }
 }

@@ -61,24 +61,25 @@
     opacity: .65;
     cursor: not-allowed;
 }
+
 .input-group-html5.kv-range-vertical {
     float: left;
     height: 200px;
-    width: 50px!important;
+    width: 50px !important;
     margin-right: 5px;
 }
-.input-group-html5.kv-range-vertical input.form-control
-{
+
+.input-group-html5.kv-range-vertical input.form-control {
     height: 214px;
     width: 40px;
     padding: 0 3px;
     line-height: 0;
-    text-align: center;  
+    text-align: center;
 }
-.input-group-html5.kv-range-vertical input[type=range]
-{
+
+.input-group-html5.kv-range-vertical input[type=range] {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
-    width: 8px!important;
+    width: 8px !important;
     height: 200px;
 }

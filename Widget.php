@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace kartik\base;
@@ -95,7 +95,7 @@ class Widget extends \yii\base\Widget
      * - 'data-plugin-name' the name of the plugin
      *
      * @param string $name the name of the plugin
-     * @author [Thiago Talma](https://github.com/thiagotalma) 
+     * @author [Thiago Talma](https://github.com/thiagotalma)
      */
     protected function hashPluginOptions($name)
     {

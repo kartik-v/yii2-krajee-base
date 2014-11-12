@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 namespace kartik\base;
@@ -135,7 +135,7 @@ class Html5Input extends \kartik\base\InputWidget
         $size = isset($this->size) ? ' input-group-' . $this->size : '';
         Html::addCssClass($this->containerOptions, 'input-group input-group-html5' . $size);
         if (isset($this->width) && ($this->width > 0)) {
-            Html::addCssStyle($this->html5Container, 'width:'.$this->width);
+            Html::addCssStyle($this->html5Container, 'width:' . $this->width);
         }
         Html::addCssClass($this->html5Container, 'input-group-addon addon-' . $this->type);
         $caption = $this->getInput('textInput');
@@ -150,7 +150,8 @@ class Html5Input extends \kartik\base\InputWidget
         if ($this->noSupport == false) {
             $message = '';
         } else {
-            $message = "\n<br>" . Html::tag('div', Yii::t('app', $this->noSupport, ['type' => $this->type]), $this->noSupportOptions);
+            $message = "\n<br>" . Html::tag('div', Yii::t('app', $this->noSupport, ['type' => $this->type]),
+                    $this->noSupportOptions);
         }
         return "<!--[if lt IE 10]>\n{$caption}{$message}\n<![endif]--><![if gt IE 9]>\n{$content}\n<![endif]>";
     }
