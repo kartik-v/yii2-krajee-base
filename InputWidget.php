@@ -9,6 +9,7 @@
 namespace kartik\base;
 
 use Yii;
+use yii\helpers\FormatConverter;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
