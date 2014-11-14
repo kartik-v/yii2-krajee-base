@@ -64,7 +64,7 @@ class Config
             $installs = $command . implode("{$version}\n\n--- OR ---\n\n" . $command, $repo) . $version;
         } else {
             $repos = "the '" . $repo . "' extension. ";
-            $installs = $command . $version;
+            $installs = $command . $repo . $version;
         }
 
         if (!class_exists($class)) {
