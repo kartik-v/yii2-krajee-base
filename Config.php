@@ -129,8 +129,9 @@ class Config
     
     /**
      * Convert a language string in yii\i18n format to 
-     * a ISO-639 format (2 or 3 letter code)
+     * a ISO-639 format (2 or 3 letter code).
      * @param string $language the input language string
+     * @return string
      */
     public static function getLang($language) {
         $pos = strpos($language, "-");
