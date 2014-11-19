@@ -5,8 +5,10 @@ This is a base library with set of foundation classes and components used by all
 > NOTE: This extension depends on the [yiisoft/yii2-bootstrap](https://github.com/yiisoft/yii2/tree/master/extensions/bootstrap) extension. Check the [composer.json](https://github.com/kartik-v/yii2-krajee-base/blob/master/composer.json) for this extension's requirements and dependencies. 
 
 ## Why this extension?
- 
-To ensure a leaner code base / foundation component for use in all Krajee extensions (e.g. yii2-widgets, yii2-grid, yii2-dynagrid etc.). This should allow most developers to plug and play components only they need, without needing the complete suite of widgets. For example, this mitigates [this issue](https://github.com/kartik-v/yii2-grid/issues/123). 
+To ensure a leaner code base / foundation component for use in all Krajee extensions (e.g. yii2-widgets, yii2-datecontrol, yii2-grid, yii2-dynagrid etc.). This should allow most developers to plug and play components only they need, without needing the complete suite of widgets. For example, this mitigates [this issue](https://github.com/kartik-v/yii2-grid/issues/123). 
+
+## Latest Release
+The latest version of the extension is v1.2.0 released on 19-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
 
 ## Extension Classes
 

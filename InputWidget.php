@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.1.0
+ * @version 1.2.0
  */
 
 namespace kartik\base;
@@ -27,7 +27,9 @@ class InputWidget extends \yii\widgets\InputWidget
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
 
     /**
-     * @var string the locale ID (e.g. 'fr', 'de') for the language to be used by the Select2 Widget.
+     * @var string the language configuration (e.g. 'fr-FR', 'zh-CN'). The format for the language/locale is 
+     * ll-CC where ll is a two or three letter lowercase code for a language according to ISO-639 and 
+     * CC is the country code according to ISO-3166.
      * If this property not set, then the current application language will be used.
      */
     public $language;
@@ -82,6 +84,11 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected $_loadIndicator = '';
 
+    /**
+     * @var string the two or three letter lowercase code 
+     * for the language according to ISO-639
+     */
+    protected $_lang = '';
 
     /**
      * @inheritdoc
@@ -89,6 +96,11 @@ class InputWidget extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+        if (!isset($this->language)) {
+            $this->language = Yii::$app->language;
+        }
+        $pos = strpos($this->language, "-");
+        $this->_lang = $pos > 0 ? substr($this->language, 0, $pos) : $this->language;
         if ($this->pluginLoading) {
             $this->_loadIndicator = self::LOAD_PROGRESS;
         }
@@ -98,9 +110,6 @@ class InputWidget extends \yii\widgets\InputWidget
             $this->value = $this->model[Html::getAttributeName($this->attribute)];
         }
         $view = $this->getView();
-        if (!isset($this->language)) {
-            $this->language = Yii::$app->language;
-        }
         WidgetAsset::register($view);
     }
 
@@ -112,9 +121,8 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected function initLanguage($property = 'language')
     {
-        $lang = substr($this->language, 0, 2);
-        if (empty($this->pluginOptions[$property]) && $lang != 'en') {
-            $this->pluginOptions[$property] = $lang;
+        if (empty($this->pluginOptions[$property]) && $this->_lang != 'en') {
+            $this->pluginOptions[$property] = $this->_lang;
         }
     }
 

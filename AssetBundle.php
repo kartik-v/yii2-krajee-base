@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2013
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.1.0
+ * @version 1.2.0
  */
 
 namespace kartik\base;
@@ -56,7 +56,7 @@ class AssetBundle extends \yii\web\AssetBundle
         if (empty($this->sourcePath)) {
             $this->sourcePath = $path;
         } elseif ($this->sourcePath === self::EMPTY_PATH) {
-            $this->sourcePath = '';
+            $this->sourcePath = null;
         }
     }
 }
