@@ -99,8 +99,7 @@ class InputWidget extends \yii\widgets\InputWidget
         if (!isset($this->language)) {
             $this->language = Yii::$app->language;
         }
-        $pos = strpos($this->language, "-");
-        $this->_lang = $pos > 0 ? substr($this->language, 0, $pos) : $this->language;
+        $this->_lang = Config::getLang($this->language);
         if ($this->pluginLoading) {
             $this->_loadIndicator = self::LOAD_PROGRESS;
         }
