@@ -21,8 +21,30 @@ class Config
 {
     const VENDOR_NAME = "kartik-v/";
     const NAMESPACE_PREFIX = "\\kartik\\";
-    const DEFAULT_REASON = "for your selected functionality";
-
+    const DEFAULT_REASON = "for your selected functionality"; 
+    
+    protected static $_validHtmlInputs = [
+        'hiddenInput',
+        'textInput',
+        'passwordInput',
+        'textArea',
+        'checkbox',
+        'radio',
+        'listBox',
+        'dropDownList',
+        'checkboxList',
+        'radioList',
+        'input',
+        'fileInput'
+    ];
+    
+    protected static $_validDropdownInputs = [
+        'listBox',
+        'dropDownList',
+        'checkboxList',
+        'radioList'
+    ];
+    
     protected static $_validInputWidgets = [
         '\kartik\typeahead\Typeahead' => ['yii2-widgets', 'yii2-widget-typeahead'],
         '\kartik\select2\Select2' => ['yii2-widgets', 'yii2-widget-select2'],
@@ -108,21 +130,52 @@ class Config
     }
 
     /**
-     * Check if a namespaced widget is valid input widget
+     * Check if a type of input is any possible valid input (html or widget)
+     * @param string $type the type of input
      * @returns boolean
      */
-    public static function isInputWidgetValid($type)
+    public static function isValidInput($type)
+    {
+        return self::isHtmlInput($type) || self::isInputWidget($type) || $type === 'widget';
+    }
+    
+    /**
+     * Check if a type of input is a valid input widget
+     * @param string $type the type of input
+     * @returns boolean
+     */
+    public static function isInputWidget($type)
     {
         return isset(self::$_validInputWidgets[$type]);
     }
+    
+    /**
+     * Check if a input type is a valid Html Input
+     * @param string $type the type of input
+     * @returns boolean
+     */
+    public static function isHtmlInput($type)
+    {
+        return in_array($type, self::$_validHtmlInputs);
+    }
 
+    /**
+     * Check if a input type is a valid dropdown input
+     * @param string $type the type of input
+     * @returns boolean
+     */
+    public static function isDropdownInput($type)
+    {
+        return in_array($type, self::$_validDropdownInputs);
+    }
+    
     /**
      * Check if a namespaced widget is valid or installed.
      * @throws InvalidConfigException
      */
     public static function validateInputWidget($type, $reason = self::DEFAULT_REASON)
     {
-        if (self::isInputWidgetValid($type)) {
+        if (self::isInputWidget($type)) {
             self::checkDependency($type, self::$_validInputWidgets[$type], $reason);
         }
     }
