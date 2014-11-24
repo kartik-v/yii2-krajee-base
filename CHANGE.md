@@ -1,10 +1,11 @@
 version 1.2.0
 =============
-**Date:** 22-Nov-2014
+**Date:** 25-Nov-2014
 
 - (bug #2): AssetBundle::EMPTY_PATH is not setting sourcePath to null.
 - (enh #3): Modify and validate language setting according to yii i18n.
 - (enh #4): Add validations for html inputs, dropdowns, and widgets in `Config`.
+- (enh #5): Correctly validate checkbox and radio checked states for `InputWidget`.
 
 version 1.1.0
 =============

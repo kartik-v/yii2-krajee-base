@@ -163,7 +163,12 @@ class InputWidget extends \yii\widgets\InputWidget
         $checked = false;
         if ($type == 'radio' || $type == 'checkbox') {
             $this->options['value'] = $this->value;
-            $checked = ArrayHelper::remove($this->options, 'checked', false);
+            $checked = ArrayHelper::remove($this->options, 'checked', '');
+            if (empty($checked) && !empty($this->value)) {
+                $checked = ($this->value == 0) ? false : true;
+            } elseif (empty($checked)) {
+                $checked = false;
+            }
         }
         return $list ?
             Html::$input($this->name, $this->value, $this->data, $this->options) :
@@ -231,7 +236,7 @@ class InputWidget extends \yii\widgets\InputWidget
                 $js[] = "{$id}.on('{$event}', {$function});";
             }
             $js = implode("\n", $js);
-            $view->registerJs($js);
+            $view->registerJs("setTimeout(function() { {$js} }, 100);");
         }
     }
 
