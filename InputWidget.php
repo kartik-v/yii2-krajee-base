@@ -236,7 +236,7 @@ class InputWidget extends \yii\widgets\InputWidget
                 $js[] = "{$id}.on('{$event}', {$function});";
             }
             $js = implode("\n", $js);
-            $view->registerJs("setTimeout(function() { {$js} }, 100);");
+            $view->registerJs($js);
         }
     }
 
