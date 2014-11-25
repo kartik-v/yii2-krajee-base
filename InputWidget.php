@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.2.0
+ * @version 1.3.0
  */
 
 namespace kartik\base;
@@ -179,19 +179,16 @@ class InputWidget extends \yii\widgets\InputWidget
 
     /**
      * Generates a hashed variable to store the pluginOptions. The following special data attributes
-     * will also be setup for the input widget, that can be accessed through javascript:
-     * - 'data-plugin-options' will store the hashed variable storing the plugin options.
-     * - 'data-plugin-name' the name of the plugin
-     *
+     * will also be setup for the input widget, that can be accessed through javascript :
+     * - 'data-krajee-{name}' will store the hashed variable storing the plugin options. The {name}
+     *   tag will represent the plugin name (e.g. select2, typeahead etc.) - Fixes issue #6.
      * @param string $name the name of the plugin
-     * @author [Thiago Talma](https://github.com/thiagotalma)
      */
     protected function hashPluginOptions($name)
     {
         $this->_encOptions = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
         $this->_hashVar = $name . '_' . hash('crc32', $this->_encOptions);
-        $this->options['data-plugin-name'] = $name;
-        $this->options['data-plugin-options'] = $this->_hashVar;
+        $this->options['data-krajee-' . $name] = $this->_hashVar;
     }
 
     /**

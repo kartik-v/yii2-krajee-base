@@ -1,3 +1,24 @@
+version 1.3.0
+=============
+**Date:** 25-Nov-2014
+
+- (enh #6): Enhance `InputWidget` for attaching multiple jQuery plugins.
+
+### BC Breaking Changes
+
+#### Removed:
+The following HTML5 data attributes are removed and not registered anymore with the input:
+
+- `data-plugin-name` the name of the plugin
+- `data-plugin-options` the client options of the plugin
+
+#### Added:
+
+The following HTML5 data attribute will be added for each input:
+
+- `data-krajee-{name}` the client options of the plugin. The tag `{name}` will be replaced with the 
+  registered jQuery plugin name (e.g. `select2`, `typeahead` etc.).
+
 version 1.2.0
 =============
 **Date:** 25-Nov-2014
