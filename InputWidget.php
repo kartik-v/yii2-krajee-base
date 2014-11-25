@@ -45,6 +45,11 @@ class InputWidget extends \yii\widgets\InputWidget
     public $data = [];
 
     /**
+     * @var string the name of the jQuery plugin
+     */
+    public $pluginName;
+    
+    /**
      * @var array widget plugin options
      */
     public $pluginOptions = [];
@@ -69,6 +74,11 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     public $convertFormat = false;
 
+    /**
+     * @var string the hashed variable to store the pluginOptions
+     */
+    protected $_dataVar;
+    
     /**
      * @var string the hashed variable to store the pluginOptions
      */
@@ -98,6 +108,9 @@ class InputWidget extends \yii\widgets\InputWidget
         parent::init();
         if (!isset($this->language)) {
             $this->language = Yii::$app->language;
+        }
+        if (!empty($this->pluginName)) {
+            $this->_dataVar = "data-krajee-{$this->pluginName}";
         }
         $this->_lang = Config::getLang($this->language);
         if ($this->pluginLoading) {
