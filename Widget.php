@@ -22,7 +22,7 @@ use yii\web\View;
 class Widget extends \yii\base\Widget
 {
     /**
-     * @var array various options needed for widgets
+     * @var array HTML attributes or other settings for widgets
      */
     public $options = [];
 
