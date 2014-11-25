@@ -16,7 +16,7 @@ The following HTML5 data attributes are removed and not registered anymore with 
 
 Following functionality included in `InputWidget` and `Widget` classes:
 
-- New public property `pluginName` for easy configuration in individual widgets.
+- New protected property `_pluginName` for easy configuration in individual widgets.
 - The following HTML5 data attribute will be added for each input:
     - `data-krajee-{name}` the client options of the plugin. The tag `{name}` will be replaced with the 
        registered jQuery plugin name (e.g. `select2`, `typeahead` etc.).

@@ -22,11 +22,6 @@ use yii\web\View;
 class Widget extends \yii\base\Widget
 {
     /**
-     * @var string the name of the jQuery plugin
-     */
-    public $pluginName;
-    
-    /**
      * @var array widget plugin options
      */
     public $pluginOptions = [];
@@ -45,9 +40,9 @@ class Widget extends \yii\base\Widget
     public $pluginEvents = [];
 
     /**
-     * @var array the options for the widget
+     * @var string the name of the jQuery plugin
      */
-    public $options = [];
+    protected $_pluginName;
 
     /**
      * @var string the hashed variable to store the pluginOptions
@@ -73,8 +68,8 @@ class Widget extends \yii\base\Widget
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
-        if (!empty($this->pluginName)) {
-            $this->_dataVar = "data-krajee-{$this->pluginName}";
+        if (!empty($this->_pluginName)) {
+            $this->_dataVar = "data-krajee-{$this->_pluginName}";
         }
     }
 
