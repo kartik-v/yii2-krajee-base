@@ -22,6 +22,11 @@ use yii\web\View;
 class Widget extends \yii\base\Widget
 {
     /**
+     * @var array various options needed for widgets
+     */
+    public $options = [];
+
+    /**
      * @var array widget plugin options
      */
     public $pluginOptions = [];
