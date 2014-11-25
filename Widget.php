@@ -58,6 +58,11 @@ class Widget extends \yii\base\Widget
      * @var string the Json encoded options
      */
     protected $_encOptions = '';
+    
+    /**
+     * @var array various options needed for widgets
+     */
+    public $options = [];
 
     /**
      * Initialize the widget
