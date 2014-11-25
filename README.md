@@ -8,7 +8,7 @@ This is a base library with set of foundation classes and components used by all
 To ensure a leaner code base / foundation component for use in all Krajee extensions (e.g. yii2-widgets, yii2-datecontrol, yii2-grid, yii2-dynagrid etc.). This should allow most developers to plug and play components only they need, without needing the complete suite of widgets. For example, this mitigates [this issue](https://github.com/kartik-v/yii2-grid/issues/123). 
 
 ## Latest Release
-The latest version of the extension is v1.2.0 released on 19-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
+The latest version of the extension is v1.3.0 released on 25-Nov-2014. Refer the [CHANGE LOG](https://github.com/kartik-v/yii2-krajee-base/blob/master/CHANGE.md) for details.
 
 ## Extension Classes
 
@@ -16,7 +16,9 @@ The latest version of the extension is v1.2.0 released on 19-Nov-2014. Refer the
 Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/Widget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
 
 ### [InputWidget](https://github.com/kartik-v/yii2-krajee-base/blob/master/InputWidget.php)
-Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
+Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. With release v1.3.0, the Input widget automatically now attaches the following HTML5 data attribute for each input that registers jQuery plugins via `registerPlugin` method:
+
+- `data-krajee-{name}` the client options of the plugin. The tag `{name}` will be replaced with the registered jQuery plugin name (e.g. `select2`, `typeahead` etc.).
 	
 ### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php)
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
