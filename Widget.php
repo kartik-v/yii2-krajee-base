@@ -68,9 +68,14 @@ class Widget extends \yii\base\Widget
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
-        if (!empty($this->_pluginName)) {
-            $this->_dataVar = "data-krajee-{$this->_pluginName}";
-        }
+    }
+
+    /**
+     * Sets HTML5 data variable
+     * @param string $name the plugin name
+     */
+    protected function setDataVar($name) {
+        $this->_dataVar = "data-krajee-{$name}";
     }
 
     /**
