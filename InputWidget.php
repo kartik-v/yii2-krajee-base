@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 namespace kartik\base;
@@ -101,6 +101,12 @@ class InputWidget extends \yii\widgets\InputWidget
     protected $_lang = '';
 
     /**
+     * @var string the language js file
+     */
+    protected $_langFile = '';
+    
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -134,15 +140,52 @@ class InputWidget extends \yii\widgets\InputWidget
      * Initialize the plugin language
      *
      * @param string $property the name of language property in [[pluginOptions]].
+     * @param boolean $full whether to use the full language string. Defaults to `false` 
+     * which is the 2 (or 3) digit ISO-639 format.
      * Defaults to 'language'.
      */
-    protected function initLanguage($property = 'language')
+    protected function initLanguage($property = 'language', $full = false)
     {
         if (empty($this->pluginOptions[$property]) && $this->_lang != 'en') {
-            $this->pluginOptions[$property] = $this->_lang;
+            $this->pluginOptions[$property] = $full ? $this->language : $this->_lang;
         }
     }
-
+    /**
+     * Sets the language JS file if it exists
+     * @param string $assetPath the path to the assets
+     * @param string $filePath the path to the JS file with the file name prefix
+     * @param string $suffix the file name suffix - defaults to '.js'
+     */
+    protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js') {
+        $pwd = Config::getCurrentDir($this);
+        $s = DIRECTORY_SEPARATOR;
+        if ($assetPath === null) {
+            $assetPath = "{$pwd}/assets/";
+        } elseif (substr($assetPath, -1) != '/') {
+            $assetPath = substr($assetPath, 0, -1);
+        }
+        if ($filePath === null) {
+            $filePath = "js/locales/";
+        } elseif (substr($filePath, -1) != '/') {
+            $filePath = substr($filePath, 0, -1);
+        }
+        $full = $filePath . $prefix . $this->language . $suffix;
+        $fullLower = $filePath . $prefix . strtolower($this->language) . $suffix;
+        $short = $filePath . $this->_lang . $suffix;
+        if (Config::fileExists($assetPath . $full)) {
+            $this->_langFile = $full;
+            $this->pluginOptions['language'] = $this->language;
+        } elseif (Config::fileExists($assetPath . $fullLower)) {
+            $this->_langFile = $fullLower;
+            $this->pluginOptions['language'] = strtolower($this->language);
+        }  elseif (Config::fileExists($assetPath . $short)) {
+            $this->_langFile = $short;
+            $this->pluginOptions['language'] = $this->_lang;
+        } else {
+            $this->_langFile = '';
+        }
+    }
+    
     /**
      * Adds an asset to the view
      *

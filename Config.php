@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-krajee-base
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 namespace kartik\base;
@@ -189,5 +189,26 @@ class Config
     public static function getLang($language) {
         $pos = strpos($language, "-");
         return $pos > 0 ? substr($language, 0, $pos) : $language;
+    }
+    
+    /**
+     * Get the current directory of the extended class object
+     * @param mixed $object the called object instance
+     */
+    public static function getCurrentDir($object) {
+        if (empty($object)) {
+            return '';
+        }
+        $child = new \ReflectionClass($object);
+        return dirname($child->getFileName());
+    }
+    
+    /**
+     * Check if a file exists
+     * @param string $file the file with path in URL format
+     */
+    public static function fileExists($file) {
+        $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+        return file_exists($file);
     }
 }
