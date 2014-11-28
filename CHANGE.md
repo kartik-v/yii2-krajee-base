@@ -6,6 +6,7 @@ version 1.4.0
     - Auto detect and generate the plugin language and its related locale file using a new `setLanguage` method in `InputWidget`
     - Enhance `initLanguage` method to include a parameter `full` which defaults to `false` to use the ISO-639 language code.
 - (enh #10): Enhanced language and directory methods in Config
+
     Two new methods is added to Config helper class:
 
     - `getCurrentDir` - gets the current directory of the extended class object
