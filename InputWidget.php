@@ -33,6 +33,16 @@ class InputWidget extends \yii\widgets\InputWidget
      * If this property not set, then the current application language will be used.
      */
     public $language;
+    
+    /**
+     * @var boolean whether input is to be disabled
+     */
+    public $disabled = false;
+    
+    /**
+     * @var boolean whether input is to be readonly
+     */
+    public $readonly = false;
 
     /**
      * @var mixed show loading indicator while plugin loads
@@ -125,6 +135,7 @@ class InputWidget extends \yii\widgets\InputWidget
             $this->value = $this->model[Html::getAttributeName($this->attribute)];
         }
         $view = $this->getView();
+        $this->initDisability($this->options);
         WidgetAsset::register($view);
     }
 
@@ -157,9 +168,9 @@ class InputWidget extends \yii\widgets\InputWidget
      * @param string $suffix the file name suffix - defaults to '.js'
      */
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js') {
+        $pwd = Config::getCurrentDir($this);
         $s = DIRECTORY_SEPARATOR;
         if ($assetPath === null) {
-            $pwd = Config::getCurrentDir($this);
             $assetPath = "{$pwd}/assets/";
         } elseif (substr($assetPath, -1) != '/') {
             $assetPath = substr($assetPath, 0, -1);
@@ -298,6 +309,20 @@ class InputWidget extends \yii\widgets\InputWidget
         }
     }
 
+    /**
+     * Validates and sets disabled or readonly inputs
+     * @param array $options the HTML attributes for the input
+     */
+    protected function initDisability(&$options)
+    {
+        if ($this->disabled && !isset($options['disabled'])) {
+            $options['disabled'] = true;
+        }
+        if ($this->readonly && !isset($options['readonly'])) {
+            $options['readonly'] = true;
+        }
+    }
+    
     /**
      * Automatically convert the date format from PHP DateTime to Javascript DateTime format
      *
