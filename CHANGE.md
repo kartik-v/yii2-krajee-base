@@ -1,3 +1,13 @@
+version 1.5.0
+=============
+**Date:** 29-Nov-2014
+
+- (enh #11): Added new properties `disabled` and `readonly` to `InputWidget` and `Html5Input`.
+    - a new method `initDisability` is been created for disability validation across Input Widgets
+    - this will automatically set the input's `disabled` or `readonly` option
+    - it will also automatically be used to validate disability and style complex widgets like `DatePicker` or `DateTimePicker`
+    
+
 version 1.4.0
 =============
 **Date:** 29-Nov-2014

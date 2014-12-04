@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
  * @since 1.0
  * @see http://twitter.github.com/typeahead.js/examples
  */
-class Html5Input extends \kartik\base\InputWidget
+class Html5Input extends InputWidget
 {
     /**
      * @var string the HTML 5 input type
@@ -100,6 +100,7 @@ class Html5Input extends \kartik\base\InputWidget
 
     protected function initInput()
     {
+        $this->initDisability($this->html5Options);
         if (in_array($this->type, self::$_specialInputs)) {
             $this->html5Options['id'] = $this->options['id'] . '-source';
             $this->registerAssets();
