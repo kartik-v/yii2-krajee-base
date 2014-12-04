@@ -134,8 +134,8 @@ class InputWidget extends \yii\widgets\InputWidget
                 $this->attribute) : $this->options['name'];
             $this->value = $this->model[Html::getAttributeName($this->attribute)];
         }
-        $view = $this->getView();
         $this->initDisability($this->options);
+        $view = $this->getView();
         WidgetAsset::register($view);
     }
 
