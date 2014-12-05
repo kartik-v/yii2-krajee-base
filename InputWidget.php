@@ -284,8 +284,25 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected function registerPlugin($name, $element = null, $callback = null, $callbackCon = null)
     {
+        $script = $this->getPluginScript($name, $element, $callback, $callbackCon);
+        if (!empty($script)) {
+            $view = $this->getView();
+            $view->registerJs($script);
+        }
+    }
+
+    /**
+     * Returns the plugin registration script
+     *
+     * @param string $name the name of the plugin
+     * @param string $element the plugin target element
+     * @param string $callback the javascript callback function to be called after plugin loads
+     * @param string $callbackCon the javascript callback function to be passed to the plugin constructor
+     * @return the generated plugin script
+     */
+    protected function getPluginScript($name, $element = null, $callback = null, $callbackCon = null) {
         $id = $element == null ? "jQuery('#" . $this->options['id'] . "')" : $element;
-        $view = $this->getView();
+        $script = '';
         if ($this->pluginOptions !== false) {
             $this->registerPluginOptions($name, View::POS_HEAD);
             $script = "{$id}.{$name}({$this->_hashVar})";
@@ -295,20 +312,17 @@ class InputWidget extends \yii\widgets\InputWidget
             if ($callback != null) {
                 $script = "jQuery.when({$script}).done({$callback});";
             }
-            $view->registerJs($script);
         }
-
         if (!empty($this->pluginEvents)) {
             $js = [];
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = new JsExpression($handler);
                 $js[] = "{$id}.on('{$event}', {$function});";
             }
-            $js = implode("\n", $js);
-            $view->registerJs($js);
+            $script .= implode("\n", $js);
         }
+        return $script;
     }
-
     /**
      * Validates and sets disabled or readonly inputs
      * @param array $options the HTML attributes for the input
