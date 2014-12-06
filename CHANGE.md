@@ -7,7 +7,8 @@ version 1.5.0
     - this will automatically set the input's `disabled` or `readonly` option
     - it will also automatically be used to validate disability and style complex widgets like `DatePicker` or `DateTimePicker`
 - (enh #12): Enhance `InputWidget` to include `getPluginScript` method.    
-- Enhancements to Config helper and change `self` methods to `static`.
+- (enh #13): Enhancements to Config helper and change `self` methods to `static`.
+- (bug #14): Fix line terminators and new lines in `getPluginScript`.
 
 version 1.4.0
 =============

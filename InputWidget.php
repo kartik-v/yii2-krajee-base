@@ -305,12 +305,12 @@ class InputWidget extends \yii\widgets\InputWidget
         $script = '';
         if ($this->pluginOptions !== false) {
             $this->registerPluginOptions($name, View::POS_HEAD);
-            $script = "{$id}.{$name}({$this->_hashVar})";
+            $script = "{$id}.{$name}({$this->_hashVar});\n";
             if ($callbackCon != null) {
-                $script = "{$id}.{$name}({$this->_hashVar}, {$callbackCon})";
+                $script = "{$id}.{$name}({$this->_hashVar}, {$callbackCon});\n";
             }
             if ($callback != null) {
-                $script = "jQuery.when({$script}).done({$callback});";
+                $script = "jQuery.when({$script}).done({$callback});\n";
             }
         }
         if (!empty($this->pluginEvents)) {
@@ -319,7 +319,7 @@ class InputWidget extends \yii\widgets\InputWidget
                 $function = new JsExpression($handler);
                 $js[] = "{$id}.on('{$event}', {$function});";
             }
-            $script .= implode("\n", $js);
+            $script .= implode("\n", $js) . "\n";
         }
         return $script;
     }
