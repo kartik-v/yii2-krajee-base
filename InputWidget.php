@@ -323,6 +323,7 @@ class InputWidget extends \yii\widgets\InputWidget
         }
         return $script;
     }
+
     /**
      * Validates and sets disabled or readonly inputs
      * @param array $options the HTML attributes for the input
