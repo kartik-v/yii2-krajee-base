@@ -305,13 +305,14 @@ class InputWidget extends \yii\widgets\InputWidget
         $script = '';
         if ($this->pluginOptions !== false) {
             $this->registerPluginOptions($name, View::POS_HEAD);
-            $script = "{$id}.{$name}({$this->_hashVar});\n";
+            $script = "{$id}.{$name}({$this->_hashVar})";
             if ($callbackCon != null) {
-                $script = "{$id}.{$name}({$this->_hashVar}, {$callbackCon});\n";
+                $script = "{$id}.{$name}({$this->_hashVar}, {$callbackCon})";
             }
             if ($callback != null) {
-                $script = "jQuery.when({$script}).done({$callback});\n";
+                $script = "jQuery.when({$script}).done({$callback})";
             }
+            $script .= ";\n";
         }
         if (!empty($this->pluginEvents)) {
             $js = [];
