@@ -83,7 +83,7 @@ class Config
 
         if (is_array($repo)) {
             $repos = "one of '" . implode("' OR '", $repo) . "' extensions. ";
-            $installs = $command . implode("{$version}\n\n--- OR ---\n\n" . $command, $repo) . $version;
+            $installs = $command . implode("{$version}\n\n--- OR ---\n\n{$command}", $repo) . $version;
         } else {
             $repos = "the '" . $repo . "' extension. ";
             $installs = $command . $repo . $version;
@@ -113,7 +113,7 @@ class Config
             $name = empty($extension[0]) ? '' : $extension[0];
             $repo = empty($extension[1]) ? '' : $extension[1];
             $reason = empty($extension[2]) ? '' : self::DEFAULT_REASON;
-            self::checkDependency($name, $repo, $reason);
+            static::checkDependency($name, $repo, $reason);
         }
     }
 
@@ -126,47 +126,47 @@ class Config
      */
     public static function getInputWidgets()
     {
-        return self::$_validInputWidgets;
+        return static::$_validInputWidgets;
     }
 
     /**
      * Check if a type of input is any possible valid input (html or widget)
      * @param string $type the type of input
-     * @returns boolean
+     * @returns bool
      */
     public static function isValidInput($type)
     {
-        return self::isHtmlInput($type) || self::isInputWidget($type) || $type === 'widget';
+        return static::isHtmlInput($type) || static::isInputWidget($type) || $type === 'widget';
     }
     
     /**
      * Check if a type of input is a valid input widget
      * @param string $type the type of input
-     * @returns boolean
+     * @returns bool
      */
     public static function isInputWidget($type)
     {
-        return isset(self::$_validInputWidgets[$type]);
+        return isset(static::$_validInputWidgets[$type]);
     }
     
     /**
      * Check if a input type is a valid Html Input
      * @param string $type the type of input
-     * @returns boolean
+     * @returns bool
      */
     public static function isHtmlInput($type)
     {
-        return in_array($type, self::$_validHtmlInputs);
+        return in_array($type, static::$_validHtmlInputs);
     }
 
     /**
      * Check if a input type is a valid dropdown input
      * @param string $type the type of input
-     * @returns boolean
+     * @returns bool
      */
     public static function isDropdownInput($type)
     {
-        return in_array($type, self::$_validDropdownInputs);
+        return in_array($type, static::$_validDropdownInputs);
     }
     
     /**
@@ -175,8 +175,8 @@ class Config
      */
     public static function validateInputWidget($type, $reason = self::DEFAULT_REASON)
     {
-        if (self::isInputWidget($type)) {
-            self::checkDependency($type, self::$_validInputWidgets[$type], $reason);
+        if (static::isInputWidget($type)) {
+            static::checkDependency($type, static::$_validInputWidgets[$type], $reason);
         }
     }
     
@@ -194,6 +194,7 @@ class Config
     /**
      * Get the current directory of the extended class object
      * @param mixed $object the called object instance
+     * @return string
      */
     public static function getCurrentDir($object) {
         if (empty($object)) {
@@ -206,6 +207,7 @@ class Config
     /**
      * Check if a file exists
      * @param string $file the file with path in URL format
+     * @return bool
      */
     public static function fileExists($file) {
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
