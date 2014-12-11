@@ -182,7 +182,7 @@ class InputWidget extends \yii\widgets\InputWidget
         }
         $full = $filePath . $prefix . $this->language . $suffix;
         $fullLower = $filePath . $prefix . strtolower($this->language) . $suffix;
-        $short = $filePath . $this->_lang . $suffix;
+        $short = $filePath . $prefix . $this->_lang . $suffix;
         if (Config::fileExists($assetPath . $full)) {
             $this->_langFile = $full;
             $this->pluginOptions['language'] = $this->language;
