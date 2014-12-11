@@ -1,3 +1,9 @@
+version 1.6.0
+=============
+**Date:** 11-Dec-2014
+
+- (bug #16): variable `$short` in `InputWidget` in method `setLanguage` set without `$prefix`.
+
 version 1.5.0
 =============
 **Date:** 06-Dec-2014
