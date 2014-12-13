@@ -1,8 +1,9 @@
 version 1.6.0
 =============
-**Date:** 11-Dec-2014
+**Date:** 13-Dec-2014
 
 - (bug #16): variable `$short` in `InputWidget` in method `setLanguage` set without `$prefix`.
+- (bug #17): Enhance `parseDateFormat` to convert formats rightly to PHP DateTime format.
 
 version 1.5.0
 =============

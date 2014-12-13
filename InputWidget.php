@@ -349,6 +349,7 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected static function convertDateFormat($format)
     {
+        
         return strtr($format, [
             // meridian lowercase
             'a' => 'p',
@@ -401,8 +402,9 @@ class InputWidget extends \yii\widgets\InputWidget
             return;
         }
         if (isset($this->pluginOptions['format'])) {
-            $format = static::convertDateFormat($this->pluginOptions['format']);
-            $this->pluginOptions['format'] = $format;
+            $format = $this->pluginOptions['format'];
+            $format = strncmp($format, 'php:', 4) === 0 ?  substr($format, 4) : FormatConverter::convertDateIcuToPhp($format, $type);
+            $this->pluginOptions['format'] = static::convertDateFormat($format);
             return;
         }
         $attrib = $type . 'Format';
