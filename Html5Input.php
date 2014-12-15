@@ -189,8 +189,8 @@ class Html5Input extends InputWidget
         Html5InputAsset::register($view);
         $caption = 'jQuery("#' . $this->options['id'] . '")';
         $input = 'jQuery("#' . $this->html5Options['id'] . '")';
-        $js = "{$caption}.change(function(){{$input}.val(this.value)});\n" .
-            "{$input}.change(function(){{$caption}.val(this.value); {$caption}.trigger('change');});";
+        $js = "{$caption}.change(function(){ {$input}.val(this.value)});\n" .
+            "{$input}.change(function(){ {$caption}.val(this.value); {$caption}.trigger('change');});";
         $view->registerJs($js);
     }
 }
