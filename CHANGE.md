@@ -1,10 +1,12 @@
 version 1.6.0
 =============
-**Date:** 13-Dec-2014
+**Date:** 16-Dec-2014
 
 - (bug #16): variable `$short` in `InputWidget` in method `setLanguage` set without `$prefix`.
 - (bug #17): Enhance `parseDateFormat` to convert formats rightly to PHP DateTime format.
 - (bug #18): Better `noSupport` message translation in `Html5Input`.
+- (enh #19): Avoid inspect errors in IDE for `Html5Input`.
+- (enh #20): Add new PluginAssetBundle for bootstrap JS dependent plugins.
 
 version 1.5.0
 =============
