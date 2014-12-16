@@ -23,7 +23,7 @@ Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/
 ### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php)
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
-### [Plugin AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/PluginAssetBundle.php)
+### [PluginAssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/PluginAssetBundle.php)
 Extension of the above [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php) to include dependency on Bootstrap javascript plugins.
 
 ### [AnimateAsset](https://github.com/kartik-v/yii2-krajee-base/blob/master/AnimateAsset.php)
