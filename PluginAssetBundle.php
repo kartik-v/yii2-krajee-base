@@ -24,3 +24,4 @@ class PluginAssetBundle extends AssetBundle
     ];
 
 }
+    
