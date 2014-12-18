@@ -52,7 +52,7 @@ class Config
         '\kartik\touchspin\TouchSpin' => ['yii2-widgets', 'yii2-widget-touchspin'],
         '\kartik\switchinput\SwitchInput' => ['yii2-widgets', 'yii2-widget-switchinput'],
         '\kartik\rating\StarRating' => ['yii2-widgets', 'yii2-widget-rating'],
-        '\kartik\rating\FileInput' => ['yii2-widgets', 'yii2-widget-fileinput'],
+        '\kartik\file\FileInput' => ['yii2-widgets', 'yii2-widget-fileinput'],
         '\kartik\range\RangeInput' => ['yii2-widgets', 'yii2-widget-rangeinput'],
         '\kartik\color\ColorInput' => ['yii2-widgets', 'yii2-widget-colorinput'],
         '\kartik\date\DatePicker' => ['yii2-widgets', 'yii2-widget-datepicker'],
