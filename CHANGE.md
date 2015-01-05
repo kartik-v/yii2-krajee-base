@@ -1,3 +1,10 @@
+version 1.7.0
+=============
+**Date:** 05-Jan-2015
+
+- Fix kartik-v/yii2-widget-datepicker#10 - Language definition in pluginOptions
+
+
 version 1.6.0
 =============
 **Date:** 16-Dec-2014

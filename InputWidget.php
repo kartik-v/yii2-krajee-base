@@ -157,7 +157,7 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected function initLanguage($property = 'language', $full = false)
     {
-        if (empty($this->pluginOptions[$property]) && $this->_lang != 'en') {
+        if (empty($this->pluginOptions[$property])) {
             $this->pluginOptions[$property] = $full ? $this->language : $this->_lang;
         }
     }
