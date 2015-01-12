@@ -17,7 +17,10 @@ namespace kartik\base;
  */
 class PluginAssetBundle extends AssetBundle
 {
-    public $depends = [
+    /**
+     * @inherit doc
+     */
+     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset'

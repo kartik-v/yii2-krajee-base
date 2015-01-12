@@ -19,7 +19,9 @@ use Yii;
  */
 class WidgetAsset extends AssetBundle
 {
-
+    /**
+     * @inherit doc
+     */
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');

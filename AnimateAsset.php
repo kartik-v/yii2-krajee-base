@@ -17,6 +17,9 @@ namespace kartik\base;
  */
 class AnimateAsset extends AssetBundle
 {
+    /**
+     * @inherit doc
+     */
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');
