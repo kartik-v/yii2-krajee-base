@@ -1,9 +1,10 @@
 <?php
 
 /**
+ * @package   yii2-krajee-base
+ * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @package yii2-krajee-base
- * @version 1.6.0
+ * @version   1.7.0
  */
 
 namespace kartik\base;
@@ -29,7 +30,7 @@ class AssetBundle extends \yii\web\AssetBundle
      * Set up CSS and JS asset arrays based on the base-file names
      *
      * @param string $type whether 'css' or 'js'
-     * @param array $files the list of 'css' or 'js' basefile names
+     * @param array  $files the list of 'css' or 'js' basefile names
      */
     protected function setupAssets($type, $files = [])
     {
