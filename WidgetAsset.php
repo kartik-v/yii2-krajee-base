@@ -20,7 +20,7 @@ use Yii;
 class WidgetAsset extends AssetBundle
 {
     /**
-     * @inherit doc
+     * @inheritdoc
      */
     public function init()
     {

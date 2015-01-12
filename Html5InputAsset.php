@@ -17,7 +17,7 @@ namespace kartik\base;
 class Html5InputAsset extends \kartik\base\AssetBundle
 {
     /**
-     * @inherit doc
+     * @inheritdoc
      */
     public function init()
     {

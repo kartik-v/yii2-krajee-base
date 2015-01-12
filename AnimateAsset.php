@@ -18,7 +18,7 @@ namespace kartik\base;
 class AnimateAsset extends AssetBundle
 {
     /**
-     * @inherit doc
+     * @inheritdoc
      */
     public function init()
     {
