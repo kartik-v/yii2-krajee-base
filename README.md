@@ -12,6 +12,9 @@ The latest version of the extension is v1.7.0 released on 12-Jan-2015. Refer the
 
 ## Extension Classes
 
+### [Module](https://github.com/kartik-v/yii2-krajee-base/blob/master/Module.php)
+Extends [Yii Module](https://github.com/yiisoft/yii2/blob/master/framework/base/Module.php) class for Krajee's Yii2 widgets and usage with translation properties enabled. 
+
 ### [Widget](https://github.com/kartik-v/yii2-krajee-base/blob/master/Widget.php)
 Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/Widget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
 
@@ -19,6 +22,9 @@ Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/
 Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. With release v1.3.0, the Input widget automatically now attaches the following HTML5 data attribute for each input that registers jQuery plugins via `registerPlugin` method:
 
 - `data-krajee-{name}` the client options of the plugin. The tag `{name}` will be replaced with the registered jQuery plugin name (e.g. `select2`, `typeahead` etc.).
+
+### [TranslationTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/TranslationTrait.php)
+A trait for handling translation functionality using Yii's i18n components.
 	
 ### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/AssetBundle.php)
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
