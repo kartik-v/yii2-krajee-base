@@ -15,7 +15,7 @@ use Yii;
  * Trait for all translations used in Krajee extensions
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
+ * @since 1.7.0
  */
 trait TranslationTrait
 {

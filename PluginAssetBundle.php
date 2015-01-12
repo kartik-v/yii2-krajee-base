@@ -13,7 +13,7 @@ namespace kartik\base;
  * Base asset bundle for Krajee extensions (including bootstrap plugins)
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
+ * @since 1.6.0
  */
 class PluginAssetBundle extends AssetBundle
 {
