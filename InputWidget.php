@@ -226,13 +226,13 @@ class InputWidget extends \yii\widgets\InputWidget
         $pwd = Config::getCurrentDir($this);
         $s = DIRECTORY_SEPARATOR;
         if ($assetPath === null) {
-            $assetPath = "{$pwd}/assets/";
-        } elseif (substr($assetPath, -1) != '/') {
+            $assetPath = "{$pwd}{$s}assets{$s}";
+        } elseif (substr($assetPath, -1) != $s) {
             $assetPath = substr($assetPath, 0, -1);
         }
         if ($filePath === null) {
-            $filePath = "js/locales/";
-        } elseif (substr($filePath, -1) != '/') {
+            $filePath = "js{$s}locales{$s}";
+        } elseif (substr($filePath, -1) != $s) {
             $filePath = substr($filePath, 0, -1);
         }
         $full = $filePath . $prefix . $this->language . $suffix;
@@ -310,7 +310,7 @@ class InputWidget extends \yii\widgets\InputWidget
      * @param string $name the name of the plugin
      * @param string $element the plugin target element
      * @param string $callback the javascript callback function to be called after plugin loads
-     * @param string $callbackCon the javascript callback function to be passed to the plugin constructor
+     * @param string $callbackCon the javascript callbacksetLanguage function to be passed to the plugin constructor
      */
     protected function registerPlugin($name, $element = null, $callback = null, $callbackCon = null)
     {
