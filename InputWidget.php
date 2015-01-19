@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version   1.7.1
+ * @version   1.7.2
  */
 
 namespace kartik\base;
@@ -226,13 +226,13 @@ class InputWidget extends \yii\widgets\InputWidget
         $pwd = Config::getCurrentDir($this);
         $s = DIRECTORY_SEPARATOR;
         if ($assetPath === null) {
-            $assetPath = "{$pwd}/assets/";
-        } elseif (substr($assetPath, -1) != '/') {
+            $assetPath = "{$pwd}{$s}assets{$s}";
+        } elseif (substr($assetPath, -1) != $s) {
             $assetPath = substr($assetPath, 0, -1);
         }
         if ($filePath === null) {
-            $filePath = "js/locales/";
-        } elseif (substr($filePath, -1) != '/') {
+            $filePath = "js{$s}locales{$s}";
+        } elseif (substr($filePath, -1) != $s) {
             $filePath = substr($filePath, 0, -1);
         }
         $full = $filePath . $prefix . $this->language . $suffix;

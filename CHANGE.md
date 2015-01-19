@@ -1,6 +1,12 @@
+version 1.7.2
+=============
+**Date:** 20-Jan-2015
+
+- (enh #24): Fix DIRECTORY_SEPARATOR to be used instead of forward slash.
+
 version 1.7.1
 =============
-**Date:** 14-Jan-2015
+**Date:** 15-Jan-2015
 
 - (enh #23): Enhance AssetBundle for over riding empty assets from AssetManager.
 
