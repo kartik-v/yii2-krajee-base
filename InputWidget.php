@@ -223,7 +223,7 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js')
     {
-        $pwd = Config::getCurrentDir($this
+        $pwd = Config::getCurrentDir($this);
         if ($assetPath === null) {
             $assetPath = "{$pwd}/assets/";
         } elseif (substr($assetPath, -1) != '/') {
