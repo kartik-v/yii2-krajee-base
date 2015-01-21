@@ -2,7 +2,7 @@ version 1.7.2
 =============
 **Date:** 20-Jan-2015
 
-- (enh #24): Fix DIRECTORY_SEPARATOR to be used instead of forward slash.
+- (enh #24): Revert use of DIRECTORY_SEPARATOR and use forward slash.
 
 version 1.7.1
 =============
