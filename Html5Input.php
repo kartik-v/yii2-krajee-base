@@ -134,7 +134,7 @@ class Html5Input extends InputWidget
         }
         Html::addCssClass($this->html5Container, 'input-group-addon addon-' . $this->type);
         $caption = $this->getInput('textInput');
-        $value = $this->hasModel() ? $this->model[Html::getAttributeName($this->attribute)] : $this->value;
+        $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
         $input = Html::input($this->type, $this->html5Options['id'], $value, $this->html5Options);
         $prepend = static::getAddonContent(ArrayHelper::getValue($this->addon, 'prepend', ''));
         $append = static::getAddonContent(ArrayHelper::getValue($this->addon, 'append', ''));
