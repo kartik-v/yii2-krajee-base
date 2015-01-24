@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version   1.7.2
+ * @version   1.7.3
  */
 
 namespace kartik\base;
@@ -180,7 +180,6 @@ class Widget extends \yii\base\Widget
     {
         $this->_encOptions = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
         $this->_hashVar = $name . '_' . hash('crc32', $this->_encOptions);
-        $this->options['data-plugin-name'] = $name;
-        $this->options['data-plugin-options'] = $this->_hashVar;
+        $this->options['data-krajee-' . $name] = $this->_hashVar;
     }
 }

@@ -1,3 +1,9 @@
+version 1.7.3
+=============
+**Date:** 24-Jan-2015
+
+- (enh #26): Enhance `Widget` options to store multiple plugin config.
+
 version 1.7.2
 =============
 **Date:** 20-Jan-2015
