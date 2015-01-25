@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version   1.7.3
+ * @version   1.7.2
  */
 
 namespace kartik\base;
@@ -224,15 +224,16 @@ class InputWidget extends \yii\widgets\InputWidget
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js')
     {
         $pwd = Config::getCurrentDir($this);
+        $s = DIRECTORY_SEPARATOR;
         if ($assetPath === null) {
-            $assetPath = "{$pwd}/assets/";
-        } elseif (substr($assetPath, -1) != '/') {
-            $assetPath = substr($assetPath, 0, -1);
+            $assetPath = "{$pwd}{$s}assets{$s}";
+        } elseif (substr($assetPath, -1) != $s) {
+            $assetPath .= $s;
         }
         if ($filePath === null) {
-            $filePath = "js/locales/";
-        } elseif (substr($filePath, -1) != '/') {
-            $filePath = substr($filePath, 0, -1);
+            $filePath = "js{$s}locales{$s}";
+        } elseif (substr($filePath, -1) != $s) {
+            $filePath .= $s;
         }
         $full = $filePath . $prefix . $this->language . $suffix;
         $fullLower = $filePath . $prefix . strtolower($this->language) . $suffix;
@@ -249,6 +250,7 @@ class InputWidget extends \yii\widgets\InputWidget
         } else {
             $this->_langFile = '';
         }
+        $this->_langFile = str_replace($s, '/', $this->_langFile);
     }
 
     /**

@@ -1,8 +1,9 @@
 version 1.7.3
 =============
-**Date:** 24-Jan-2015
+**Date:** 25-Jan-2015
 
 - (enh #26): Enhance `Widget` options to store multiple plugin config.
+- (enh #27): Set directory and URL separator rightly for the setLanguage validation.
 
 version 1.7.2
 =============
