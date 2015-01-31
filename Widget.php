@@ -63,14 +63,14 @@ class Widget extends \yii\base\Widget
     protected $_pluginName;
 
     /**
-     * @var string the hashed variable to store the pluginOptions
-     */
-    protected $_dataVar;
-
-    /**
-     * @var string the hashed variable to store the pluginOptions
+     * @var string the hashed global variable name storing the pluginOptions
      */
     protected $_hashVar;
+
+    /**
+     * @var string the element's HTML5 data variable name storing the pluginOptions
+     */
+    protected $_dataVar;
 
     /**
      * @var string the Json encoded options

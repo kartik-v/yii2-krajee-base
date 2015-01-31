@@ -93,14 +93,14 @@ class InputWidget extends \yii\widgets\InputWidget
     public $i18n = [];
 
     /**
-     * @var string the hashed variable to store the pluginOptions
-     */
-    protected $_dataVar;
-
-    /**
-     * @var string the hashed variable to store the pluginOptions
+     * @var string the hashed global variable name storing the pluginOptions
      */
     protected $_hashVar;
+
+    /**
+     * @var string the element's HTML5 data variable name storing the pluginOptions
+     */
+    protected $_dataVar;
 
     /**
      * @var string the Json encoded options
