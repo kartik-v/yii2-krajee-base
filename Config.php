@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
- * @version   1.7.3
+ * @version   1.7.4
  */
 
 namespace kartik\base;
@@ -69,12 +69,12 @@ class Config
     /**
      * Validate multiple extension dependencies
      *
-     * @param array extensions the configuration of extensions with each array
+     * @param array $extensions the configuration of extensions with each array
      * item setup as required in `checkDependency` method. The following keys
      * can be setup:
      * - name: string, the extension class name (without vendor namespace prefix)
-     * - repo: string,  the extension package repository name (without vendor name prefix)
-     * - reason: string,  a user friendly message for dependency validation failure
+     * - repo: string, the extension package repository name (without vendor name prefix)
+     * - reason: string, a user friendly message for dependency validation failure
      *
      * @throws InvalidConfigException if extension fails dependency validation
      */
@@ -91,9 +91,9 @@ class Config
     /**
      * Validate a single extension dependency
      *
-     * @param              string name the extension class name (without vendor namespace prefix)
-     * @param string|array repo the extension package repository names (without vendor name prefix)
-     * @param              string reason a user friendly message for dependency validation failure
+     * @param string $name the extension class name (without vendor namespace prefix)
+     * @param mixed  $repo the extension package repository names (without vendor name prefix)
+     * @param string $reason a user friendly message for dependency validation failure
      *
      * @throws InvalidConfigException if extension fails dependency validation
      */
@@ -115,10 +115,11 @@ class Config
         }
 
         if (!class_exists($class)) {
-            throw new InvalidConfigException("The class '{$class}' was not found and is required {$reason}.\n\n" .
-                "Please ensure you have installed " . $repos .
-                "To install, you can run this console command from your application root:\n\n" .
-                $installs);
+            throw new InvalidConfigException(
+                "The class '{$class}' was not found and is required {$reason}.\n\n" .
+                "Please ensure you have installed {$repos}" .
+                "To install, you can run this console command from your application root:\n\n{$installs}"
+            );
         }
     }
 

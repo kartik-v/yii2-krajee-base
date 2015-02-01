@@ -1,3 +1,10 @@
+version 1.7.4
+=============
+**Date:** 01-Feb-2015
+
+- (enh #28): Create WidgetTrait for better code reuse.
+- Code cleanup and reformatting.
+
 version 1.7.3
 =============
 **Date:** 25-Jan-2015
