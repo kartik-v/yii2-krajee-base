@@ -1,6 +1,6 @@
 version 1.7.4
 =============
-**Date:** 01-Feb-2015
+**Date:** 05-Feb-2015
 
 - (enh #28): Create WidgetTrait for better code reuse.
 - Code cleanup and reformatting.
