@@ -238,4 +238,18 @@ class Config
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
         return file_exists($file);
     }
+    
+    /**
+     * Gets the module
+     *
+     * @param string $module the module name
+     *
+     * @return Module
+     */
+    public static function fetchModule($module) {
+        $mod = Yii::$app->controller->module;
+        return $mod && $mod->getModule($module) ?
+            $mod->getModule($module) : 
+            Yii::$app->getModule($module);
+    }
 }
