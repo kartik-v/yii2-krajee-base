@@ -249,7 +249,7 @@ class Config
     public static function getModule($m)
     {
         $mod = Yii::$app->controller->module;
-        return $mod && $mod->getModule($module) ? $mod->getModule($m) : Yii::$app->getModule($m);
+        return $mod && $mod->getModule($m) ? $mod->getModule($m) : Yii::$app->getModule($m);
     }
 
     /**
@@ -265,7 +265,7 @@ class Config
     {
         $m = $class::MODULE;
         $module = $m ? static::getModule($m) : null;
-        if ($module === null || !$module instanceof \kartik\grid\Module) {
+        if ($module === null || !$module instanceof $class) {
             throw new InvalidConfigException("The '{$m}' module MUST be setup in your Yii configuration file and must be an instance of '{$class}'.");
         }
         return $module;
