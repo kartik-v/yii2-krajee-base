@@ -238,18 +238,36 @@ class Config
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
         return file_exists($file);
     }
-    
+
     /**
      * Gets the module
      *
-     * @param string $module the module name
+     * @param string $m the module name
      *
      * @return Module
      */
-    public static function fetchModule($module) {
+    public static function getModule($m)
+    {
         $mod = Yii::$app->controller->module;
-        return $mod && $mod->getModule($module) ?
-            $mod->getModule($module) : 
-            Yii::$app->getModule($module);
+        return $mod && $mod->getModule($module) ? $mod->getModule($m) : Yii::$app->getModule($m);
+    }
+
+    /**
+     * Initializes and validates the module
+     *
+     * @param string $class the Module class name
+     *
+     * @return \yii\base\Module
+     *
+     * @throws InvalidConfigException
+     */
+    public static function initModule($class)
+    {
+        $m = $class::MODULE;
+        $module = $m ? static::getModule($m) : null;
+        if ($module === null || !$module instanceof \kartik\grid\Module) {
+            throw new InvalidConfigException("The '{$m}' module MUST be setup in your Yii configuration file and must be an instance of '{$class}'.");
+        }
+        return $module;
     }
 }

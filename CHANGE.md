@@ -4,7 +4,7 @@ version 1.7.4
 
 - (enh #28): Create WidgetTrait for better code reuse.
 - Code cleanup and reformatting.
-- (enh #29): New fetchModule method in Config
+- (enh #29): New `getModule` and `initModule` methods in `Config`.
 
 version 1.7.3
 =============
