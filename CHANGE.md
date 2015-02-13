@@ -1,10 +1,11 @@
 version 1.7.4
 =============
-**Date:** 05-Feb-2015
+**Date:** 13-Feb-2015
 
 - (enh #28): Create WidgetTrait for better code reuse.
 - Code cleanup and reformatting.
 - (enh #29): New `getModule` and `initModule` methods in `Config`.
+- Set copyright year to current.
 
 version 1.7.3
 =============
