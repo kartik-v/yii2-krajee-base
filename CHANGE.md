@@ -1,3 +1,9 @@
+version 1.7.5
+=============
+**Date:** 02-Mar-2015
+
+- (enh #30): Improve translation trait for determining messages folder.
+
 version 1.7.4
 =============
 **Date:** 13-Feb-2015
