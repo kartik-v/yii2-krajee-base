@@ -65,6 +65,12 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     public $pluginOptions = [];
 
+
+    /**
+     * @var array widgets plugins in this input
+     */
+    public $plugins = [];
+
     /**
      * @var array widget JQuery events. You must define events in
      * event-name => event-function format
@@ -223,6 +229,9 @@ class InputWidget extends \yii\widgets\InputWidget
      */
     protected function getInput($type, $list = false)
     {
+        if ($this->plugins !== []) {
+            $this->options['data-plugins'] = json_encode($this->plugins);
+        }
         if ($this->hasModel()) {
             $input = 'active' . ucfirst($type);
             return $list ?
