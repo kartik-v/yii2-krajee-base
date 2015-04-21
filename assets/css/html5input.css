@@ -16,6 +16,9 @@
     width: 100% !important;
 }
 
+.input-group-html5 {
+}
+
 .input-group-html5 .input-group-addon {
     width: auto;
 }

@@ -1,11 +1,11 @@
 yii2-krajee-base
 ================
 
-[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-krajee-base/v/stable.svg)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
-[![License](https://poser.pugx.org/kartik-v/yii2-krajee-base/license.svg)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
-[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/downloads.svg)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
-[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/monthly.png)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
-[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/daily.png)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-krajee-base/v/stable)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+[![License](https://poser.pugx.org/kartik-v/yii2-krajee-base/license)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/downloads)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/monthly)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/daily)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
 
 This is a base library with set of foundation classes and components used by all [Yii2 extensions by Krajee](http://demos.krajee.com). One can use this base library during creation of one's own extensions if needed.
 
