@@ -16,11 +16,9 @@
     width: 100% !important;
 }
 
-.input-group-html5 {
-}
-
 .input-group-html5 .input-group-addon {
     width: auto;
+    padding: 5px 6px;
 }
 
 .input-group-html5 input[type="color"], .input-group-html5 input[type="range"] {
@@ -86,4 +84,9 @@
     -webkit-appearance: slider-vertical; /* WebKit */
     width: 8px !important;
     height: 200px;
+}
+
+.input-group-html5.kv-range-vertical .input-group-addon,
+.input-group-html5.input-group-sm .input-group-addon {
+    padding: 2px 10px;
 }
