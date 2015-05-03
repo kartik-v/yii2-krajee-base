@@ -1,9 +1,10 @@
 version 1.7.5
 =============
-**Date:** 02-Mar-2015
+**Date:** 03-May-2015
 
 - (enh #30): Improve translation trait for determining messages folder.
 - (enh #33): Better styling of html5 inputs.
+- (enh #34): New `addLanguage` method in `AssetBundle`.
 
 version 1.7.4
 =============

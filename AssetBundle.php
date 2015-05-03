@@ -48,6 +48,39 @@ class AssetBundle extends \yii\web\AssetBundle
     }
     
     /**
+     * Adds a language JS locale file
+     *
+     * @param string $lang the ISO language code
+     * @param string $prefix the language locale file name prefix
+     * @param string $dir the language file directory relative to source path
+     * @param bool $min whether to auto use minified version
+     *
+     * @return AssetBundle instance
+     */
+    public function addLanguage($lang = '', $prefix = '', $dir = null, $min = false)
+    {
+        if (empty($lang) || substr($lang, 0, 2) == 'en') {
+            return $this;
+        }
+        $ext = $min ? (YII_DEBUG ? ".min.js" : ".js") : ".js";       
+        $file = "{$prefix}{$lang}{$ext}";
+        if ($dir === null) {
+            $dir = 'js';
+        } elseif ($dir === "/") {
+            $dir = '';
+        }
+        $path = $this->sourcePath . '/' . $dir;
+        if (!Config::fileExists("{$path}/{$file}")) {
+            $lang = Config::getLang($lang);
+            $file = "{$prefix}{$lang}{$ext}";
+        }
+        if (Config::fileExists("{$path}/{$file}")) {
+           $this->js[] = empty($dir) ? $file : "{$dir}/{$file}";
+        }
+        return $this;
+    }
+    
+    /**
      * Set up CSS and JS asset arrays based on the base-file names
      *
      * @param string $type whether 'css' or 'js'
