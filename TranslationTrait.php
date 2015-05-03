@@ -41,6 +41,6 @@ trait TranslationTrait
                 'forceTranslation' => true
             ];
         }
-        Yii::$app->i18n->translations[$this->_msgCat] = $this->i18n;
+        Yii::$app->i18n->translations[$this->_msgCat . '*'] = $this->i18n;
     }
 }

@@ -5,6 +5,7 @@ version 1.7.5
 - (enh #30): Improve translation trait for determining messages folder.
 - (enh #33): Better styling of html5 inputs.
 - (enh #34): New `addLanguage` method in `AssetBundle`.
+- (enh #35): Allow extending translation messages.
 
 version 1.7.4
 =============
