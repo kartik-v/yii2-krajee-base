@@ -1,3 +1,9 @@
+version 1.7.6
+=============
+**Date:** 09-May-2015
+
+- (enh #36): Add kv-input-group-hide class.
+
 version 1.7.5
 =============
 **Date:** 03-May-2015

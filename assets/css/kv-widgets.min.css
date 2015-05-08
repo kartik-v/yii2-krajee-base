@@ -9,4 +9,4 @@
  *
  * For more JQuery/Bootstrap plugins and demos visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
- */.kv-plugin-loading{width:25px;height:25px;background:transparent url(../img/loading-plugin.gif) center left no-repeat}.kv-hide{display:none}
+ */.kv-plugin-loading{width:25px;height:25px;background:url(../img/loading-plugin.gif) center left no-repeat}.kv-hide{display:none}.kv-input-group-hide .input-group-addon,.kv-input-group-hide .input-group-btn{visibility:hidden}

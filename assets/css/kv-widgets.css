@@ -19,3 +19,8 @@
 .kv-hide {
     display: none;
 }
+
+.kv-input-group-hide .input-group-addon,
+.kv-input-group-hide .input-group-btn {
+    visibility: hidden;
+}
