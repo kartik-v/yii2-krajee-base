@@ -1,3 +1,9 @@
+version 1.7.7
+=============
+**Date:** 12-May-2015
+
+- (enh #37): Set range input caption to change during slide.
+
 version 1.7.6
 =============
 **Date:** 09-May-2015
