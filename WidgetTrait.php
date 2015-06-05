@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.7.6
+ * @version   1.7.7
  */
 
 namespace kartik\base;
@@ -68,7 +68,7 @@ trait WidgetTrait
      */
     protected function hashPluginOptions($name)
     {
-        $this->_encOptions = empty($this->pluginOptions) ? '' : Json::encode($this->pluginOptions);
+        $this->_encOptions = empty($this->pluginOptions) ? '' : Json::htmlEncode($this->pluginOptions);
         $this->_hashVar = $name . '_' . hash('crc32', $this->_encOptions);
         $this->options['data-krajee-' . $name] = $this->_hashVar;
     }
