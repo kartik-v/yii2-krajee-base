@@ -320,7 +320,7 @@ class InputWidget extends \yii\widgets\InputWidget
         }
         $attrib = $type . 'Format';
         $format = isset(Yii::$app->formatter->$attrib) ? Yii::$app->formatter->$attrib : '';
-        if (isset($this->dateFormat) && strncmp($this->dateFormat, 'php:', 4) === 0) {
+        if (isset($format) && strncmp($format, 'php:', 4) === 0) {
             $this->pluginOptions['format'] = static::convertDateFormat(substr($format, 4));
         } elseif ($format != '') {
             $format = FormatConverter::convertDateIcuToPhp($format, $type);
