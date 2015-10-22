@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.7.7
+ * @version   1.7.8
  */
 
 namespace kartik\base;
@@ -15,6 +15,14 @@ use yii\web\View;
 
 /**
  * Trait used for Krajee widgets.
+ *
+ * @property array $options
+ * @property array $pluginOptions
+ * @property array $_encOptions
+ * @property string $_hashVar
+ * @property string $_dataVar
+ *
+ * @method View getView()
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.6.0
@@ -30,13 +38,14 @@ trait WidgetTrait
      */
     protected function setDataVar($name)
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         $this->_dataVar = "data-krajee-{$name}";
     }
 
     /**
      * Adds an asset to the view
      *
-     * @param View   $view The View object
+     * @param View $view The View object
      * @param string $file The asset file name
      * @param string $type The asset file type (css or js)
      * @param string $class The class name of the AssetBundle
@@ -76,6 +85,8 @@ trait WidgetTrait
     /**
      * Registers plugin options by storing it in a hashed javascript variable
      *
+     * @param string $name the plugin name
+     *
      * @return void
      */
     protected function registerPluginOptions($name)
@@ -94,7 +105,7 @@ trait WidgetTrait
      * @param string $callback the javascript callback function to be called after plugin loads
      * @param string $callbackCon the javascript callback function to be passed to the plugin constructor
      *
-     * @return the generated plugin script
+     * @return string the generated plugin script
      */
     protected function getPluginScript($name, $element = null, $callback = null, $callbackCon = null)
     {

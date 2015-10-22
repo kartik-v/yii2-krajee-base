@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.7.7
+ * @version   1.7.8
  */
 
 namespace kartik\base;
@@ -146,8 +146,11 @@ class Html5Input extends InputWidget
             $message = '';
         } else {
             $noSupport = !empty($this->noSupport) ? $this->noSupport :
-                Yii::t('app', 'It is recommended you use an upgraded browser to display the {type} control properly.',
-                    ['type' => $this->type]);
+                Yii::t(
+                    'app',
+                    'It is recommended you use an upgraded browser to display the {type} control properly.',
+                    ['type' => $this->type]
+                );
             $message = "\n<br>" . Html::tag('div', $noSupport, $this->noSupportOptions);
         }
         return "<!--[if lt IE 10]>\n{$caption}{$message}\n<![endif]--><![if gt IE 9]>\n{$content}\n<![endif]>";

@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.7.7
+ * @version   1.7.8
  */
 
 namespace kartik\base;
@@ -14,13 +14,17 @@ use Yii;
 /**
  * Trait for all translations used in Krajee extensions
  *
+ * @property array $i18n
+ *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.7.7
+ * @since 1.7.8
  */
 trait TranslationTrait
 {
     /**
      * Yii i18n messages configuration for generating translations
+     *
+     * @param string $dir the directory path where translation files will exist
      *
      * @return void
      */
