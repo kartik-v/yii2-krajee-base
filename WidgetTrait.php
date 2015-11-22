@@ -140,6 +140,7 @@ trait WidgetTrait
      */
     protected function registerPlugin($name, $element = null, $callback = null, $callbackCon = null)
     {
+        $this->plugins[] = 'krajee-' . $name;
         $script = $this->getPluginScript($name, $element, $callback, $callbackCon);
         $this->registerWidgetJs($script);
     }
