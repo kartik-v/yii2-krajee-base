@@ -16,9 +16,9 @@ use yii\web\View;
 /**
  * Trait used for Krajee widgets.
  *
- * @property array $options
- * @property array $pluginOptions
- * @property array $_encOptions
+ * @property array  $options
+ * @property array  $pluginOptions
+ * @property array  $_encOptions
  * @property string $_hashVar
  * @property string $_dataVar
  *
@@ -45,7 +45,7 @@ trait WidgetTrait
     /**
      * Adds an asset to the view
      *
-     * @param View $view The View object
+     * @param View   $view The View object
      * @param string $file The asset file name
      * @param string $type The asset file type (css or js)
      * @param string $class The class name of the AssetBundle
@@ -91,10 +91,9 @@ trait WidgetTrait
      */
     protected function registerPluginOptions($name)
     {
-        $view = $this->getView();
         $this->hashPluginOptions($name);
         $encOptions = empty($this->_encOptions) ? '{}' : $this->_encOptions;
-        $view->registerJs("var {$this->_hashVar} = {$encOptions};\n", View::POS_HEAD);
+        $this->registerWidgetJs("var {$this->_hashVar} = {$encOptions};\n", View::POS_HEAD);
     }
 
     /**
@@ -142,9 +141,35 @@ trait WidgetTrait
     protected function registerPlugin($name, $element = null, $callback = null, $callbackCon = null)
     {
         $script = $this->getPluginScript($name, $element, $callback, $callbackCon);
-        if (!empty($script)) {
-            $view = $this->getView();
-            $view->registerJs($script);
+        $this->registerWidgetJs($script);
+    }
+
+    /**
+     * Registers a JS code block for the widget.
+     *
+     * @param string  $js the JS code block to be registered
+     * @param integer $position the position at which the JS script tag should be inserted in a page. The possible
+     *     values are:
+     *      - [[POS_HEAD]]: in the head section
+     *      - [[POS_BEGIN]]: at the beginning of the body section
+     *      - [[POS_END]]: at the end of the body section
+     *      - [[POS_LOAD]]: enclosed within jQuery(window).load(). Note that by using this position, the method will
+     *     automatically register the jQuery js file.
+     *      - [[POS_READY]]: enclosed within jQuery(document).ready(). This is the default value. Note that by using
+     *     this position, the method will automatically register the jQuery js file.
+     * @param string  $key the key that identifies the JS code block. If null, it will use $js as the key. If two JS
+     *     code blocks are registered with the same key, the latter will overwrite the former.
+     */
+    public function registerWidgetJs($js, $position = View::POS_READY, $key = null)
+    {
+        if (empty($js)) {
+            return;
+        }
+        $view = $this->getView();
+        $view->registerJs($js, $position, $key);
+        if (!empty($this->pjaxContainerId) && ($position === View::POS_LOAD || $position === View::POS_READY)) {
+            $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
+            $view->registerJs("{$pjax}.on('pjax:complete',function(){ {$js} });");
         }
     }
 }

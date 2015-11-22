@@ -3,11 +3,12 @@ Change Log: `yii2-krajee-base`
 
 ## Version 1.7.8
 
-**Date:** 23-Oct-2015
+**Date:** 22-Nov-2015
 
+- (enh #40): Various enhancements for PJAX  .
 - (enh #41): Added .gitignore for Composer stuff.
 - (bug #42): Better and more correct date format parsing.
-- Various minor code formatting fixes and code optimizations.
+- (enh #46): Enhance `Html5Input` initialization.
 
 ## Version 1.7.7
 
