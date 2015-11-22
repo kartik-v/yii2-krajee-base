@@ -78,6 +78,12 @@ class InputWidget extends \yii\widgets\InputWidget
      * ~~~
      */
     public $pluginEvents = [];
+    
+    /**
+     * @var string a pjax container identifier if applicable inside which the widget will be rendered.
+     * If this is set, the widget will automatically reinitialize on pjax completion.
+     */
+    public $pjaxContainerId;
 
     /**
      * @var boolean whether the widget should automatically format the date from
@@ -133,6 +139,15 @@ class InputWidget extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+        $this->initInputWidget();
+    }
+
+    /**
+     * Initializes the input widget
+     */
+    protected function initInputWidget()
+    {
+        $this->initI18N(__DIR__, 'kvbase');
         if (!isset($this->language)) {
             $this->language = Yii::$app->language;
         }
