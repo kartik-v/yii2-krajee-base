@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.7.9
+
+**Date:** 25-Nov-2015
+
+- (bug #48): Correct initialization of i18N.
+
 ## Version 1.7.8
 
 **Date:** 22-Nov-2015
