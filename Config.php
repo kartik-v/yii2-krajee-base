@@ -252,8 +252,9 @@ class Config
      */
     public static function getModule($m)
     {
-        $mod = Yii::$app->controller->module;
-        return $mod && $mod->getModule($m) ? $mod->getModule($m) : Yii::$app->getModule($m);
+        $app = Yii::$app;
+        $mod = isset($app->controller) && $app->controller->module ? $app->controller->module : null;
+        return $mod && $mod->getModule($m) ? $mod->getModule($m) : $app->getModule($m);
     }
 
     /**
