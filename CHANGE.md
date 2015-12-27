@@ -6,6 +6,7 @@ Change Log: `yii2-krajee-base`
 **Date:** 27-Dec-2015
 
 - (enh #50): Enhance Html5Input to accept more input types.
+- (enh #51): Add plugin loading CSS for HTML5 input.
 
 ## Version 1.8.0
 

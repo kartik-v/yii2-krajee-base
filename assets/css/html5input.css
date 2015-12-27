@@ -90,3 +90,7 @@
 .input-group-html5.input-group-sm .input-group-addon {
     padding: 2px 10px;
 }
+
+.kv-center-loading {
+    background: transparent url('../img/loading-plugin.gif') center center no-repeat;
+}
