@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.8.1
+ * @version   1.8.2
  */
 
 namespace kartik\base;
@@ -47,6 +47,11 @@ class InputWidget extends \yii\widgets\InputWidget
     public $readonly = false;
 
     /**
+     * @var string the javascript that will be used to destroy the jQuery plugin
+     */
+    public $pluginDestroyJs;
+
+    /**
      * @var mixed show loading indicator while plugin loads
      */
     public $pluginLoading = true;
@@ -78,7 +83,7 @@ class InputWidget extends \yii\widgets\InputWidget
      * ~~~
      */
     public $pluginEvents = [];
-    
+
     /**
      * @var string a pjax container identifier if applicable inside which the widget will be rendered.
      * If this is set, the widget will automatically reinitialize on pjax completion.
@@ -139,6 +144,7 @@ class InputWidget extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+        $this->initDestroyJs();
         $this->initInputWidget();
     }
 

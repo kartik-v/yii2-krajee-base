@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.8.1
+ * @version   1.8.2
  */
 
 namespace kartik\base;
@@ -16,6 +16,8 @@ use yii\web\View;
 /**
  * Trait used for Krajee widgets.
  *
+ * @property string $pluginName
+ * @property string $pluginDestroyJs
  * @property array  $options
  * @property array  $pluginOptions
  * @property array  $_encOptions
@@ -40,6 +42,24 @@ trait WidgetTrait
     {
         /** @noinspection PhpUndefinedFieldInspection */
         $this->_dataVar = "data-krajee-{$name}";
+    }
+
+
+    /**
+     * Generates the `pluginDestroyJs` if not set
+     */
+    protected function initDestroyJs()
+    {
+        if (isset($this->pluginDestroyJs)) {
+            return;
+        }
+        if (empty($this->pluginName)) {
+            $this->pluginDestroyJs = '';
+            return;
+        }
+        $id = "jQuery('#" . $this->options['id'] . "')";
+        $plugin = $this->pluginName;
+        $this->pluginDestroyJs = "if ({$id}.data('{$this->pluginName}')) { {$id}.{$plugin}('destroy'); }";
     }
 
     /**
@@ -127,7 +147,7 @@ trait WidgetTrait
                 $script .= "{$id}.on('{$event}', {$function});\n";
             }
         }
-        return $script;
+        return $this->pluginDestroyJs . "\n" . $script;
     }
 
     /**
@@ -148,7 +168,7 @@ trait WidgetTrait
      * Registers a JS code block for the widget.
      *
      * @param string  $js the JS code block to be registered
-     * @param integer $position the position at which the JS script tag should be inserted in a page. The possible
+     * @param integer $pos the position at which the JS script tag should be inserted in a page. The possible
      *     values are:
      *      - [[POS_HEAD]]: in the head section
      *      - [[POS_BEGIN]]: at the beginning of the body section
@@ -160,16 +180,17 @@ trait WidgetTrait
      * @param string  $key the key that identifies the JS code block. If null, it will use $js as the key. If two JS
      *     code blocks are registered with the same key, the latter will overwrite the former.
      */
-    public function registerWidgetJs($js, $position = View::POS_READY, $key = null)
+    public function registerWidgetJs($js, $pos = View::POS_READY, $key = null)
     {
         if (empty($js)) {
             return;
         }
         $view = $this->getView();
-        $view->registerJs($js, $position, $key);
-        if (!empty($this->pjaxContainerId) && ($position === View::POS_LOAD || $position === View::POS_READY)) {
+        $view->registerJs($js, $pos, $key);
+        if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
-            $view->registerJs("{$pjax}.on('pjax:complete',function(){ {$js} });");
+            $evComplete = 'pjax:complete.' . hash('crc32', $js);
+            $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });");
         }
     }
 }

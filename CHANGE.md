@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.2
+
+**Date:** 10-Jan-2016
+
+- (enh #52): Enhance widget trait for better PJAX initialization.
+- (enh #53): New widget property `pluginDestroyJs` for destroying plugin before initialization
+
 ## Version 1.8.1
 
 **Date:** 27-Dec-2015
