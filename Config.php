@@ -61,7 +61,7 @@ class Config
         '\kartik\date\DatePicker' => ['yii2-widgets', 'yii2-widget-datepicker'],
         '\kartik\time\TimePicker' => ['yii2-widgets', 'yii2-widget-timepicker'],
         '\kartik\datetime\DateTimePicker' => ['yii2-widgets', 'yii2-widget-datetimepicker'],
-        '\kartik\daterange\DateRangePicker' => 'yii2-daterange',
+        '\kartik\daterange\DateRangePicker' => 'yii2-date-range',
         '\kartik\sortinput\SortableInput' => 'yii2-sortinput',
         '\kartik\money\MaskMoney' => 'yii2-money',
         '\kartik\checkbox\CheckboxX' => 'yii2-checkbox',
