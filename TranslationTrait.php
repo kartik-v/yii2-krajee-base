@@ -4,12 +4,13 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.2
+ * @version   1.8.3
  */
 
 namespace kartik\base;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * Trait for all translations used in Krajee extensions
@@ -17,7 +18,7 @@ use Yii;
  * @property array $i18n
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.8.2
+ * @since 1.8.3
  */
 trait TranslationTrait
 {
@@ -42,21 +43,18 @@ trait TranslationTrait
             $dir = dirname($reflector->getFileName());
         }
         Yii::setAlias("@{$cat}", $dir);
-
-        $default_config = [
+        $config = [
             'class' => 'yii\i18n\PhpMessageSource',
             'basePath' => "@{$cat}/messages",
             'forceTranslation' => true
         ];
-
-        $global_config = isset(Yii::$app->i18n->translations["{$cat}*"])
-            ? Yii::$app->i18n->translations["{$cat}*"]
-            : [];
-
-        $inline_config = is_array($this->i18n) ? $this->i18n : [];
-
-        Yii::$app->i18n->translations["{$cat}*"] = array_merge(
-            $default_config, $global_config, $inline_config
-        );
+        $globalConfig = ArrayHelper::getValue(Yii::$app->i18n->translations, "{$cat}*");
+        if (!empty($globalConfig)) {
+            $config += is_array($globalConfig) ? $globalConfig : (array) $globalConfig;
+        }
+        if (!empty($this->i18n) && is_array($config)) {
+            $config += $this->i18n;
+        }
+        Yii::$app->i18n->translations["{$cat}*"] = $config;
     }
 }

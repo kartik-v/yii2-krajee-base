@@ -1,6 +1,15 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.3
+
+**Date:** 02-Mar-2016
+
+- (enh #56): Correct date range picker repo in Config.
+- (enh #57): Update animate.css to v3.5.1.
+- (enh #58): Configure TranslationTrait to accept and parse global i18n config.
+- Add branch alias for dev-master latest release.
+
 ## Version 1.8.2
 
 **Date:** 10-Jan-2016
