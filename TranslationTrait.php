@@ -42,15 +42,21 @@ trait TranslationTrait
             $dir = dirname($reflector->getFileName());
         }
         Yii::setAlias("@{$cat}", $dir);
-        if ($cat === 'kvbase' || empty($this->i18n)) {
-            $i18n = [
-                'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => "@{$cat}/messages",
-                'forceTranslation' => true
-            ];
-        } else {
-            $i18n = $this->i18n;
-        }
-        Yii::$app->i18n->translations["{$cat}*"] = $i18n;
+
+        $default_config = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'basePath' => "@{$cat}/messages",
+            'forceTranslation' => true
+        ];
+
+        $global_config = isset(Yii::$app->i18n->translations["{$cat}*"])
+            ? Yii::$app->i18n->translations["{$cat}*"]
+            : [];
+
+        $inline_config = is_array($this->i18n) ? $this->i18n : [];
+
+        Yii::$app->i18n->translations["{$cat}*"] = array_merge(
+            $default_config, $global_config, $inline_config
+        );
     }
 }
