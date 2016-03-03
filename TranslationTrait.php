@@ -52,7 +52,7 @@ trait TranslationTrait
         if (!empty($globalConfig)) {
             $config += is_array($globalConfig) ? $globalConfig : (array) $globalConfig;
         }
-        if (!empty($this->i18n) && is_array($config)) {
+        if (!empty($this->i18n) && is_array($this->i18n)) {
             $config += $this->i18n;
         }
         Yii::$app->i18n->translations["{$cat}*"] = $config;
