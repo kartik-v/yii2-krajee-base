@@ -48,12 +48,12 @@ trait TranslationTrait
             'basePath' => "@{$cat}/messages",
             'forceTranslation' => true
         ];
-        $globalConfig = ArrayHelper::getValue(Yii::$app->i18n->translations, "{$cat}*");
+        $globalConfig = ArrayHelper::getValue(Yii::$app->i18n->translations, "{$cat}*", []);
         if (!empty($globalConfig)) {
-            $config += is_array($globalConfig) ? $globalConfig : (array) $globalConfig;
+            $config = array_merge($config, is_array($globalConfig) ? $globalConfig : (array) $globalConfig);
         }
         if (!empty($this->i18n) && is_array($this->i18n)) {
-            $config += $this->i18n;
+            $config = array_merge($config, $this->i18n);
         }
         Yii::$app->i18n->translations["{$cat}*"] = $config;
     }
