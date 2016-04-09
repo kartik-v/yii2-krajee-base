@@ -190,7 +190,9 @@ trait WidgetTrait
         if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
             $evComplete = 'pjax:complete.' . hash('crc32', $js);
-            $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });");
+            $script = "{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });" .
+                "window.addEventListener('popstate',function(){window.location.reload();});";
+            $view->registerJs($script);
         }
     }
 }
