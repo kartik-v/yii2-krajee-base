@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.3
+ * @version   1.8.4
  */
 
 namespace kartik\base;
@@ -190,9 +190,9 @@ trait WidgetTrait
         if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
             $evComplete = 'pjax:complete.' . hash('crc32', $js);
-            $script = "{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });" .
-                "window.addEventListener('popstate',function(){window.location.reload();});";
-            $view->registerJs($script);
+            $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });");
+            // hack fix for browser back and forward buttons
+            $view->registerJs("window.addEventListener('popstate',function(){window.location.reload();});");
         }
     }
 }
