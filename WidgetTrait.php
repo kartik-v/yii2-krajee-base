@@ -145,7 +145,7 @@ trait WidgetTrait
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = new JsExpression($handler);
-                $script .= "$(document).on('{$event}', '{$id}', {$function});\n";
+                $script .= "$(document).on('{$event}', {$id}.kvSelector(), {$function});\n";
             }
         }
         return $this->pluginDestroyJs . "\n" . $script;
