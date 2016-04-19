@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.4
+ * @version   1.8.5
  */
 
 namespace kartik\base;
@@ -58,6 +58,11 @@ class Widget extends \yii\base\Widget
      *     the widget will automatically reinitialize on pjax completion.
      */
     public $pjaxContainerId;
+
+    /**
+     * @var bool enable pop state fix for pjax container on press of browser back & forward buttons
+     */
+    public $enablePopStateFix = true;
 
     /**
      * @var array the the internalization configuration for this widget

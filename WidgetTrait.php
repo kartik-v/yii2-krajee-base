@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.4
+ * @version   1.8.5
  */
 
 namespace kartik\base;
@@ -16,6 +16,7 @@ use yii\web\View;
 /**
  * Trait used for Krajee widgets.
  *
+ * @property bool   $enablePopStateFix
  * @property string $pluginName
  * @property string $pluginDestroyJs
  * @property array  $options
@@ -144,7 +145,7 @@ trait WidgetTrait
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = new JsExpression($handler);
-                $script .= "{$id}.on('{$event}', {$function});\n";
+                $script .= "$(document).on('{$event}', '{$id}', {$function});\n";
             }
         }
         return $this->pluginDestroyJs . "\n" . $script;
@@ -192,7 +193,9 @@ trait WidgetTrait
             $evComplete = 'pjax:complete.' . hash('crc32', $js);
             $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });");
             // hack fix for browser back and forward buttons
-            $view->registerJs("window.addEventListener('popstate',function(){window.location.reload();});");
+            if ($this->enablePopStateFix) {
+                $view->registerJs("window.addEventListener('popstate',function(){window.location.reload();});");
+            }
         }
     }
 }

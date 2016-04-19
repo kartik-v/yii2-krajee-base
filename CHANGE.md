@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.5 (under development)
+
+**Date:** 19-Apr-2016
+
+- (enh #60): New property `enablePopStateFix` (addendum to #59).
+- (enh #61): Enhance event handling for `pluginEvents`.
+
 ## Version 1.8.4
 
 **Date:** 11-Apr-2016
