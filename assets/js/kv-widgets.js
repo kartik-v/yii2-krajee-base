@@ -5,11 +5,12 @@
  * @copyright  Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
  * @version    1.8.5
  *
- * Common script file for all kartik\widgets.
+ * Common client validation file for all Krajee widgets.
  *
  * For more JQuery/Bootstrap plugins and demos visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
+var kvInitPlugin, kvInitHtml5;
 (function ($) {
     "use strict";
     /**
@@ -19,7 +20,7 @@
      * - else a unique data attribute `kvId` is generated and the selector is returned based on this data attribute.
      */
     $.fn.kvSelector = function () {
-        var $node = $(this), id, sel = '';
+        var $node = $(this), id, sel = '', len = 1;
         if (!$node.length) {
             return '';
         }
@@ -31,11 +32,41 @@
         if (id) {
             return '[data-kv-id="' + id + '"]';
         }
-        do {
+        while (len) {
             id = 'kv-' + Math.round(new Date().getTime() + (Math.random() * 100));
             sel = '[data-kv-id="' + id + '"]';
-        } while ($(sel).length);
+            len = $(sel).length;
+        }
         $node.attr('data-kv-id', id);
         return sel;
+    };
+    /**
+     * Initialize a Krajee plugin
+     * @param sel string, the plugin selector
+     * @param callback function, the plugin initialization function
+     */
+    kvInitPlugin = function (sel, callback) {
+        var $body = $(document.body);
+        if ($body.length) {
+            $body.on('load', sel, callback());
+        } else {
+            callback();
+        }
+    };
+    /**
+     * Initialize HTML5 Input Widgets
+     * @param idCap string, the id of the caption element
+     * @param idInp string, the id of the input element
+     */
+    kvInitHtml5 = function (idCap, idInp) {
+        var $caption = $(idCap), $input = $(idInp);
+        $(document).on('change', idCap, function () {
+            $input.val(this.value);
+        }).on('input change', idInp, function (e) {
+            $caption.val(this.value);
+            if (e.type === 'change') {
+                $caption.trigger('change');
+            }
+        });
     };
 })(window.jQuery);

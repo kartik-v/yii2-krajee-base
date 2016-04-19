@@ -129,7 +129,13 @@ trait WidgetTrait
      */
     protected function getPluginScript($name, $element = null, $callback = null, $callbackCon = null)
     {
-        $id = $element == null ? "jQuery('#" . $this->options['id'] . "')" : $element;
+        if ($element) {
+            $id = $element;
+            $sel = "{$id}.kvSelector()";
+        } else {
+            $sel = "'#" . $this->options['id'] . "'";
+            $id = "jQuery({$sel})";
+        }
         $script = '';
         if ($this->pluginOptions !== false) {
             $this->registerPluginOptions($name);
@@ -142,13 +148,14 @@ trait WidgetTrait
             }
             $script .= ";\n";
         }
+        $script = "kvInitPlugin({$sel}, function(){\n  {$this->pluginDestroyJs}\n  {$script}\n});\n";
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = new JsExpression($handler);
-                $script .= "$(document).on('{$event}', {$id}.kvSelector(), {$function});\n";
+                $script .= "$(document).on('{$event}', {$sel}, {$function});\n";
             }
         }
-        return $this->pluginDestroyJs . "\n" . $script;
+        return $script;
     }
 
     /**
@@ -169,8 +176,8 @@ trait WidgetTrait
      * Registers a JS code block for the widget.
      *
      * @param string  $js the JS code block to be registered
-     * @param integer $pos the position at which the JS script tag should be inserted in a page. The possible
-     *     values are:
+     * @param integer $pos the position at which the JS script tag should be inserted in a page. The possible values
+     *     are:
      *      - [[POS_HEAD]]: in the head section
      *      - [[POS_BEGIN]]: at the beginning of the body section
      *      - [[POS_END]]: at the end of the body section
