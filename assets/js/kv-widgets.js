@@ -10,7 +10,7 @@
  * For more JQuery/Bootstrap plugins and demos visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
-var kvInitPlugin, kvInitHtml5;
+var kvInitPlugin, kvListenEvent, kvInitHtml5;
 (function ($) {
     "use strict";
     /**
@@ -42,15 +42,29 @@ var kvInitPlugin, kvInitHtml5;
     };
     /**
      * Initialize a Krajee plugin
-     * @param sel string, the plugin selector
+     * @param selector string, the plugin selector
      * @param callback function, the plugin initialization function
      */
-    kvInitPlugin = function (sel, callback) {
+    kvInitPlugin = function (selector, callback) {
         var $body = $(document.body);
         if ($body.length) {
-            $body.on('load', sel, callback());
+            $body.on('load', selector, callback());
         } else {
             callback();
+        }
+    };
+    /**
+     * Listen to a Krajee plugin event
+     * @param event string, the plugin event
+     * @param selector string, the plugin selector
+     * @param callback function, the plugin initialization function
+     */
+    kvListenEvent = function (event, selector, callback) {
+        var $body = $(document.body);
+        if ($body.length) {
+            $body.on(event, selector, callback);
+        } else {
+            $(selector).on(event, callback);
         }
     };
     /**

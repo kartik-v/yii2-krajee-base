@@ -152,7 +152,7 @@ trait WidgetTrait
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = new JsExpression($handler);
-                $script .= "$(document).on('{$event}', {$sel}, {$function});\n";
+                $script .= "kvListenEvent('{$event}', {$sel}, {$function});\n";
             }
         }
         return $script;
