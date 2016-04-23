@@ -194,6 +194,7 @@ trait WidgetTrait
             return;
         }
         $view = $this->getView();
+        WidgetAsset::register($view);
         $view->registerJs($js, $pos, $key);
         if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
