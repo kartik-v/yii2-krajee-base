@@ -21,7 +21,7 @@ class PluginAssetBundle extends AssetBundle
      * @inheritdoc
      */
      public $depends = [
-        'yii\web\YiiAsset',
+        'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset'
     ];
