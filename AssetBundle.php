@@ -27,7 +27,6 @@ class AssetBundle extends \yii\web\AssetBundle
     public $sourcePath = self::KRAJEE_PATH;
     public $depends = [
         'yii\web\JqueryAsset',
-        'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
 
