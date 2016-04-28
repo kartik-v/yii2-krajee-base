@@ -13,6 +13,7 @@ Change Log: `yii2-krajee-base`
     - More better integration with JS frameworks like AngularJS
     - Revamp initialization of HTML5 Input based plugins including `Html5Input` widget init.
 - (bug #63): More correct plugin event listening and fixes #61 better.
+- (enh #64): Correct plugin event listening for all use cases (reverts #61).
 - (enh #65): Remove AssetBundle dependency on `yii\web\YiiAsset`.
 
 ## Version 1.8.4

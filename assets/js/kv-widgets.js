@@ -60,12 +60,7 @@ var kvInitPlugin, kvListenEvent, kvInitHtml5;
      * @param callback function, the plugin initialization function
      */
     kvListenEvent = function (event, selector, callback) {
-        var $body = $(document.body);
-        if ($body.length) {
-            $body.on(event, selector, callback);
-        } else {
-            $(selector).on(event, callback);
-        }
+        $(selector).on(event, callback);
     };
     /**
      * Initialize HTML5 Input Widgets
