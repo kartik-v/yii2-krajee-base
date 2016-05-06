@@ -151,7 +151,11 @@ trait WidgetTrait
         $script = "kvInitPlugin({$sel}, function(){\n  {$this->pluginDestroyJs}\n  {$script}\n});\n";
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
-                $function = new JsExpression($handler);
+                if ($handler instanceof JsExpression) {
+                    $function = $handler;
+                } else {
+                    $function = new JsExpression($handler);
+                }
                 $script .= "kvListenEvent('{$event}', {$sel}, {$function});\n";
             }
         }
