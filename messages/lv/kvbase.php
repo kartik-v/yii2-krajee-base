@@ -17,5 +17,5 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'It is recommended you use an upgraded browser to display the {type} control properly.' => '',
+    'It is recommended you use an upgraded browser to display the {type} control properly.' => 'Ieteicams atjaunināt pārlūku, lai korekti strādātu {tipa} kontrole.',
 ];
