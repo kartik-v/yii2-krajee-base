@@ -1,8 +1,8 @@
 {
-    "name": "kartik-v/yii2-krajee-base",
+    "name": "extpoint/yii2-krajee-base",
     "description": "Base library and foundation components for all Yii2 Krajee extensions.",
     "keywords": ["yii2", "extension", "widget", "krajee", "base", "foundation"],
-    "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+    "homepage": "https://github.com/ExtPoint/yii2-krajee-base",
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "authors": [
