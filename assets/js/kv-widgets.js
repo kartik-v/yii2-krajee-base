@@ -46,12 +46,7 @@ var kvInitPlugin, kvListenEvent, kvInitHtml5;
      * @param callback function, the plugin initialization function
      */
     kvInitPlugin = function (selector, callback) {
-        var $body = $(document.body);
-        if ($body.length) {
-            $body.on('load', selector, callback());
-        } else {
-            callback();
-        }
+        callback();
     };
     /**
      * Listen to a Krajee plugin event
