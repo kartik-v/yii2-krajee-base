@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.5
+ * @version   1.8.6
  */
 
 namespace kartik\base;
@@ -129,13 +129,7 @@ trait WidgetTrait
      */
     protected function getPluginScript($name, $element = null, $callback = null, $callbackCon = null)
     {
-        if ($element) {
-            $id = $element;
-            $sel = "{$id}.kvSelector()";
-        } else {
-            $sel = "'#" . $this->options['id'] . "'";
-            $id = "jQuery({$sel})";
-        }
+        $id = $element ? $element : "jQuery('#" . $this->options['id'] . "')";
         $script = '';
         if ($this->pluginOptions !== false) {
             $this->registerPluginOptions($name);
@@ -148,11 +142,11 @@ trait WidgetTrait
             }
             $script .= ";\n";
         }
-        $script = "kvInitPlugin({$sel}, function(){\n  {$this->pluginDestroyJs}\n  {$script}\n});\n";
+        $script = $this->pluginDestroyJs . "\n"  . $script;
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
-                $function = new JsExpression($handler);
-                $script .= "kvListenEvent('{$event}', {$sel}, {$function});\n";
+                $function = $handler instanceof JsExpression ? $handler : new JsExpression($handler);
+                $script .= "{$id}.on('{$event}', {$function});\n";
             }
         }
         return $script;

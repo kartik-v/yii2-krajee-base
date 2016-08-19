@@ -1,6 +1,14 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.6
+
+**Date:** 19-Aug-2016
+
+- (enh #67): Update Latvian translations.
+- (enh #71): Simplify plugin initialization and event handling.
+- Add github contribution templates.
+
 ## Version 1.8.5
 
 **Date:** 08-May-2016
