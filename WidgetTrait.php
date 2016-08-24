@@ -193,7 +193,7 @@ trait WidgetTrait
         if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
             $evComplete = 'pjax:complete.' . hash('crc32', $js);
-            $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$js} });");
+            $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ setTimeout(function(){ {$js} }, 100); });");
             // hack fix for browser back and forward buttons
             if ($this->enablePopStateFix) {
                 $view->registerJs("window.addEventListener('popstate',function(){window.location.reload();});");
