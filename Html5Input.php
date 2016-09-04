@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.6
+ * @version   1.8.7
  */
 
 namespace kartik\base;
@@ -64,24 +64,28 @@ class Html5Input extends InputWidget
     public $size;
 
     /**
-     * @var array the addon content
-     * - prepend: array/string the prepend addon content. If set as an array, the following options can be set:
-     *   - content: string the prepend addon content
-     *   - asButton: boolean whether the addon is a button
-     *   - options: array the HTML attributes for the prepend addon
-     * - append: array/string the append addon content. If set as an array, the following options can be set:
-     *   - content: string the append addon content
-     *   - asButton: boolean whether the addon is a button
-     *   - options: array the HTML attributes for the append addon
-     * - preCaption: array/string the addon content placed before the caption. If set as an array, the following
-     *     options can be set:
-     *   - content: string the append addon content
-     *   - asButton: boolean whether the addon is a button
-     *   - options: array the HTML attributes for the append addon     */
+     * @var array the addon content configuration. The following array keys can be configured:
+     *
+     * - `prepend `: _array|_string_, the prepend addon content. If set as a _string_, will be rendered raw as is without
+     *    HTML encoding. If set as an _array_, the following options can be set:
+     *   - `content `: _string_, the prepend addon content
+     *   - `asButton `: _boolean_, whether the addon is a button
+     *   - `options `: _array the HTML attributes for the prepend addon
+     * - `append `: _array_|_string_, the append addon content.If set as a _string_, will be rendered raw as is without
+     *    HTML encoding. If set as an _array_, the following options can be set:
+     *   - `content `: _string_, the append addon content
+     *   - `asButton `: _boolean_, whether the addon is a button
+     *   - `options `: _array the HTML attributes for the append addon
+     * - `preCaption `: _array_|_string_, the addon content placed before the caption.If set as a _string_, will be
+     *    rendered raw as is without HTML encoding. If set as an _array_, the following options can be set:
+     *   - `content `: _string_, the append addon content
+     *   - `asButton `: _boolean_, whether the addon is a button
+     *   - `options `: _array the HTML attributes for the append addon
+     */
     public $addon = [];
 
     /**
-     * @var array the allowed input types
+     * @var array the list of allowed HTML input types.
      */
     private static $_allowedInputTypes = [
         'color',
@@ -99,7 +103,7 @@ class Html5Input extends InputWidget
     }
 
     /**
-     * Initializes the input
+     * Initializes the input.
      */
     protected function initInput()
     {
@@ -118,7 +122,7 @@ class Html5Input extends InputWidget
     }
 
     /**
-     * Registers the needed assets
+     * Registers the needed assets for [[Html5Input]] widget.
      */
     public function registerAssets()
     {
@@ -130,8 +134,7 @@ class Html5Input extends InputWidget
     }
 
     /**
-     * Renders the special HTML5 input
-     * Mainly useful for the color and range inputs
+     * Renders the special HTML5 input. Mainly useful for the color and range inputs
      */
     protected function renderInput()
     {
@@ -166,9 +169,9 @@ class Html5Input extends InputWidget
     }
 
     /**
-     * Parses and returns addon content
+     * Parses and returns addon content.
      *
-     * @param string /array $addon the addon parameter
+     * @param string|array $addon the addon parameter
      *
      * @return string
      */
@@ -189,7 +192,7 @@ class Html5Input extends InputWidget
     }
 
     /**
-     * Gets the HTML5 input
+     * Gets the HTML5 input.
      *
      * @return string
      */

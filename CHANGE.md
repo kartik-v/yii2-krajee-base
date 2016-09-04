@@ -1,6 +1,14 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.7
+
+**Date:** 04-Sep-2016
+
+- (enh #72): Set a timeout for plugin events callbacks.
+- (enh #73): Update Animate CSS assets to latest version.
+- Enhance PHP Documentation for all classes and methods in the extension.
+
 ## Version 1.8.6
 
 **Date:** 19-Aug-2016

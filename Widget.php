@@ -4,26 +4,27 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.6
+ * @version   1.8.7
  */
 
 namespace kartik\base;
 
 use Yii;
+use yii\base\Widget as YiiWidget;
 
 /**
- * Base widget class for Krajee extensions
+ * Base class for widgets extending [[YiiWidget]] used in Krajee extensions.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since  1.0
  */
-class Widget extends \yii\base\Widget
+class Widget extends YiiWidget
 {
     use TranslationTrait;
     use WidgetTrait;
 
     /**
-     * @var array HTML attributes or other settings for widgets
+     * @var array HTML attributes or other settings for widgets.
      */
     public $options = [];
 
@@ -33,59 +34,66 @@ class Widget extends \yii\base\Widget
     public $pluginDestroyJs;
 
     /**
-     * @var array widget plugin options
+     * @var string the name of the jQuery plugin.
+     */
+    public $pluginName = '';
+
+    /**
+     * @var array widget plugin options.
      */
     public $pluginOptions = [];
 
     /**
-     * @var array widget JQuery events. You must define events in event-name => event-function format for example:
+     * @var array widget JQuery events. You must define events in `event-name => event-function` format. For example:
+     *
      * ~~~
      * pluginEvents = [
-     *     "change" => "function() { log("change"); }",
-     *     "open" => "function() { log("open"); }",
+     *     'change' => 'function() { log("change"); }',
+     *     'open' => 'function() { log("open"); }',
      * ];
      * ~~~
      */
     public $pluginEvents = [];
 
     /**
-     * @var string the name of the jQuery plugin
-     */
-    public $pluginName = '';
-
-    /**
      * @var string a pjax container identifier if applicable inside which the widget will be rendered. If this is set,
-     *     the widget will automatically reinitialize on pjax completion.
+     * the widget will automatically reinitialize on pjax render completion.
      */
     public $pjaxContainerId;
 
     /**
-     * @var bool enable pop state fix for pjax container on press of browser back & forward buttons
+     * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
      */
     public $enablePopStateFix = true;
 
     /**
-     * @var array the the internalization configuration for this widget
+     * @var array the the internalization configuration for this widget.
+     *
+     * @see [[\yii\i18n\I18N]] component for understanding the configuration details.
      */
     public $i18n = [];
 
     /**
-     * @var string translation message file category name for i18n
+     * @var string translation message file category name for i18n.
+     *
+     * @see [[\yii\i18n\I18N]]
      */
     protected $_msgCat = '';
 
     /**
-     * @var string the hashed global variable name storing the pluginOptions
-     */
-    protected $_hashVar;
-
-    /**
-     * @var string the element's HTML5 data variable name storing the pluginOptions
+     * @var string the HTML5 data variable name that will be used to store the Json encoded pluginOptions within the
+     * element on which the jQuery plugin will be initialized.
      */
     protected $_dataVar;
 
     /**
-     * @var string the Json encoded options
+     * @var string the generated hashed variable name that will store the JSON encoded pluginOptions in
+     * [[View::POS_HEAD]].
+     */
+    protected $_hashVar;
+
+    /**
+     * @var string the JSON encoded plugin options.
      */
     protected $_encOptions = '';
 

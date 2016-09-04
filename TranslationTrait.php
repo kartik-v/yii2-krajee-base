@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.6
+ * @version   1.8.7
  */
 
 namespace kartik\base;
@@ -13,12 +13,12 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
- * Trait for all translations used in Krajee extensions
+ * TranslationTrait manages methods for all translations used in Krajee extensions
  *
  * @property array $i18n
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.8.6
+ * @since 1.8.7
  */
 trait TranslationTrait
 {

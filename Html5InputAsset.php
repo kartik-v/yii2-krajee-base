@@ -3,13 +3,13 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
  * @package yii2-krajee-base
- * @version 1.8.6
+ * @version 1.8.7
  */
 
 namespace kartik\base;
 
 /**
- * Asset bundle for Html5Input Widget
+ * Asset bundle for the [[Html5Input]] widget.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0

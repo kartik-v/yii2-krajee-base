@@ -4,27 +4,50 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version   1.8.6
+ * @version   1.8.7
  */
 
 namespace kartik\base;
 
 /**
- * Base asset bundle for all widgets
+ * Base asset bundle used for all Krajee extensions.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
 class AssetBundle extends \yii\web\AssetBundle
 {
+    /**
+     * Unique value to set an empty asset via Yii AssetManager configuration.
+     */
     const EMPTY_ASSET = 'N0/@$$3T$';
+    /**
+     * Unique value to set an empty asset file path via Yii AssetManager configuration.
+     */
     const EMPTY_PATH = 'N0/P@T#';
+    /**
+     * Unique value identifying a Krajee asset
+     */
     const KRAJEE_ASSET = 'K3/@$$3T$';
+    /**
+     * Unique value identifying a Krajee asset file path
+     */
     const KRAJEE_PATH = 'K3/P@T#';
-
+    /**
+     * @inheritdoc
+     */
     public $js = self::KRAJEE_ASSET;
+    /**
+     * @inheritdoc
+     */
     public $css = self::KRAJEE_ASSET;
+    /**
+     * @inheritdoc
+     */
     public $sourcePath = self::KRAJEE_PATH;
+    /**
+     * @inheritdoc
+     */
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
