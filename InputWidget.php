@@ -188,7 +188,7 @@ class InputWidget extends YiiInputWidget
         if ($this->hasModel()) {
             $this->name = empty($this->options['name']) ? Html::getInputName($this->model, $this->attribute) :
                 $this->options['name'];
-            $this->value = Html::getAttributeValue($this->model, $this->attribute);
+            $this->value = empty($this->options['value'])? Html::getAttributeValue($this->model, $this->attribute) : $this->options['value'];
         }
         $this->initDisability($this->options);
     }
