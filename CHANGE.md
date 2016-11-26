@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.8.8
+
+**Date:** 26-Nov-2016
+
+- (enh #74): Allow registering variables in closures by setting them in global namespace.
+- (enh #75): Better validation for default attribute value.
+
 ## Version 1.8.7
 
 **Date:** 04-Sep-2016
