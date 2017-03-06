@@ -25,6 +25,11 @@ class Widget extends YiiWidget
     use WidgetTrait;
 
     /**
+     * @var array default HTML attributes or other settings for widgets.
+     */
+    public $defaultOptions = [];
+
+    /**
      * @var array HTML attributes or other settings for widgets.
      */
     public $options = [];
@@ -38,6 +43,11 @@ class Widget extends YiiWidget
      * @var string the name of the jQuery plugin.
      */
     public $pluginName = '';
+
+    /**
+     * @var array widget plugin options.
+     */
+    public $defaultPluginOptions = [];
 
     /**
      * @var array widget plugin options.
@@ -105,6 +115,7 @@ class Widget extends YiiWidget
     {
         parent::init();
         $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
+        $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
