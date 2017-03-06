@@ -11,6 +11,7 @@ namespace kartik\base;
 
 use Yii;
 use yii\base\Widget as YiiWidget;
+use yii\helpers\ArrayHelper;
 
 /**
  * Base class for widgets extending [[YiiWidget]] used in Krajee extensions.
@@ -103,6 +104,7 @@ class Widget extends YiiWidget
     public function init()
     {
         parent::init();
+        $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
