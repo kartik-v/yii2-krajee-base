@@ -294,7 +294,6 @@ class InputWidget extends YiiInputWidget
         $input = $type;
         $checked = false;
         if ($type == 'radio' || $type == 'checkbox') {
-            $this->options['value'] = $this->value;
             $checked = ArrayHelper::remove($this->options, 'checked', '');
             if (empty($checked) && !empty($this->value)) {
                 $checked = ($this->value == 0) ? false : true;
