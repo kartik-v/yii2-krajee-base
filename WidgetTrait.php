@@ -110,7 +110,7 @@ trait WidgetTrait
     {
         $this->hashPluginOptions($name);
         $encOptions = empty($this->_encOptions) ? '{}' : $this->_encOptions;
-        $this->registerWidgetJs("window.{$this->_hashVar} = {$encOptions};\n", View::POS_HEAD);
+        $this->registerWidgetJs("window.{$this->_hashVar} = {$encOptions};\n", $this->hashVarLoadPosition);
     }
 
     /**

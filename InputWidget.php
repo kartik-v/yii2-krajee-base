@@ -14,6 +14,7 @@ use yii\base\InvalidConfigException;
 use yii\helpers\FormatConverter;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 use yii\widgets\InputWidget as YiiInputWidget;
 
 /**
@@ -126,6 +127,13 @@ class InputWidget extends YiiInputWidget
      * @see http://php.net/manual/en/function.date.php
      */
     public $convertFormat = false;
+    
+    /**
+     * @var integer the position where the client JS hash variables for the input widgets will be loaded. 
+     * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
+     * rendering the widget via `renderAjax`.
+     */
+    public $hashVarLoadPosition = View::POS_HEAD;
 
     /**
      * @var array the the internalization configuration for this widget.

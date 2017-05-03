@@ -3,8 +3,9 @@ Change Log: `yii2-krajee-base`
 
 ## Version 1.8.9
 
-**Date:** 26-Apr-2017
+**Date:** 03-May-2017
 
+- (#79): New property `hashVarLoadPosition` for InputWidget and Widget.
 - (enh kartik-v/yii2-widget-switchinput#29): Enhance boolean inputs for better value init in non model scenario.
 
 ## Version 1.8.8

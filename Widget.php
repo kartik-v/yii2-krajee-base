@@ -83,6 +83,13 @@ class Widget extends YiiWidget
      * @see [[\yii\i18n\I18N]] component for understanding the configuration details.
      */
     public $i18n = [];
+    
+    /**
+     * @var integer the position where the client JS hash variables for the input widgets will be loaded. 
+     * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
+     * rendering the widget via `renderAjax`.
+     */
+    public $hashVarLoadPosition = View::POS_HEAD;
 
     /**
      * @var string translation message file category name for i18n.
