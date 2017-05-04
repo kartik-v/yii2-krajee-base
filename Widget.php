@@ -4,13 +4,14 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
- * @version   1.8.8
+ * @version   1.8.9
  */
 
 namespace kartik\base;
 
 use Yii;
 use yii\base\Widget as YiiWidget;
+use yii\web\View;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -76,13 +77,6 @@ class Widget extends YiiWidget
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
      */
     public $enablePopStateFix = true;
-
-    /**
-     * @var array the the internalization configuration for this widget.
-     *
-     * @see [[\yii\i18n\I18N]] component for understanding the configuration details.
-     */
-    public $i18n = [];
     
     /**
      * @var integer the position where the client JS hash variables for the input widgets will be loaded. 
@@ -90,6 +84,13 @@ class Widget extends YiiWidget
      * rendering the widget via `renderAjax`.
      */
     public $hashVarLoadPosition = View::POS_HEAD;
+
+    /**
+     * @var array the the internalization configuration for this widget.
+     *
+     * @see [[\yii\i18n\I18N]] component for understanding the configuration details.
+     */
+    public $i18n = [];
 
     /**
      * @var string translation message file category name for i18n.
