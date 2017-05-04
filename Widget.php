@@ -79,7 +79,7 @@ class Widget extends YiiWidget
     public $enablePopStateFix = true;
     
     /**
-     * @var integer the position where the client JS hash variables for the input widgets will be loaded. 
+     * @var integer the position where the client JS hash variables for the widget will be loaded. 
      * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
      * rendering the widget via `renderAjax`.
      */
