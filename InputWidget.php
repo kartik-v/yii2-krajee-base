@@ -44,6 +44,14 @@ class InputWidget extends YiiInputWidget
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
 
     /**
+     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
+     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
+     * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
+     */
+    public $moduleId;
+
+    /**
      * @var string the language configuration (e.g. 'fr-FR', 'zh-CN'). The format for the language/locale is
      * ll-CC where ll is a two or three letter lowercase code for a language according to ISO-639 and
      * CC is the country code according to ISO-3166.

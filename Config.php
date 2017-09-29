@@ -20,9 +20,9 @@ use yii\base\InvalidConfigException;
  */
 class Config
 {
-    const VENDOR_NAME = "kartik-v/";
-    const NAMESPACE_PREFIX = "\\kartik\\";
-    const DEFAULT_REASON = "for your selected functionality";
+    const VENDOR_NAME = 'kartik-v/';
+    const NAMESPACE_PREFIX = '\\kartik\\';
+    const DEFAULT_REASON = 'for your selected functionality';
 
     protected static $_validHtmlInputs = [
         'hiddenInput',
@@ -105,8 +105,8 @@ class Config
         if (empty($name)) {
             return;
         }
-        $command = "php composer.phar require " . self::VENDOR_NAME;
-        $version = ": \"@dev\"";
+        $command = 'php composer.phar require ' . self::VENDOR_NAME;
+        $version = ': \'@dev\'';
         $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX . $name;
 
         if (is_array($repo)) {
@@ -209,7 +209,7 @@ class Config
      */
     public static function getLang($language)
     {
-        $pos = strpos($language, "-");
+        $pos = strpos($language, '-');
         return $pos > 0 ? substr($language, 0, $pos) : $language;
     }
 
@@ -243,7 +243,7 @@ class Config
     }
 
     /**
-     * Initializes and validates the module
+     * Initializes and validates the module (deprecated since v1.8.9 - use `getModule` instead directly)
      *
      * @param string $class the Module class name
      *
@@ -266,14 +266,24 @@ class Config
      * Gets the module instance by validating the module name. The check is first done for a submodule of the same name
      * and then the check is done for the module within the current Yii2 application.
      *
-     * @param string $m the module name
+     * @param string $m the module identifier
+     * @param string $class the module class name
      *
-     * @return Module
+     * @throws InvalidConfigException
+     *
+     * @return yii\base\Module
      */
-    public static function getModule($m)
+    public static function getModule($m, $class = '')
     {
         $app = Yii::$app;
         $mod = isset($app->controller) && $app->controller->module ? $app->controller->module : null;
-        return $mod && $mod->getModule($m) ? $mod->getModule($m) : $app->getModule($m);
+        $module = $mod && $mod->getModule($m) ? $mod->getModule($m) : $app->getModule($m);
+        if ($module === null) {
+            throw new InvalidConfigException("The '{$m}' module MUST be setup in your Yii configuration file.");
+        }
+        if (!empty($class) && !$module instanceof $class) {
+            throw new InvalidConfigException("The '{$m}' module MUST be an instance of '{$class}'.");
+        }
+        return $module;
     }
 }

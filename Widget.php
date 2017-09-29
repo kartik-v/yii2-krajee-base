@@ -9,10 +9,9 @@
 
 namespace kartik\base;
 
-use Yii;
 use yii\base\Widget as YiiWidget;
-use yii\web\View;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 
 /**
  * Base class for widgets extending [[YiiWidget]] used in Krajee extensions.
@@ -24,6 +23,14 @@ class Widget extends YiiWidget
 {
     use TranslationTrait;
     use WidgetTrait;
+
+    /**
+     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
+     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
+     * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
+     */
+    public $moduleId;
 
     /**
      * @var array default HTML attributes or other settings for widgets.
