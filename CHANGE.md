@@ -1,12 +1,18 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.0 (_under development_)
+
+**Date:** (work in progress)
+
+- (enh #82): Enhance `getModule` to retrieve correct module.
+
 ## Version 1.8.9
 
 **Date:** 29-Sep-2017
 
-- (#80): Add ability to configure module id in widgets.
-- (#79): New property `hashVarLoadPosition` for InputWidget and Widget.
+- (enh #80): Add ability to configure module id in widgets.
+- (enh #79): New property `hashVarLoadPosition` for InputWidget and Widget.
 - (enh kartik-v/yii2-widget-switchinput#29): Enhance boolean inputs for better value init in non model scenario.
 
 ## Version 1.8.8

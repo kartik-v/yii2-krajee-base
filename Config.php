@@ -277,7 +277,13 @@ class Config
     {
         $app = Yii::$app;
         $mod = isset($app->controller) && $app->controller->module ? $app->controller->module : null;
-        $module = $mod && $mod->getModule($m) ? $mod->getModule($m) : $app->getModule($m);
+        $module = null;
+        if ($mod) {
+            $module = $mod->id === $m ? $mod : $mod->getModule($m);
+        }
+        if (!$module) {
+            $module = $app->getModule($m);
+        }
         if ($module === null) {
             throw new InvalidConfigException("The '{$m}' module MUST be setup in your Yii configuration file.");
         }
