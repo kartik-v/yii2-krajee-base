@@ -65,7 +65,7 @@ class Config
         '\kartik\sortinput\SortableInput' => 'yii2-sortinput',
         '\kartik\tree\TreeViewInput' => 'yii2-tree-manager',
         '\kartik\money\MaskMoney' => 'yii2-money',
-        '\kartik\checkbox\CheckboxX' => 'yii2-checkbox',
+        '\kartik\checkbox\CheckboxX' => 'yii2-checkbox-x',
         '\kartik\slider\Slider' => 'yii2-slider',
     ];
 
@@ -106,7 +106,7 @@ class Config
             return;
         }
         $command = 'php composer.phar require ' . self::VENDOR_NAME;
-        $version = ': \'@dev\'';
+        $version = ' \'@dev\'';
         $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX . $name;
 
         if (is_array($repo)) {
