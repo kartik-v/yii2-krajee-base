@@ -13,11 +13,12 @@
         }
     ],
     "require": {
-        "yiisoft/yii2-bootstrap": "@dev"
+        "yiisoft/yii2-bootstrap": "@dev",
+        "yiisoft/yii2-bootstrap4": "@dev"
     },
     "autoload": {
         "psr-4": {
-            "kartik\\base\\": ""
+            "kartik\\base\\": "src"
         }
     },
     "extra": {

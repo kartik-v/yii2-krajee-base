@@ -5,6 +5,10 @@ Change Log: `yii2-krajee-base`
 
 **Date:** (work in progress)
 
+- (enh #87): Update `animate.css` to latest release.
+- (enh #86): Refactor source code into `src` folder.
+- (enh #85): Add bootstrap 4 support.
+- (enh #83): Correct CheckboxX repo in Config class.
 - (enh #82): Enhance `getModule` to retrieve correct module.
 
 ## Version 1.8.9
