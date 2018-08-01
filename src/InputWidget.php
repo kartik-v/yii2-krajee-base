@@ -120,6 +120,7 @@ class InputWidget extends YiiInputWidget
     /**
      * @var string a pjax container identifier if applicable inside which the widget will be rendered. If this is set,
      * the widget will automatically reinitialize on pjax render completion.
+     * tip: also acceptable any parent (to pjax container) node id
      */
     public $pjaxContainerId;
 
