@@ -41,19 +41,13 @@ A trait for Krajee widgets including prebuilt methods for plugin registration.
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
 ### [PluginAssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/PluginAssetBundle.php)
-Extension of the above [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AssetBundle.php) to include dependency on Bootstrap 3.x assets and javascript plugins.
-
-### [PluginBs4AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/PluginBs4AssetBundle.php)
-Extension of the above [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AssetBundle.php) to include dependency on Bootstrap 4.x assets and javascript plugins.
+Extension of the above [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AssetBundle.php) to include dependency on Bootstrap assets and javascript plugins.
 
 ### [AnimateAsset](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AnimateAsset.php)
 An asset bundle for loading various CSS3 animations and effects.
 
 ### [Html5Input](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Html5Input.php)
-A modified input widget for rendering HTML5 inputs with bootstrap 3.x styling and input group addons for Krajee's Yii 2 extensions.
-
-### [Html5Bs4Input](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Html5Bs4Input.php)
-A modified input widget for rendering HTML5 inputs with bootstrap 4.x styling and input group addons for Krajee's Yii 2 extensions.
+A modified input widget for rendering HTML5 inputs with bootstrap styling and input group addons for Krajee's Yii 2 extensions.
 
 ### [Config](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Config.php)
 A global configuration and validation helper class for usage across Krajee's Yii 2 extensions.

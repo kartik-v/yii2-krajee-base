@@ -9,6 +9,7 @@
 
 namespace kartik\base;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\web\View;
@@ -16,7 +17,7 @@ use yii\web\View;
 /**
  * WidgetTrait manages all methods used by Krajee widgets and input widgets.
  *
- * @property boolean $enablePopStateFix
+ * @property bool   $enablePopStateFix
  * @property string $pluginName
  * @property string $pluginDestroyJs
  * @property array  $options
@@ -32,6 +33,8 @@ use yii\web\View;
  */
 trait WidgetTrait
 {
+    use BootstrapTrait;
+
     /**
      * Sets a HTML5 data variable.
      *

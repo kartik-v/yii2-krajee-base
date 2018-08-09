@@ -25,6 +25,11 @@ class Widget extends YiiWidget
     use WidgetTrait;
 
     /**
+     * @var int|string the bootstrap library version
+     */
+    public $bsVersion;
+
+    /**
      * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
      * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
      * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
@@ -76,14 +81,16 @@ class Widget extends YiiWidget
 
     /**
      * @var string a pjax container identifier if applicable inside which the widget will be rendered. If this is set,
-     * the widget will automatically reinitialize on pjax render completion.
+     * the widget will automatically reinitialize on pjax render completion. 
+     *
+     * Note: You can set this to the HTML id attribute of any PJAX parent container element that encloses the widget.
      */
     public $pjaxContainerId;
 
     /**
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
      */
-    public $enablePopStateFix = true;
+    public $enablePopStateFix = false;
     
     /**
      * @var integer the position where the client JS hash variables for the widget will be loaded. 
@@ -122,12 +129,18 @@ class Widget extends YiiWidget
      * @var string the JSON encoded plugin options.
      */
     protected $_encOptions = '';
+    
+    /**
+     * @var bool flag to detect whether bootstrap 4.x version is set
+     */
+    private $_isBs4;
 
     /**
      * @inheritdoc
      */
     public function init()
     {
+        $this->initBsVersion();
         parent::init();
         $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
         $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);

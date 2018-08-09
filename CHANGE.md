@@ -5,6 +5,7 @@ Change Log: `yii2-krajee-base`
 
 **Date:** (work in progress)
 
+- Refactor code for Bootstrap 4 support.
 - (enh #87): Update `animate.css` to latest release.
 - (enh #86): Refactor source code into `src` folder.
 - (enh #85): Add bootstrap 4 support.

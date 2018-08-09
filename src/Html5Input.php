@@ -59,7 +59,9 @@ class Html5Input extends InputWidget
     public $noSupportOptions = [];
 
     /**
-     * @var string one of the SIZE modifiers 'lg', 'md', 'sm', 'xs'
+     * @var string one of the SIZE modifiers.
+     * - For BS 3.x: 'lg', 'md', 'sm', 'xs'
+     * - For BS 4.x: 'lg', 'sm'
      */
     public $size;
 
@@ -139,19 +141,31 @@ class Html5Input extends InputWidget
     protected function renderInput()
     {
         Html::addCssClass($this->options, 'form-control');
-        $size = isset($this->size) ? ' input-group-' . $this->size : '';
-        Html::addCssClass($this->containerOptions, 'input-group input-group-html5' . $size);
-        if (isset($this->width) && ((int)$this->width > 0)) {
-            Html::addCssStyle($this->html5Container, 'width:' . $this->width);
+        $size = !empty($this->size) ?  : '';
+        Html::addCssClass($this->containerOptions, ['input-group', 'input-group-html5']);
+        if (!empty($this->size)) {
+            Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }
-        Html::addCssClass($this->html5Container, 'input-group-addon addon-' . $this->type);
+        $prepend = $this->getAddonContent('prepend');
+        $preCaption = $this->getAddonContent('preCaption');
+        $append = $this->getAddonContent('append');
         $caption = $this->getInput('textInput');
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
+        $bs4 = $this->isBs4();
+        $addonCss = "addon-{$this->type}";
+        if ($bs4) {
+            Html::addCssClass($this->html5Options, $addonCss);
+        }
         $input = Html::input($this->type, $this->html5Options['id'], $value, $this->html5Options);
-        $prepend = static::getAddonContent(ArrayHelper::getValue($this->addon, 'prepend', ''));
-        $append = static::getAddonContent(ArrayHelper::getValue($this->addon, 'append', ''));
-        $preCaption = static::getAddonContent(ArrayHelper::getValue($this->addon, 'preCaption', ''));
-        $prepend .= Html::tag('span', $input, $this->html5Container);
+        if ($bs4) {
+            $prepend .= $input;
+        } else {
+            if (isset($this->width) && ((int)$this->width > 0)) {
+                Html::addCssStyle($this->html5Container, 'width:' . $this->width);
+            }
+            Html::addCssClass($this->html5Container, ['input-group-addon', $addonCss]);
+            $prepend .= Html::tag('span', $input, $this->html5Container);
+        }
         $content = Html::tag('div', $prepend . $preCaption . $caption . $append, $this->containerOptions);
         Html::addCssClass($this->noSupportOptions, 'alert alert-warning');
         if ($this->noSupport === false) {
@@ -171,22 +185,30 @@ class Html5Input extends InputWidget
     /**
      * Parses and returns addon content.
      *
-     * @param string|array $addon the addon parameter
+     * @param string $type the addon type
      *
      * @return string
      */
-    protected static function getAddonContent($addon)
+    protected function getAddonContent($type)
     {
+        $addon = ArrayHelper::getValue($this->addon, $type, '');
         if (is_array($addon)) {
             $content = ArrayHelper::getValue($addon, 'content', '');
             $options = ArrayHelper::getValue($addon, 'options', []);
-            if (ArrayHelper::getValue($addon, 'asButton', false) == true) {
-                Html::addCssClass($options, 'input-group-btn');
-                return Html::tag('div', $content, $options);
-            } else {
-                Html::addCssClass($options, 'input-group-addon');
-                return Html::tag('span', $content, $options);
-            }
+            $asButton = ArrayHelper::getValue($addon, 'asButton', false);
+            if ($this->isBs4()) {
+                $pos = $type === 'append' ? $type : 'prepend';
+                if ($asButton) {
+                    $out = $content;
+                } else {
+                    Html::addCssClass($options, 'input-group-text');
+                    $out = Html::tag('span', $content, $options);
+                }
+                return Html::tag('div', $out, ['class' => "input-group-{$pos}"]);
+            } 
+            Html::addCssClass($options, 'input-group-' . ($asButton ? 'btn' : 'addon'));
+            return Html::tag('span', $content, $options);
+            
         }
         return $addon;
     }
