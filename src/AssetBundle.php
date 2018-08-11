@@ -33,7 +33,7 @@ class AssetBundle extends BaseAssetBundle
      * @inheritdoc
      */
     public $depends = [
-        'yii\web\JqueryAsset'
+        'yii\web\YiiAsset'
     ];
     
     /**
@@ -55,7 +55,9 @@ class AssetBundle extends BaseAssetBundle
     protected function initBsAssets()
     {
         $lib = 'bootstrap' . ($this->isBs4() ? '4' : '');
-        $typ = $this->bsPluginEnabled ? 'Plugin' : ''; 
-        $this->depends[] = "yii\\{$lib}\\Bootstrap{$typ}Asset";
+        $this->depends[] = "yii\\{$lib}\\BootstrapAsset";
+        if ($this->bsPluginEnabled) {
+            $this->depends[] = "yii\\{$lib}\\BootstrapPluginAsset";
+        }
     }
 }
