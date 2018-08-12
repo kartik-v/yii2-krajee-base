@@ -1,9 +1,9 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
-## Version 1.9.0 (_under development_)
+## Version 1.9.0
 
-**Date:** (work in progress)
+**Date:** 12-Aug-2018
 
 - Refactor code for Bootstrap 4 support.
 - (enh #87): Update `animate.css` to latest release.

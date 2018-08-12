@@ -33,7 +33,7 @@ class Widget extends YiiWidget
      * This property can be set up globally in Yii application params in your Yii2 application config file.
      *
      * For example:
-     * `Yii::$app->params['bsVarsion'] = '4.x'` to use with Bootstrap 4.x globally
+     * `Yii::$app->params['bsVersion'] = '4.x'` to use with Bootstrap 4.x globally
      *
      * If this property is set, this setting will override the `Yii::$app->params['bsVersion']`. If this is not set, and
      * `Yii::$app->params['bsVersion']` is also not set, this will default to `3.x` (Bootstrap 3.x version).
