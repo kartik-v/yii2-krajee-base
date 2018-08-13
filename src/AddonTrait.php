@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.0
+ * @version   1.9.1
  */
 
 namespace kartik\base;
@@ -27,7 +27,7 @@ trait AddonTrait
      *
      * @param string $type the addon type - `prepend` or `append`. If any other value
      *        is set, it will default to `prepend`.
-     * @param bool   $isBs4 whether addon is to be rendered for BS4 version
+     * @param bool   $isBs4 whether addon is to be rendered for Bootstrap 4.x version
      * @return string
      */
     protected function getAddonContent($type, $isBs4)
@@ -54,7 +54,7 @@ trait AddonTrait
      * @param array $config the addon item configuration
      * @param string $type the addon type - `prepend` or `append`. If any other value
      *        is set, it will default to `prepend`.
-     * @param bool   $isBs4 whether addon is to be rendered for BS4 version
+     * @param bool   $isBs4 whether addon is to be rendered for Bootstrap 4.x version
      * @return string
      */    
     protected static function renderAddonItem($config, $type, $isBs4) {
