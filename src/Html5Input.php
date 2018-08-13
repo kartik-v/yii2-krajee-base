@@ -146,7 +146,8 @@ class Html5Input extends InputWidget
     {
         Html::addCssClass($this->options, 'form-control');
         $size = !empty($this->size) ?  : '';
-        Html::addCssClass($this->containerOptions, ['input-group', 'input-group-html5']);
+        $css = $this->isBs4() ? 'is-bs4' : 'is-bs3';
+        Html::addCssClass($this->containerOptions, ['input-group', 'input-group-html5', 'kv-type-' . $this->type, $css]);
         if (!empty($this->size)) {
             Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }
@@ -156,18 +157,14 @@ class Html5Input extends InputWidget
         $append = $this->getAddonContent('append', $isBs4);
         $caption = $this->getInput('textInput');
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
-        $addonCss = "addon-{$this->type}";
         Html::addCssClass($this->html5Options, 'form-control-' . $this->type);
         $input = Html::input($this->type, $this->html5Options['id'], $value, $this->html5Options);
         if ($this->isBs4()) {
             Html::addCssClass($this->html5Container, 'input-group-text');
-            $prepend .= Html::tag(
-                'span', 
-                Html::tag('span', $input, $this->html5Container), 
-                ['class' => 'input-group-prepend']
-            );
+            $out = Html::tag('span', $input, $this->html5Container);
+            $prepend .= Html::tag('span', $out, ['class' => 'input-group-prepend']);
         } else {
-            Html::addCssClass($this->html5Container, ['input-group-addon', $addonCss]);
+            Html::addCssClass($this->html5Container, ['input-group-addon']);
             $prepend .= Html::tag('span', $input, $this->html5Container);
         }
         $content = Html::tag('div', $prepend . $preCaption . $caption . $append, $this->containerOptions);
