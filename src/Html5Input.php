@@ -22,15 +22,12 @@ use yii\helpers\ArrayHelper;
  */
 class Html5Input extends InputWidget
 {
+    use AddonTrait;
+
     /**
      * @var string the HTML 5 input type
      */
     public $type;
-
-    /**
-     * @var string the width in 'px' or '%' of the HTML5 input container
-     */
-    public $width;
 
     /**
      * @var array the HTML attributes for the widget container
@@ -85,6 +82,12 @@ class Html5Input extends InputWidget
      *   - `options `: _array the HTML attributes for the append addon
      */
     public $addon = [];
+
+    /**
+     * @var string the width in 'px' or '%' of the HTML5 input container (deprecated and not used)
+     * - one can directly set the width in `html5Container['style']`
+     */
+    public $width;
 
     /**
      * @var array the list of allowed HTML input types.
@@ -146,23 +149,23 @@ class Html5Input extends InputWidget
         if (!empty($this->size)) {
             Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }
-        $prepend = $this->getAddonContent('prepend');
-        $preCaption = $this->getAddonContent('preCaption');
-        $append = $this->getAddonContent('append');
+        $isBs4 = $this->isBs4();
+        $prepend = $this->getAddonContent('prepend', $isBs4);
+        $preCaption = $this->getAddonContent('preCaption', $isBs4);
+        $append = $this->getAddonContent('append', $isBs4);
         $caption = $this->getInput('textInput');
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
-        $bs4 = $this->isBs4();
         $addonCss = "addon-{$this->type}";
-        if ($bs4) {
-            Html::addCssClass($this->html5Options, $addonCss);
-        }
+        Html::addCssClass($this->html5Options, 'form-control-' . $this->type);
         $input = Html::input($this->type, $this->html5Options['id'], $value, $this->html5Options);
-        if ($bs4) {
-            $prepend .= $input;
+        if ($this->isBs4()) {
+            Html::addCssClass($this->html5Container, 'input-group-text');
+            $prepend .= Html::tag(
+                'span', 
+                Html::tag('span', $input, $this->html5Container), 
+                ['class' => 'input-group-prepend']
+            );
         } else {
-            if (isset($this->width) && ((int)$this->width > 0)) {
-                Html::addCssStyle($this->html5Container, 'width:' . $this->width);
-            }
             Html::addCssClass($this->html5Container, ['input-group-addon', $addonCss]);
             $prepend .= Html::tag('span', $input, $this->html5Container);
         }
@@ -180,37 +183,6 @@ class Html5Input extends InputWidget
             $message = "\n<br>" . Html::tag('div', $noSupport, $this->noSupportOptions);
         }
         return "<!--[if lt IE 10]>\n{$caption}{$message}\n<![endif]--><![if gt IE 9]>\n{$content}\n<![endif]>";
-    }
-
-    /**
-     * Parses and returns addon content.
-     *
-     * @param string $type the addon type
-     *
-     * @return string
-     */
-    protected function getAddonContent($type)
-    {
-        $addon = ArrayHelper::getValue($this->addon, $type, '');
-        if (is_array($addon)) {
-            $content = ArrayHelper::getValue($addon, 'content', '');
-            $options = ArrayHelper::getValue($addon, 'options', []);
-            $asButton = ArrayHelper::getValue($addon, 'asButton', false);
-            if ($this->isBs4()) {
-                $pos = $type === 'append' ? $type : 'prepend';
-                if ($asButton) {
-                    $out = $content;
-                } else {
-                    Html::addCssClass($options, 'input-group-text');
-                    $out = Html::tag('span', $content, $options);
-                }
-                return Html::tag('div', $out, ['class' => "input-group-{$pos}"]);
-            } 
-            Html::addCssClass($options, 'input-group-' . ($asButton ? 'btn' : 'addon'));
-            return Html::tag('span', $content, $options);
-            
-        }
-        return $addon;
     }
 
     /**

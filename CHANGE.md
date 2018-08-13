@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.1 (_under development_)
+
+**Date:** (work in progress)
+
+- (enh #90): Implement AddonTrait.
+
 ## Version 1.9.0
 
 **Date:** 12-Aug-2018
