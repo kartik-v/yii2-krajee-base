@@ -11,6 +11,7 @@ namespace kartik\base;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\base\InvalidConfigException;
 
 /**
  * BootstrapTrait includes bootstrap library init and parsing methods
@@ -25,6 +26,8 @@ trait BootstrapTrait
     /**
      * Initializes bootstrap versions for the widgets and asset bundles.
      * Sets the [[_isBs4]] flag by parsing [[bsVersion]]
+     *
+     * @throws InvalidConfigException
      */
     protected function initBsVersion()
     {
@@ -34,6 +37,9 @@ trait BootstrapTrait
             $ver = (string) $this->bsVersion;
         }
         $this->_isBs4 = substr(trim($ver), 0, 1) === '4';
+        if ($this->_isBs4 && !class_exists('yii\bootstrap4\Html')) {
+            throw new InvalidConfigException("You must install 'yiisoft/yii2-bootstrap4' extension separately for Bootstrap 4.x version support. Dependency to 'yii2-bootstrap4' has not been included with 'yii2-krajee-base'.");
+        }
     }
     
     /**

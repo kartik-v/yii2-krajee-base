@@ -1,10 +1,11 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
-## Version 1.9.1 (_under development_)
+## Version 1.9.1
 
-**Date:** (work in progress)
+**Date:** 16-Aug-2018
 
+- (enh #92): Remove `yii2-bootstrap4` dependency.
 - (enh #90): Implement AddonTrait.
 
 ## Version 1.9.0
