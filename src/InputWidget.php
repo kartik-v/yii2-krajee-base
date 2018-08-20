@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
@@ -153,9 +153,9 @@ class InputWidget extends YiiInputWidget
      * @see http://php.net/manual/en/function.date.php
      */
     public $convertFormat = false;
-    
+
     /**
-     * @var integer the position where the client JS hash variables for the input widget will be loaded. 
+     * @var integer the position where the client JS hash variables for the input widget will be loaded.
      * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
      * rendering the widget via `renderAjax`.
      */
@@ -206,7 +206,7 @@ class InputWidget extends YiiInputWidget
      * @see [[\yii\i18n\I18N]]
      */
     protected $_msgCat = '';
-    
+
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
      */
@@ -214,6 +214,7 @@ class InputWidget extends YiiInputWidget
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -239,8 +240,10 @@ class InputWidget extends YiiInputWidget
             $this->_loadIndicator = self::LOAD_PROGRESS;
         }
         if ($this->hasModel()) {
-            $this->name = !isset($this->options['name']) ? Html::getInputName($this->model, $this->attribute) : $this->options['name'];
-            $this->value = !isset($this->options['value'])? Html::getAttributeValue($this->model, $this->attribute) : $this->options['value'];
+            $this->name = !isset($this->options['name']) ? Html::getInputName($this->model,
+                $this->attribute) : $this->options['name'];
+            $this->value = !isset($this->options['value']) ? Html::getAttributeValue($this->model,
+                $this->attribute) : $this->options['value'];
         }
         $this->initDisability($this->options);
     }
@@ -263,7 +266,7 @@ class InputWidget extends YiiInputWidget
     /**
      * Initialize the plugin language.
      *
-     * @param string  $property the name of language property in [[pluginOptions]].
+     * @param string $property the name of language property in [[pluginOptions]].
      * @param boolean $full whether to use the full language string. Defaults to `false`
      * which is the 2 (or 3) digit ISO-639 format.
      * Defaults to 'language'.
@@ -282,6 +285,7 @@ class InputWidget extends YiiInputWidget
      * @param string $assetPath the path to the assets
      * @param string $filePath the path to the JS file with the file name prefix
      * @param string $suffix the file name suffix - defaults to '.js'
+     * @throws \ReflectionException
      */
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js')
     {

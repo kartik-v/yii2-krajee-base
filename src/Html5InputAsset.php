@@ -3,7 +3,7 @@
 /**
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
  * @package yii2-krajee-base
- * @version 1.9.1
+ * @version 1.9.2
  */
 
 namespace kartik\base;

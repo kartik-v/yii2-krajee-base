@@ -1,6 +1,14 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.2
+
+**Date:** 20-Aug-2018
+
+- Enhance bootstrap 4 addon rendering.
+- Reformat and reorganize code.
+- Update animate.css to release v3.7.0.
+
 ## Version 1.9.1
 
 **Date:** 16-Aug-2018

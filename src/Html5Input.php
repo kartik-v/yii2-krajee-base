@@ -4,12 +4,13 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
 
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
@@ -51,7 +52,7 @@ class Html5Input extends InputWidget
     public $noSupport;
 
     /**
-     * @var string array the HTML attributes for container displaying unsupported browser message
+     * @var array the HTML attributes for container displaying unsupported browser message
      */
     public $noSupportOptions = [];
 
@@ -85,7 +86,7 @@ class Html5Input extends InputWidget
 
     /**
      * @var string the width in 'px' or '%' of the HTML5 input container. This property is DEPRECATED since
-     * v1.9.1 and will not cause any change to behaviors. One can directly set the width and other CSS styles
+     * v1.9.2 and will not cause any change to behaviors. One can directly set the width and other CSS styles
      * via the [[html5Container]] property.
      */
     public $width;
@@ -97,11 +98,12 @@ class Html5Input extends InputWidget
         'color',
         'range',
         'text',
-        'hidden'
+        'hidden',
     ];
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function run()
     {
@@ -110,6 +112,7 @@ class Html5Input extends InputWidget
 
     /**
      * Initializes the input.
+     * @throws InvalidConfigException
      */
     protected function initInput()
     {
@@ -141,13 +144,14 @@ class Html5Input extends InputWidget
 
     /**
      * Renders the special HTML5 input. Mainly useful for the color and range inputs
+     * @throws InvalidConfigException
      */
     protected function renderInput()
     {
         Html::addCssClass($this->options, 'form-control');
-        $size = !empty($this->size) ?  : '';
         $css = $this->isBs4() ? 'is-bs4' : 'is-bs3';
-        Html::addCssClass($this->containerOptions, ['input-group', 'input-group-html5', 'kv-type-' . $this->type, $css]);
+        Html::addCssClass($this->containerOptions,
+            ['input-group', 'input-group-html5', 'kv-type-' . $this->type, $css]);
         if (!empty($this->size)) {
             Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }

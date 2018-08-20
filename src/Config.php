@@ -4,12 +4,13 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
 
 use Yii;
+use ReflectionClass;
 use yii\base\InvalidConfigException;
 
 /**
@@ -24,6 +25,9 @@ class Config
     const NAMESPACE_PREFIX = '\\kartik\\';
     const DEFAULT_REASON = 'for your selected functionality';
 
+    /**
+     * @var array list of valid html inputs
+     */
     protected static $_validHtmlInputs = [
         'hiddenInput',
         'textInput',
@@ -36,18 +40,24 @@ class Config
         'checkboxList',
         'radioList',
         'input',
-        'fileInput'
+        'fileInput',
     ];
 
+    /**
+     * @var array list of valid dropdown inputs
+     */
     protected static $_validDropdownInputs = [
         'listBox',
         'dropDownList',
         'checkboxList',
         'radioList',
         'checkboxButtonGroup',
-        'radioButtonGroup'
+        'radioButtonGroup',
     ];
 
+    /**
+     * @var array list of valid Krajee input widgets
+     */
     protected static $_validInputWidgets = [
         '\kartik\typeahead\Typeahead' => ['yii2-widgets', 'yii2-widget-typeahead'],
         '\kartik\select2\Select2' => ['yii2-widgets', 'yii2-widget-select2'],
@@ -96,7 +106,7 @@ class Config
      * Validate a single extension dependency
      *
      * @param string $name the extension class name (without vendor namespace prefix)
-     * @param mixed  $repo the extension package repository names (without vendor name prefix)
+     * @param mixed $repo the extension package repository names (without vendor name prefix)
      * @param string $reason a user friendly message for dependency validation failure
      *
      * @throws InvalidConfigException if extension fails dependency validation
@@ -131,7 +141,7 @@ class Config
      * Gets list of namespaced Krajee input widget classes as an associative array, where the array keys are the
      * namespaced classes, and the array values are the names of the github repository to which these classes belong to.
      *
-     * @returns array
+     * @return array
      */
     public static function getInputWidgets()
     {
@@ -143,7 +153,7 @@ class Config
      *
      * @param string $type the type of input
      *
-     * @returns boolean
+     * @return boolean
      */
     public static function isValidInput($type)
     {
@@ -155,7 +165,7 @@ class Config
      *
      * @param string $type the type of input
      *
-     * @returns boolean
+     * @return boolean
      */
     public static function isHtmlInput($type)
     {
@@ -167,7 +177,7 @@ class Config
      *
      * @param string $type the type of input
      *
-     * @returns boolean
+     * @return boolean
      */
     public static function isInputWidget($type)
     {
@@ -179,7 +189,7 @@ class Config
      *
      * @param string $type the type of input
      *
-     * @returns boolean
+     * @return boolean
      */
     public static function isDropdownInput($type)
     {
@@ -220,13 +230,14 @@ class Config
      * @param object $object the called object instance
      *
      * @return string
+     * @throws \ReflectionException
      */
     public static function getCurrentDir($object)
     {
         if (empty($object)) {
             return '';
         }
-        $child = new \ReflectionClass($object);
+        $child = new ReflectionClass($object);
         return dirname($child->getFileName());
     }
 
@@ -244,7 +255,7 @@ class Config
     }
 
     /**
-     * Initializes and validates the module (deprecated since v1.9.1 - use `getModule` instead directly)
+     * Initializes and validates the module (deprecated since v1.9.2 - use `getModule` instead directly)
      *
      * @param string $class the Module class name
      *

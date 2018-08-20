@@ -4,11 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
 
+use yii\base\InvalidConfigException;
 use yii\base\Widget as YiiWidget;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
@@ -92,7 +93,7 @@ class Widget extends YiiWidget
 
     /**
      * @var string a pjax container identifier if applicable inside which the widget will be rendered. If this is set,
-     * the widget will automatically reinitialize on pjax render completion. 
+     * the widget will automatically reinitialize on pjax render completion.
      *
      * Note: You can set this to the HTML id attribute of any PJAX parent container element that encloses the widget.
      */
@@ -102,9 +103,9 @@ class Widget extends YiiWidget
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
      */
     public $enablePopStateFix = false;
-    
+
     /**
-     * @var integer the position where the client JS hash variables for the widget will be loaded. 
+     * @var integer the position where the client JS hash variables for the widget will be loaded.
      * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
      * rendering the widget via `renderAjax`.
      */
@@ -140,7 +141,7 @@ class Widget extends YiiWidget
      * @var string the JSON encoded plugin options.
      */
     protected $_encOptions = '';
-    
+
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
      */
@@ -148,6 +149,7 @@ class Widget extends YiiWidget
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function init()
     {

@@ -4,12 +4,11 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\web\View;
@@ -17,12 +16,12 @@ use yii\web\View;
 /**
  * WidgetTrait manages all methods used by Krajee widgets and input widgets.
  *
- * @property bool   $enablePopStateFix
+ * @property bool $enablePopStateFix
  * @property string $pluginName
  * @property string $pluginDestroyJs
- * @property array  $options
- * @property array  $pluginOptions
- * @property array  $_encOptions
+ * @property array $options
+ * @property array $pluginOptions
+ * @property array $_encOptions
  * @property string $_hashVar
  * @property string $_dataVar
  *
@@ -67,7 +66,7 @@ trait WidgetTrait
     /**
      * Adds an asset to the view.
      *
-     * @param View   $view the View object
+     * @param View $view the View object
      * @param string $file the asset file name
      * @param string $type the asset file type (css or js)
      * @param string $class the class name of the AssetBundle
@@ -141,7 +140,7 @@ trait WidgetTrait
             }
             $script .= ";\n";
         }
-        $script = $this->pluginDestroyJs . "\n"  . $script;
+        $script = $this->pluginDestroyJs . "\n" . $script;
         if (!empty($this->pluginEvents)) {
             foreach ($this->pluginEvents as $event => $handler) {
                 $function = $handler instanceof JsExpression ? $handler : new JsExpression($handler);
@@ -168,7 +167,7 @@ trait WidgetTrait
     /**
      * Registers a JS code block for the widget.
      *
-     * @param string  $js the JS code block to be registered
+     * @param string $js the JS code block to be registered
      * @param integer $pos the position at which the JS script tag should be inserted in a page. The possible values
      * are:
      * - [[View::POS_HEAD]]: in the head section
@@ -178,7 +177,7 @@ trait WidgetTrait
      *   automatically register the jQuery js file.
      * - [[View::POS_READY]]: enclosed within jQuery(document).ready(). This is the default value. Note that by using
      *   this position, the method will automatically register the jQuery js file.
-     * @param string  $key the key that identifies the JS code block. If null, it will use `$js` as the key. If two JS
+     * @param string $key the key that identifies the JS code block. If null, it will use `$js` as the key. If two JS
      * code blocks are registered with the same key, the latter will overwrite the former.
      */
     public function registerWidgetJs($js, $pos = View::POS_READY, $key = null)

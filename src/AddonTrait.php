@@ -4,12 +4,11 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
 
-use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -21,13 +20,12 @@ use yii\helpers\Html;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
 trait AddonTrait
-{        
+{
     /**
      * Parses and returns addon content.
      *
-     * @param string $type the addon type - `prepend` or `append`. If any other value
-     *        is set, it will default to `prepend`.
-     * @param bool   $isBs4 whether addon is to be rendered for Bootstrap 4.x version
+     * @param string $type the addon type `prepend` or `append`. If any other value is set, it will default to `prepend`
+     * @param bool $isBs4 whether addon is to be rendered for Bootstrap 4.x version
      * @return string
      */
     protected function getAddonContent($type, $isBs4)
@@ -37,27 +35,31 @@ trait AddonTrait
             return $addon;
         }
         if (isset($addon['content'])) {
-            return static::renderAddonItem($addon, $type, $isBs4);
-        }
-        $out = '';
-        foreach ($addon as $item) {
-            if (is_array($item) && isset($item['content'])) {
-                $out .= static::renderAddonItem($item, $type, $isBs4);
+            $out = static::renderAddonItem($addon, $isBs4);
+        } else {
+            $out = '';
+            foreach ($addon as $item) {
+                if (is_array($item) && isset($item['content'])) {
+                    $out .= static::renderAddonItem($item, $isBs4);
+                }
             }
         }
-        return $out;
+        if (!$isBs4) {
+            return $out;
+        }
+        $pos = $type === 'append' ? 'append' : 'prepend';
+        return Html::tag('div', $out, ['class' => "input-group-{$pos}"]);
     }
-     
+
     /**
      * Renders an addon item based on its configuration
      *
      * @param array $config the addon item configuration
-     * @param string $type the addon type - `prepend` or `append`. If any other value
-     *        is set, it will default to `prepend`.
-     * @param bool   $isBs4 whether addon is to be rendered for Bootstrap 4.x version
+     * @param bool $isBs4 whether addon is to be rendered for Bootstrap 4.x version
      * @return string
-     */    
-    protected static function renderAddonItem($config, $type, $isBs4) {
+     */
+    protected static function renderAddonItem($config, $isBs4)
+    {
         $content = ArrayHelper::getValue($config, 'content', '');
         $options = ArrayHelper::getValue($config, 'options', []);
         $asButton = ArrayHelper::getValue($config, 'asButton', false);
@@ -65,13 +67,10 @@ trait AddonTrait
             Html::addCssClass($options, 'input-group-' . ($asButton ? 'btn' : 'addon'));
             return Html::tag('span', $content, $options);
         }
-        $pos = $type === 'append' ? $type : 'prepend';
         if ($asButton) {
-            $out = $content;
-        } else {
-            Html::addCssClass($options, 'input-group-text');
-            $out = Html::tag('span', $content, $options);
+            return $content;
         }
-        return Html::tag('div', $out, ['class' => "input-group-{$pos}"]);
+        Html::addCssClass($options, 'input-group-text');
+        return Html::tag('span', $content, $options);
     }
 }

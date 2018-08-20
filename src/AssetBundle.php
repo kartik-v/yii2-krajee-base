@@ -4,10 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.1
+ * @version   1.9.2
  */
 
 namespace kartik\base;
+
+use yii\base\InvalidConfigException;
 
 /**
  * Asset bundle used for all Krajee extensions with bootstrap and jquery dependency.
@@ -39,29 +41,32 @@ class AssetBundle extends BaseAssetBundle
      * @var bool whether the bootstrap JS plugins are to be loaded and enabled
      */
     public $bsPluginEnabled = false;
-    
+
     /**
      * @inheritdoc
      */
     public $depends = [
-        'yii\web\YiiAsset'
+        'yii\web\YiiAsset',
     ];
-    
+
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
      */
     private $_isBs4;
-    
+
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
-    public function init() {
+    public function init()
+    {
         $this->initBsAssets();
         parent::init();
     }
-    
+
     /**
      * Initialize bootstrap assets dependencies
+     * @throws InvalidConfigException
      */
     protected function initBsAssets()
     {
