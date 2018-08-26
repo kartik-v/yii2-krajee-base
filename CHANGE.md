@@ -1,6 +1,14 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.3
+
+**Date:** _under development_
+
+- Update `Module` to include `bsVersion` configuration.
+- Update `AssetBundle` to include new method `registerBundle` for reading BS Version from widgets.
+- Update `BootstrapTrait` to include better BS Version parsing methods.
+
 ## Version 1.9.2
 
 **Date:** 20-Aug-2018

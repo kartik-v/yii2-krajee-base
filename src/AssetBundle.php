@@ -4,12 +4,15 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.2
+ * @version   1.9.3
  */
 
 namespace kartik\base;
 
+use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
+use yii\web\View;
 
 /**
  * Asset bundle used for all Krajee extensions with bootstrap and jquery dependency.
@@ -75,5 +78,25 @@ class AssetBundle extends BaseAssetBundle
         if ($this->bsPluginEnabled) {
             $this->depends[] = "yii\\{$lib}\\BootstrapPluginAsset";
         }
+    }
+
+    /**
+     * Registers this asset bundle with a view after validating the bootstrap version
+     * @param View $view the view to be registered with
+     * @param string $bsVer the bootstrap version
+     * @return static the registered asset bundle instance
+     */
+    public static function registerBundle($view, $bsVer = null)
+    {
+        $currVer = ArrayHelper::getValue(Yii::$app->params, 'bsVersion', null);
+        if (empty($bsVer) || static::isSameVersion($currVer, $bsVer)) {
+            return static::register($view);
+        }
+        Yii::$app->params['bsVersion'] = $bsVer;
+        $out = static::register($view);
+        if (!empty($currVer)) {
+            Yii::$app->params['bsVersion'] = $currVer;
+        }
+        return $out;
     }
 }

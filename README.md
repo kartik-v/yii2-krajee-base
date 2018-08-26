@@ -35,6 +35,12 @@ Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/
 ### [TranslationTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/TranslationTrait.php)
 A trait for handling translation functionality using Yii's i18n components.
 
+### [BootstrapTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/BootstrapTrait.php)
+A trait for bootstrap 3.x and 4.x version parsing functionality for Krajee extensions.
+
+### [AddonTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AddonTrait.php)
+A trait for rendering bootstrap 3.x or 4.x input group addons. 
+
 ### [WidgetTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/WidgetTrait.php)
 A trait for Krajee widgets including prebuilt methods for plugin registration.
 	
