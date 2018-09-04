@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.4
+
+**Date:** _under development_
+
+- Add Bootstrap button default CSS and icon prefix parsing.
+
 ## Version 1.9.3
 
 **Date:** 29-Aug-2018

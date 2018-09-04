@@ -51,9 +51,19 @@ class Module extends YiiModule
     protected $_msgCat = '';
 
     /**
+     * @var string default icon CSS prefix
+     */
+    protected $_defaultIconPrefix;
+
+    /**
+     * @var string default bootstrap button CSS
+     */
+    protected $_defaultBtnCss;
+
+    /**
      * @var bool flag to detect whether bootstrap 4.x version is set
      */
-    private $_isBs4;
+    protected $_isBs4;
 
     /**
      * @inheritdoc

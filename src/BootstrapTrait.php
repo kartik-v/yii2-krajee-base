@@ -17,6 +17,8 @@ use yii\base\InvalidConfigException;
  * BootstrapTrait includes bootstrap library init and parsing methods
  *
  * @property string $bsVersion
+ * @property string $_defaultIconPrefix
+ * @property string $_defaultBtnCss
  * @property bool $_isBs4
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
@@ -33,11 +35,19 @@ trait BootstrapTrait
     {
         $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3.x') : $this->bsVersion;
         $this->_isBs4 = static::parseVer($v) === '4';
-        if ($this->_isBs4 && !class_exists('yii\bootstrap4\Html')) {
-            throw new InvalidConfigException(
-                "You must install 'yiisoft/yii2-bootstrap4' extension separately for Bootstrap 4.x version support. " .
-                "Dependency to 'yii2-bootstrap4' has not been included with 'yii2-krajee-base'."
-            );
+        $this->_defaultIconPrefix = 'glyphicon glyphicon-';
+        $this->_defaultBtnCss = 'btn-default';
+        if ($this->_isBs4) {
+            if (!class_exists('yii\bootstrap4\Html')) {
+                throw new InvalidConfigException(
+                    "You must install 'yiisoft/yii2-bootstrap4' extension for Bootstrap 4.x version support. " .
+                    "Dependency to 'yii2-bootstrap4' has not been included with 'yii2-krajee-base'. To resolve, you " .
+                    "must add 'yiisoft/yii2-bootstrap4' to the 'require' section of your application's composer.json " .
+                    "and then run 'composer update'."
+                );
+            }
+            $this->_defaultIconPrefix = 'fas fa-';
+            $this->_defaultBtnCss = 'btn-outline-secondary';
         }
     }
 
@@ -53,6 +63,24 @@ trait BootstrapTrait
             $this->initBsVersion();
         }
         return $this->_isBs4;
+    }
+
+    /**
+     * Gets the default button CSS
+     * @return string
+     */
+    public function getDefaultBtnCss()
+    {
+        return $this->_defaultBtnCss;
+    }
+
+    /**
+     * Gets the default icon css prefix
+     * @return string
+     */
+    public function getDefaultIconPrefix()
+    {
+        return $this->_defaultIconPrefix;
     }
 
     /**
