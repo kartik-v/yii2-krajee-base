@@ -5,6 +5,7 @@ Change Log: `yii2-krajee-base`
 
 **Date:** _under development_
 
+- (enh #94): Refactor code and consolidate / optimize properties within traits. 
 - Add Bootstrap button default CSS and icon prefix parsing.
 
 ## Version 1.9.3

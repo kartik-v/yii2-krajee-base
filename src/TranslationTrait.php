@@ -16,13 +16,25 @@ use yii\helpers\ArrayHelper;
 /**
  * TranslationTrait manages methods for all translations used in Krajee extensions
  *
- * @property array $i18n
- *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.9.3
  */
 trait TranslationTrait
 {
+    /**
+     * @var array the the internalization configuration for this widget.
+     *
+     * @see [[\yii\i18n\I18N]] component for understanding the configuration details.
+     */
+    public $i18n = [];
+
+    /**
+     * @var string translation message file category name for i18n.
+     *
+     * @see [[\yii\i18n\I18N]]
+     */
+    protected $_msgCat = '';
+
     /**
      * Yii i18n messages configuration for generating translations
      *

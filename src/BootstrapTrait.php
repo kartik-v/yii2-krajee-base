@@ -16,15 +16,42 @@ use yii\base\InvalidConfigException;
 /**
  * BootstrapTrait includes bootstrap library init and parsing methods
  *
- * @property string $bsVersion
- * @property string $_defaultIconPrefix
- * @property string $_defaultBtnCss
- * @property bool $_isBs4
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
 trait BootstrapTrait
 {
+    /**
+     * @var int|string the bootstrap library version.
+     *
+     * To use with bootstrap 3 - you can set this to any string starting with 3 (e.g. `3` or `3.3.7` or `3.x`)
+     * To use with bootstrap 4 - you can set this to any string starting with 4 (e.g. `4` or `4.1.1` or `4.x`)
+     *
+     * This property can be set up globally in Yii application params in your Yii2 application config file.
+     *
+     * For example:
+     * `Yii::$app->params['bsVersion'] = '4.x'` to use with Bootstrap 4.x globally
+     *
+     * If this property is set, this setting will override the `Yii::$app->params['bsVersion']`. If this is not set, and
+     * `Yii::$app->params['bsVersion']` is also not set, this will default to `3.x` (Bootstrap 3.x version).
+     */
+    public $bsVersion;
+
+    /**
+     * @var string default icon CSS prefix
+     */
+    protected $_defaultIconPrefix;
+
+    /**
+     * @var string default bootstrap button CSS
+     */
+    protected $_defaultBtnCss;
+
+    /**
+     * @var bool flag to detect whether bootstrap 4.x version is set
+     */
+    protected $_isBs4;
+
     /**
      * Initializes bootstrap versions for the widgets and asset bundles.
      * Sets the [[_isBs4]] flag by parsing [[bsVersion]]

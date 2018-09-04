@@ -9,6 +9,7 @@
 
 namespace kartik\base;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;
 use yii\web\View;
@@ -16,14 +17,7 @@ use yii\web\View;
 /**
  * WidgetTrait manages all methods used by Krajee widgets and input widgets.
  *
- * @property bool $enablePopStateFix
- * @property string $pluginName
- * @property string $pluginDestroyJs
  * @property array $options
- * @property array $pluginOptions
- * @property array $_encOptions
- * @property string $_hashVar
- * @property string $_dataVar
  *
  * @method View getView()
  *
@@ -33,6 +27,87 @@ use yii\web\View;
 trait WidgetTrait
 {
     use BootstrapTrait;
+
+    /**
+     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
+     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
+     * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
+     */
+    public $moduleId;
+
+    /**
+     * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
+     */
+    public $enablePopStateFix = false;
+
+    /**
+     * @var string the plugin name
+     */
+    public $pluginName;
+
+    /**
+     * @var string the javascript that will be used to destroy the jQuery plugin
+     */
+    public $pluginDestroyJs;
+
+    /**
+     * @var array widget JQuery events. You must define events in `event-name => event-function` format. For example:
+     *
+     * ~~~
+     * pluginEvents = [
+     *     'change' => 'function() { log("change"); }',
+     *     'open' => 'function() { log("open"); }',
+     * ];
+     * ~~~
+     */
+    public $pluginEvents = [];
+
+    /**
+     * @var array widget plugin options.
+     */
+    public $pluginOptions = [];
+
+    /**
+     * @var array widget plugin options.
+     */
+    public $defaultPluginOptions = [];
+
+    /**
+     * @var array default HTML attributes or other settings for widgets.
+     */
+    public $defaultOptions = [];
+
+    /**
+     * @var string the identifier for the PJAX widget container if the editable widget is to be rendered inside a PJAX
+     * container. This will ensure the PopoverX plugin is initialized correctly after a PJAX request is completed.
+     * If this is not set, no re-initialization will be done for pjax.
+     */
+    public $pjaxContainerId;
+
+    /**
+     * @var integer the position where the client JS hash variables for the input widget will be loaded.
+     * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
+     * rendering the widget via `renderAjax`.
+     */
+    public $hashVarLoadPosition = View::POS_HEAD;
+
+    /**
+     * @var string the generated hashed variable name that will store the JSON encoded pluginOptions in
+     * [[View::POS_HEAD]].
+     */
+    protected $_hashVar;
+
+    /**
+     * @var string the JSON encoded plugin options.
+     */
+    protected $_encOptions = '';
+
+    /**
+     * @var string the HTML5 data variable name that will be used to store the Json encoded pluginOptions within the
+     * element on which the jQuery plugin will be initialized.
+     */
+    protected $_dataVar;
 
     /**
      * Sets a HTML5 data variable.
@@ -45,6 +120,14 @@ trait WidgetTrait
         $this->_dataVar = "data-krajee-{$name}";
     }
 
+    /**
+     * Merge default options
+     */
+    protected function mergeDefaultOptions()
+    {
+        $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
+        $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);
+    }
 
     /**
      * Generates the `pluginDestroyJs` script if it is not set.
