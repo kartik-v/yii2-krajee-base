@@ -32,22 +32,6 @@ use yii\widgets\InputWidget as YiiInputWidget;
  * ]) ?>
  * ```
  *
- * @property string|int $bsVersion
- * @property bool $enablePopStateFix
- * @property string $pluginDestroyJs
- * @property array $pluginEvents
- * @property array $pluginOptions
- * @property array $defaultPluginOptions
- * @property array $defaultOptions
- * @property array $i18n
- * @property string $_defaultIconPrefix
- * @property string $_defaultBtnCss
- * @property integer $hashVarLoadPosition
- * @property string $_hashVar
- * @property string $_dataVar
- * @property array $_encOptions
- * @property bool $_isBs4
- *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
@@ -56,6 +40,9 @@ class InputWidget extends YiiInputWidget
     use TranslationTrait;
     use WidgetTrait;
 
+    /**
+     * @var string the HTML markup for widget loading indicator
+     */
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
 
     /**
