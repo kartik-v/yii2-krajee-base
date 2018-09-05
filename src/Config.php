@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.3
+ * @version   1.9.4
  */
 
 namespace kartik\base;
@@ -21,8 +21,19 @@ use yii\base\InvalidConfigException;
  */
 class Config
 {
+    /**
+     * @var string the Krajee repo vendor name
+     */
     const VENDOR_NAME = 'kartik-v/';
+
+    /**
+     * @var string the Krajee extension namespace
+     */
     const NAMESPACE_PREFIX = '\\kartik\\';
+
+    /**
+     * @var string the default reason appended for exceptions
+     */
     const DEFAULT_REASON = 'for your selected functionality';
 
     /**
@@ -74,7 +85,7 @@ class Config
         '\kartik\daterange\DateRangePicker' => 'yii2-date-range',
         '\kartik\sortinput\SortableInput' => 'yii2-sortinput',
         '\kartik\tree\TreeViewInput' => 'yii2-tree-manager',
-        '\kartik\money\MaskMoney' => 'yii2-money', // deprecated
+        '\kartik\money\MaskMoney' => 'yii2-money', // deprecated and replaced by yii2-number
         '\kartik\number\NumberControl' => 'yii2-number',
         '\kartik\checkbox\CheckboxX' => 'yii2-checkbox-x',
         '\kartik\slider\Slider' => 'yii2-slider',
@@ -255,7 +266,7 @@ class Config
     }
 
     /**
-     * Initializes and validates the module (deprecated since v1.9.3 - use `getModule` instead directly)
+     * Initializes and validates the module (deprecated since v1.9.4 - use `getModule` instead directly)
      *
      * @param string $class the Module class name
      *

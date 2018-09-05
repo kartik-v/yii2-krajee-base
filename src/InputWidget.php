@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.3
+ * @version   1.9.4
  */
 
 namespace kartik\base;
@@ -57,11 +57,6 @@ class InputWidget extends YiiInputWidget
     use WidgetTrait;
 
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
-
-    /**
-     * @var string the name of the jQuery plugin.
-     */
-    public $pluginName = '';
 
     /**
      * @var string the language configuration (e.g. 'fr-FR', 'zh-CN'). The format for the language/locale is

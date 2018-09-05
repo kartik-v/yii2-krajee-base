@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.3
+ * @version   1.9.4
  */
 
 namespace kartik\base;
@@ -86,7 +86,7 @@ class Html5Input extends InputWidget
 
     /**
      * @var string the width in 'px' or '%' of the HTML5 input container. This property is DEPRECATED since
-     * v1.9.3 and will not cause any change to behaviors. One can directly set the width and other CSS styles
+     * v1.9.4 and will not cause any change to behaviors. One can directly set the width and other CSS styles
      * via the [[html5Container]] property.
      */
     public $width;

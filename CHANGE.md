@@ -3,8 +3,9 @@ Change Log: `yii2-krajee-base`
 
 ## Version 1.9.4
 
-**Date:** _under development_
+**Date:** 05-Sep-2018
 
+- (bug #95): Correct `InputWidget`. 
 - (enh #94): Refactor code and consolidate / optimize properties within traits. 
 - Add Bootstrap button default CSS and icon prefix parsing.
 
