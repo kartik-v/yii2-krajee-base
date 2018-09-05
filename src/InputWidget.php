@@ -59,11 +59,6 @@ class InputWidget extends YiiInputWidget
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
 
     /**
-     * @var string the name of the jQuery plugin.
-     */
-    public $pluginName = '';
-
-    /**
      * @var string the language configuration (e.g. 'fr-FR', 'zh-CN'). The format for the language/locale is
      * ll-CC where ll is a two or three letter lowercase code for a language according to ISO-639 and
      * CC is the country code according to ISO-3166.
