@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.5
+
+**Date:** 20-Sep-2018
+
+- Enhance `Config` to include `Config::hasCssClass` method.
+
 ## Version 1.9.4
 
 **Date:** 05-Sep-2018
