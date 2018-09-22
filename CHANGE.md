@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.6
+
+**Date:** 22-Sep-2018
+
+- Implement `BootstrapInterface` and `bsColCssPrefixes`.
+
 ## Version 1.9.5
 
 **Date:** 20-Sep-2018

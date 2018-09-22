@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.5
+ * @version   1.9.6
  */
 
 namespace kartik\base;
@@ -36,6 +36,31 @@ trait BootstrapTrait
      * `Yii::$app->params['bsVersion']` is also not set, this will default to `3.x` (Bootstrap 3.x version).
      */
     public $bsVersion;
+
+    /**
+     * @var array the bootstrap grid column css prefixes mapping, the key is the bootstrap versions, and the value is
+     * an array containing the sizes and their corresponding grid column css prefixes. The class using this trait, must
+     * implement BootstrapInterface. If not set will default to:
+     * ```php
+     * [
+     *   '3' => [
+     *      self::SIZE_X_SMALL => 'col-xs-',
+     *      self::SIZE_SMALL => 'col-sm-',
+     *      self::SIZE_MEDIUM => 'col-md-',
+     *      self::SIZE_LARGE => 'col-lg-',
+     *      self::SIZE_X_LARGE => 'col-lg-',
+     *   ],
+     *   '4' => [
+     *      self::SIZE_X_SMALL => 'col-',
+     *      self::SIZE_SMALL => 'col-sm-',
+     *      self::SIZE_MEDIUM => 'col-md-',
+     *      self::SIZE_LARGE => 'col-lg-',
+     *      self::SIZE_X_LARGE => 'col-xl-',
+     *   ],
+     * ];
+     * ```
+     */
+    public $bsColCssPrefixes = [];
 
     /**
      * @var string default icon CSS prefix
@@ -75,6 +100,29 @@ trait BootstrapTrait
             }
             $this->_defaultIconPrefix = 'fas fa-';
             $this->_defaultBtnCss = 'btn-outline-secondary';
+        }
+        $interface = BootstrapInterface::class;
+        if (!($this instanceof $interface)) {
+            $class = get_called_class();
+            throw new InvalidConfigException("'{$class}' must implement '{$interface}'.");
+        }
+        if (empty($this->bsColCssPrefixes)) {
+            $this->bsColCssPrefixes = [
+                '3' => [
+                    self::SIZE_X_SMALL => 'col-xs-',
+                    self::SIZE_SMALL => 'col-sm-',
+                    self::SIZE_MEDIUM => 'col-md-',
+                    self::SIZE_LARGE => 'col-lg-',
+                    self::SIZE_X_LARGE => 'col-lg-',
+                ],
+                '4' => [
+                    self::SIZE_X_SMALL => 'col-',
+                    self::SIZE_SMALL => 'col-sm-',
+                    self::SIZE_MEDIUM => 'col-md-',
+                    self::SIZE_LARGE => 'col-lg-',
+                    self::SIZE_X_LARGE => 'col-xl-',
+                ],
+            ];
         }
     }
 

@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.5
+ * @version   1.9.6
  */
 
 namespace kartik\base;
@@ -18,7 +18,7 @@ use yii\base\Widget as YiiWidget;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since  1.0
  */
-class Widget extends YiiWidget
+class Widget extends YiiWidget implements BootstrapInterface
 {
     use TranslationTrait;
     use WidgetTrait;
