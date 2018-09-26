@@ -4,23 +4,114 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.6
+ * @version   1.9.7
  */
 
 namespace kartik\base;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\base\InvalidConfigException;
 
 /**
- * BootstrapTrait includes bootstrap library init and parsing methods
- *
+ * BootstrapTrait includes bootstrap library init and parsing methods. The class which uses this trait, must also
+ * necessarily implement the [[BootstrapInterface]].
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
 trait BootstrapTrait
 {
+    /**
+     * @var array CSS conversion mappings for BS3.x and BS4.x. This is set as `$key => $value` pairs where:
+     * - `$key`: _string_, is the style type to be configured (one of the constants starting with `BS_`)
+     * - `$value`: _array_, consists of 2 array items:
+     *      - the first item represents the CSS class(es) for Bootstrap 3.x.
+     *      - the second item represents the CSS class(es) for Bootstrap 4.x
+     *   If more than one CSS class is to be applied - it is represented as a sub array of the relevant CSS classes.
+     */
+    public static $bsCssMap = [
+        self::BS_PANEL => ['panel', 'card'],
+        self::BS_PANEL_HEADING => ['panel-heading', 'card-header'],
+        self::BS_PANEL_TITLE => ['panel-title', 'card-title'],
+        self::BS_PANEL_BODY => ['panel-body', 'card-body'],
+        self::BS_PANEL_FOOTER => ['panel-footer', 'card-footer'],
+        self::BS_PANEL_PRIMARY => ['panel-primary', ['bg-primary', 'text-white']],
+        self::BS_PANEL_SUCCESS => ['panel-success', ['bg-success', 'text-white']],
+        self::BS_PANEL_INFO => ['panel-info', ['bg-info', 'text-white']],
+        self::BS_PANEL_WARNING => ['panel-warning', ['bg-warning', 'text-white']],
+        self::BS_PANEL_DANGER => ['panel-danger', ['bg-danger', 'text-white']],
+        self::BS_LABEL => ['label', 'badge'],
+        self::BS_BADGE => ['badge', ['badge', 'badge-pill']],
+        self::BS_LABEL_DEFAULT => ['label-default', 'badge-secondary'],
+        self::BS_LABEL_PRIMARY => ['label-primary', 'badge-primary'],
+        self::BS_LABEL_SUCCESS => ['label-success', 'badge-success'],
+        self::BS_LABEL_INFO => ['label-info', 'badge-info'],
+        self::BS_LABEL_WARNING => ['label-warning', 'badge-warning'],
+        self::BS_LABEL_DANGER => ['label-danger', 'badge-danger'],
+        self::BS_TABLE_ACTIVE => ['default', 'table-active'],
+        self::BS_TABLE_PRIMARY => ['primary', 'table-primary'],
+        self::BS_TABLE_SUCCESS => ['success', 'table-success'],
+        self::BS_TABLE_INFO => ['info', 'table-info'],
+        self::BS_TABLE_WARNING => ['warning', 'table-warning'],
+        self::BS_TABLE_DANGER => ['danger', 'table-danger'],
+        self::BS_PROGRESS_BAR_ACTIVE => ['active', 'progress-bar-animated'],
+        self::BS_PROGRESS_BAR_PRIMARY => ['progress-bar-primary', 'bg-primary'],
+        self::BS_PROGRESS_BAR_SUCCESS => ['progress-bar-success', 'bg-success'],
+        self::BS_PROGRESS_BAR_INFO => ['progress-bar-info', 'bg-info'],
+        self::BS_PROGRESS_BAR_WARNING => ['progress-bar-warning', 'bg-warning'],
+        self::BS_PROGRESS_BAR_DANGER => ['progress-bar-danger', 'bg-danger'],
+        self::BS_WELL => ['well', ['card', 'card-body']],
+        self::BS_WELL_SM => ['well-sm', ['card', 'card-body', 'p-2']],
+        self::BS_WELL_LG => ['well-lg', ['card', 'card-body', 'p-4']],
+        self::BS_THUMBNAIL => ['thumbnail', ['card', 'card-body']],
+        self::BS_NAVBAR_DEFAULT => ['navbar-default', 'navbar-light'],
+        self::BS_NAVBAR_TOGGLE => ['navbar-toggle', 'navbar-toggler'],
+        self::BS_NAVBAR_RIGHT => ['navbar-right', 'ml-auto'],
+        self::BS_NAVBAR_BTN => ['navbar-btn', 'nav-item'],
+        self::BS_NAVBAR_FIXTOP => ['navbar-fixed-top', 'fixed-top'],
+        self::BS_NAV_STACKED => ['nav-stacked', 'flex-column'],
+        self::BS_NAV_ITEM => ['', 'nav-item'],
+        self::BS_NAV_LINK => ['', 'nav-link'],
+        self::BS_PAGE_ITEM => ['', 'page-item'],
+        self::BS_PAGE_LINK => ['', 'page-link'],
+        self::BS_LIST_INLINE_ITEM => ['', 'list-inline-item'],
+        self::BS_BTN_DEFAULT => ['btn-default', 'btn-secondary'],
+        self::BS_IMG_RESPONSIVE => ['img-responsive', 'img-fluid'],
+        self::BS_IMG_CIRCLE => ['img-circle', 'rounded-circle'],
+        self::BS_IMG_ROUNDED => ['img-rounded', 'rounded'],
+        self::BS_RADIO => ['radio', 'form-check'],
+        self::BS_CHECKBOX => ['checkbox', 'form-check'],
+        self::BS_INPUT_LG => ['input-lg', 'form-control-lg'],
+        self::BS_INPUT_SM => ['input-sm', 'form-control-sm'],
+        self::BS_CONTROL_LABEL => ['control-label', 'col-form-label'],
+        self::BS_TABLE_CONDENSED => ['table-condensed', 'table-sm'],
+        self::BS_CAROUSEL_ITEM => ['item', 'carousel-item'],
+        self::BS_CAROUSEL_ITEM_NEXT => ['next', 'carousel-item-next'],
+        self::BS_CAROUSEL_ITEM_PREV => ['prev', 'carousel-item-prev'],
+        self::BS_CAROUSEL_ITEM_LEFT => ['left', 'carousel-item-left'],
+        self::BS_CAROUSEL_ITEM_RIGHT => ['right', 'carousel-item-right'],
+        self::BS_CAROUSEL_CONTROL_LEFT => [['carousel-control', 'left'], 'carousel-control-left'],
+        self::BS_CAROUSEL_CONTROL_RIGHT => [['carousel-control', 'right'], 'carousel-control-right'],
+        self::BS_HELP_BLOCK => ['help-block', 'form-text'],
+        self::BS_PULL_RIGHT => ['pull-right', 'float-right'],
+        self::BS_PULL_LEFT => ['pull-left', 'float-left'],
+        self::BS_CENTER_BLOCK => ['center-block', ['mx-auto', 'd-block']],
+        self::BS_HIDDEN_PRINT => ['hidden-print', 'd-print-none'],
+        self::BS_HIDDEN_XS => ['hidden-xs', 'd-none'],
+        self::BS_HIDDEN_SM => ['hidden-sm', 'd-sm-none'],
+        self::BS_HIDDEN_MD => ['hidden-md', 'd-md-none'],
+        self::BS_HIDDEN_LG => ['hidden-lg', 'd-lg-none'],
+        self::BS_VISIBLE_PRINT => ['visible-print-block', ['d-print-block', 'd-none']],
+        self::BS_VISIBLE_XS => ['visible-xs', ['d-block', 'd-sm-none']],
+        self::BS_VISIBLE_SM => ['visible-sm', ['d-none', 'd-sm-block', 'd-md-none']],
+        self::BS_VISIBLE_MD => ['visible-md', ['d-none', 'd-md-block', 'd-lg-none']],
+        self::BS_VISIBLE_LG => ['visible-md', ['d-none', 'd-lg-block', 'd-xl-none']],
+        self::BS_FORM_CONTROL_STATIC => ['form-control-static', 'form-control-plaintext'],
+        self::BS_DROPDOWN_DIVIDER => ['divider', 'dropdown-divider'],
+        self::BS_SHOW => ['in', 'show'],
+    ];
+
     /**
      * @var int|string the bootstrap library version.
      *
@@ -85,7 +176,7 @@ trait BootstrapTrait
      */
     protected function initBsVersion()
     {
-        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3.x') : $this->bsVersion;
+        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') : $this->bsVersion;
         $this->_isBs4 = static::parseVer($v) === '4';
         $this->_defaultIconPrefix = 'glyphicon glyphicon-';
         $this->_defaultBtnCss = 'btn-default';
@@ -156,6 +247,52 @@ trait BootstrapTrait
     public function getDefaultIconPrefix()
     {
         return $this->_defaultIconPrefix;
+    }
+
+    /**
+     * Gets bootstrap css class by parsing the bootstrap version for the specified BS CSS type
+     * @param string $type the bootstrap CSS class type
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getCssClass($type)
+    {
+        if (empty(static::$bsCssMap[$type])) {
+            return '';
+        }
+        $config = static::$bsCssMap[$type];
+        if ($this->isBs4()) {
+            return !empty($config[1]) ? $config[1] : '';
+        }
+        return !empty($config[0]) ? $config[0] : '';
+    }
+
+    /**
+     * Adds bootstrap CSS class to options by parsing the bootstrap version for the specified Bootstrap CSS type
+     * @param array $options the HTML attributes for the container element that will be modified
+     * @param string $type the bootstrap CSS class type
+     * @throws InvalidConfigException
+     */
+    public function addCssClass(&$options, $type)
+    {
+        $css = $this->getCssClass($type);
+        if (!empty($css)) {
+            Html::addCssClass($options, $css);
+        }
+    }
+
+    /**
+     * Removes bootstrap CSS class from options by parsing the bootstrap version for the specified Bootstrap CSS type
+     * @param array $options the HTML attributes for the container element that will be modified
+     * @param string $type the bootstrap CSS class type
+     * @throws InvalidConfigException
+     */
+    public function removeCssClass(&$options, $type)
+    {
+        $css = $this->getCssClass($type);
+        if (!empty($css)) {
+            Html::removeCssClass($options, $css);
+        }
     }
 
     /**

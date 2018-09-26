@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.7
+
+**Date:** 26-Sep-2018
+
+- (enh #100): Configurable conversion classes between Bootstrap Versions.
+
 ## Version 1.9.6
 
 **Date:** 22-Sep-2018
