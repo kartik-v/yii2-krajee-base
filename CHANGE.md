@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.9
+
+**Date:** 27-Sep-2018
+
+- Enhance `BootstrapTrait::getCssClass` method.
+
 ## Version 1.9.8
 
 **Date:** 27-Sep-2018

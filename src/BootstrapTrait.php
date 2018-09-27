@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.8
+ * @version   1.9.9
  */
 
 namespace kartik\base;
@@ -252,19 +252,19 @@ trait BootstrapTrait
     /**
      * Gets bootstrap css class by parsing the bootstrap version for the specified BS CSS type
      * @param string $type the bootstrap CSS class type
+     * @param bool $asString whether to return classes as a string separated by space
      * @return string
      * @throws InvalidConfigException
      */
-    public function getCssClass($type)
+    public function getCssClass($type, $asString = true)
     {
         if (empty(static::$bsCssMap[$type])) {
             return '';
         }
         $config = static::$bsCssMap[$type];
-        if ($this->isBs4()) {
-            return !empty($config[1]) ? $config[1] : '';
-        }
-        return !empty($config[0]) ? $config[0] : '';
+        $i = $this->isBs4() ? 1 : 0;
+        $css = !empty($config[$i]) ? $config[$i] : '';
+        return $asString && is_array($css) ? implode(' ', $css) : $css;
     }
 
     /**
@@ -275,7 +275,7 @@ trait BootstrapTrait
      */
     public function addCssClass(&$options, $type)
     {
-        $css = $this->getCssClass($type);
+        $css = $this->getCssClass($type, false);
         if (!empty($css)) {
             Html::addCssClass($options, $css);
         }
@@ -289,7 +289,7 @@ trait BootstrapTrait
      */
     public function removeCssClass(&$options, $type)
     {
-        $css = $this->getCssClass($type);
+        $css = $this->getCssClass($type, false);
         if (!empty($css)) {
             Html::removeCssClass($options, $css);
         }
