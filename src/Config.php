@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.7
+ * @version   1.9.8
  */
 
 namespace kartik\base;
@@ -266,7 +266,7 @@ class Config
     }
 
     /**
-     * Initializes and validates the module (deprecated since v1.9.7 - use `getModule` instead directly)
+     * Initializes and validates the module (deprecated since v1.9.8 - use `getModule` instead directly)
      *
      * @param string $class the Module class name
      *

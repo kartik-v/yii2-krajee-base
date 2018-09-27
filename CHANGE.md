@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 1.9.8
+
+**Date:** 27-Sep-2018
+
+- Bump up version.
+
 ## Version 1.9.7
 
 **Date:** 26-Sep-2018
