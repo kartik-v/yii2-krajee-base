@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.0
+
+**Date:** 09-Oct-2018
+
+- (enh #101): Remove composer dependency on yii2 bootstrap.
+- Enhancements to `bsVersion` initialization.
+
 ## Version 1.9.9
 
 **Date:** 27-Sep-2018

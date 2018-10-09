@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.9
+ * @version   2.0.0
  */
 
 namespace kartik\base;
@@ -17,7 +17,7 @@ use yii\base\Module as YiiModule;
  * Base module class for Krajee extensions
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.9.9
+ * @since 2.0.0
  */
 class Module extends YiiModule implements BootstrapInterface
 {

@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   1.9.9
+ * @version   2.0.0
  */
 
 namespace kartik\base;
@@ -176,19 +176,21 @@ trait BootstrapTrait
      */
     protected function initBsVersion()
     {
-        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') : $this->bsVersion;
-        $this->_isBs4 = static::parseVer($v) === '4';
+        $ver = $this->configureBsVersion();
         $this->_defaultIconPrefix = 'glyphicon glyphicon-';
         $this->_defaultBtnCss = 'btn-default';
+        $ext = 'bootstrap' . ($this->_isBs4 ? '4' : '');
+        if (!class_exists("yii\\{$ext}\\Html")) {
+            $message = "You must install 'yiisoft/yii2-{$ext}' extension for Bootstrap {$ver}.x version support. " .
+                "Dependency to 'yii2-{$ext}' has not been included with 'yii2-krajee-base'. To resolve, you must add " .
+                "'yiisoft/yii2-{$ext}' to the 'require' section of your application's composer.json file and then " .
+                "run 'composer update'.\n\n" .
+                "NOTE: This dependency change has been done since v2.0 of 'yii2-krajee-base' because only one of " .
+                "'yiisoft/yii2-bootstrap' OR 'yiisoft/bootstrap4' bootstrap extensions can be installed. The " .
+                "developer can thus choose and control which bootstrap extension library to install.";
+            throw new InvalidConfigException($message);
+        }
         if ($this->_isBs4) {
-            if (!class_exists('yii\bootstrap4\Html')) {
-                throw new InvalidConfigException(
-                    "You must install 'yiisoft/yii2-bootstrap4' extension for Bootstrap 4.x version support. " .
-                    "Dependency to 'yii2-bootstrap4' has not been included with 'yii2-krajee-base'. To resolve, you " .
-                    "must add 'yiisoft/yii2-bootstrap4' to the 'require' section of your application's composer.json " .
-                    "and then run 'composer update'."
-                );
-            }
             $this->_defaultIconPrefix = 'fas fa-';
             $this->_defaultBtnCss = 'btn-outline-secondary';
         }
@@ -218,6 +220,18 @@ trait BootstrapTrait
     }
 
     /**
+     * Configures the bootstrap version settings
+     * @return string the bootstrap lib parsed version number
+     */
+    protected function configureBsVersion()
+    {
+        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') : $this->bsVersion;
+        $ver = static::parseVer($v);
+        $this->_isBs4 = $ver === '4';
+        return $ver;
+    }
+
+    /**
      * Validate if Bootstrap 4.x version
      * @return bool
      *
@@ -226,7 +240,7 @@ trait BootstrapTrait
     public function isBs4()
     {
         if (!isset($this->_isBs4)) {
-            $this->initBsVersion();
+            $this->configureBsVersion();
         }
         return $this->_isBs4;
     }
