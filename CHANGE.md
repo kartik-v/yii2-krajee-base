@@ -3,8 +3,10 @@ Change Log: `yii2-krajee-base`
 
 ## Version 2.0.1
 
-**Date:** 09-Nov-2018
+**Date:** 10-Nov-2018
 
+- Return widget instance in `addCssClass` & `removeCssClass` methods in `BootstrapTrait` for easy chaining of these methods.
+- Update composer dependency to suggest `yii2-bootstrap` or `yii2-bootstrap4` installs.
 - (enh #102): Add BS_PANEL_DEFAULT contextual style.
 - Update README.
 
