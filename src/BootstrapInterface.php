@@ -73,6 +73,11 @@ interface BootstrapInterface
     const BS_PANEL_FOOTER = 'panel-footer';
 
     /**
+     * @var string Bootstrap panel default contextual color
+     */
+    const BS_PANEL_DEFAULT = 'panel-default';
+
+    /**
      * @var string Bootstrap panel primary contextual color
      */
     const BS_PANEL_PRIMARY = 'panel-primary';

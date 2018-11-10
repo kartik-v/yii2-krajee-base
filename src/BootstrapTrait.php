@@ -36,6 +36,7 @@ trait BootstrapTrait
         self::BS_PANEL_TITLE => ['panel-title', 'card-title'],
         self::BS_PANEL_BODY => ['panel-body', 'card-body'],
         self::BS_PANEL_FOOTER => ['panel-footer', 'card-footer'],
+        self::BS_PANEL_DEFAULT => ['panel-default', ''],
         self::BS_PANEL_PRIMARY => ['panel-primary', ['bg-primary', 'text-white']],
         self::BS_PANEL_SUCCESS => ['panel-success', ['bg-success', 'text-white']],
         self::BS_PANEL_INFO => ['panel-info', ['bg-info', 'text-white']],

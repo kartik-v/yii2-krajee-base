@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.1
+
+**Date:** 09-Nov-2018
+
+- (enh #102): Add BS_PANEL_DEFAULT contextual style.
+- Update README.
+
 ## Version 2.0.0
 
 **Date:** 09-Oct-2018
