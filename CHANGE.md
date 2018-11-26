@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.2
+
+**Date:** 26-Nov-2018
+
+- (enh #104): Allow Bootstrap Asset Bundle dependency to be configurable.
+  - New property `bsDependencyEnabled` in `kartik\base\AssetBundle` (Note that all Krajee extension asset bundles based on bootstrap styles extend this class). The property `bsDependencyEnabled` defaults to `true` whereby based on the `bsVersion`, the asset bundle dependency is set with one of `yii\bootstrap\BootstrapAsset` or `yii\bootstrap4\BootstrapAsset`. If one needs custom control and load their own bootstrap assets - set this property to `false` via yii2 asset manager component in your yii2 application config.
+
 ## Version 2.0.1
 
 **Date:** 10-Nov-2018
