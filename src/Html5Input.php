@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.2
+ * @version   2.0.3
  */
 
 namespace kartik\base;
@@ -18,7 +18,6 @@ use yii\helpers\ArrayHelper;
  * Html5Input widget is a widget encapsulating the HTML 5 inputs.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
  * @see http://twitter.github.com/typeahead.js/examples
  */
 class Html5Input extends InputWidget
@@ -86,7 +85,7 @@ class Html5Input extends InputWidget
 
     /**
      * @var string the width in 'px' or '%' of the HTML5 input container. This property is DEPRECATED since
-     * v2.0.2 and will not cause any change to behaviors. One can directly set the width and other CSS styles
+     * v1.9.4 and will not cause any change to behaviors. One can directly set the width and other CSS styles
      * via the [[html5Container]] property.
      */
     public $width;

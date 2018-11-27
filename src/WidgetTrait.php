@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.2
+ * @version   2.0.3
  */
 
 namespace kartik\base;
@@ -22,7 +22,6 @@ use yii\web\View;
  * @method View getView()
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.6.0
  */
 trait WidgetTrait
 {

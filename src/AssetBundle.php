@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.2
+ * @version   2.0.3
  */
 
 namespace kartik\base;
@@ -18,7 +18,6 @@ use yii\web\View;
  * Asset bundle used for all Krajee extensions with bootstrap and jquery dependency.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
- * @since 1.0
  */
 class AssetBundle extends BaseAssetBundle implements BootstrapInterface
 {
@@ -27,7 +26,7 @@ class AssetBundle extends BaseAssetBundle implements BootstrapInterface
     /**
      * @var bool whether to enable the dependency with yii2 bootstrap asset bundle (depending on [[bsVersion]])
      */
-    public $bsDependencyEnabled = true;
+    public $bsDependencyEnabled;
 
     /**
      * @var bool whether the bootstrap JS plugins are to be loaded and enabled
@@ -47,6 +46,9 @@ class AssetBundle extends BaseAssetBundle implements BootstrapInterface
      */
     public function init()
     {
+        if (!isset($this->bsDependencyEnabled)) {
+            $this->bsDependencyEnabled = ArrayHelper::getValue(Yii::$app->params, 'bsDependencyEnabled', true);
+        }
         if ($this->bsDependencyEnabled) {
             $this->initBsAssets();
         }
