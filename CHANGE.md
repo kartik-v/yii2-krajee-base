@@ -1,6 +1,16 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.4
+
+**Date:** 04-Dec-2018
+
+- (enh #106): Back and forward browser bug for PJAX.
+    - New property `pjaxDuplicationFix` available in widgets/extensions that use `kartik\base\WidgetTrait`
+    - The above property if not set will default to `Yii::$app->params['pjaxDuplicationFix']`
+    - `Yii::$app->params['pjaxDuplicationFix']` if not set will default to `true`
+    - Setting `Yii::$app->params['pjaxDuplicationFix']` will globally control the pjax duplication fix for all Krajee widgets
+
 ## Version 2.0.3
 
 **Date:** 27-Nov-2018

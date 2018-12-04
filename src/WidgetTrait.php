@@ -4,11 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.3
+ * @version   2.0.4
  */
 
 namespace kartik\base;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -36,7 +37,15 @@ trait WidgetTrait
     public $moduleId;
 
     /**
+     * @var boolean prevent duplication of pjax containers when browser back & forward buttons are pressed.
+     * - If this property is not set, it will be defaulted from Yii::$app->params['pjaxDuplicationFix'].
+     * - If `Yii::$app->params['pjaxDuplicationFix']` is not set, then this property will default to `true`.
+     */
+    public $pjaxDuplicationFix;
+
+    /**
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
+     * - DEPRECATED since v2.0.4 and replaced with [[pjaxDuplicationFix]]
      */
     public $enablePopStateFix = false;
 
@@ -247,6 +256,20 @@ trait WidgetTrait
     }
 
     /**
+     * Fix for weird PJAX container duplication behavior on pressing browser back and forward buttons.
+     * @param View $view
+     */
+    protected function fixPjaxDuplication($view)
+    {
+        if (!isset($this->pjaxDuplicationFix)) {
+            $this->pjaxDuplicationFix = ArrayHelper::getValue(Yii::$app->params, 'pjaxDuplicationFix', true);
+        }
+        if ($this->pjaxDuplicationFix === true) {
+            $view->registerJs('jQuery&&jQuery.pjax&&(jQuery.pjax.defaults.maxCacheLength=0);');
+        }
+    }
+    
+    /**
      * Registers a JS code block for the widget.
      *
      * @param string $js the JS code block to be registered
@@ -264,21 +287,18 @@ trait WidgetTrait
      */
     public function registerWidgetJs($js, $pos = View::POS_READY, $key = null)
     {
+        $view = $this->getView();
+        WidgetAsset::register($view);
+        $this->fixPjaxDuplication($view);
         if (empty($js)) {
             return;
         }
-        $view = $this->getView();
-        WidgetAsset::register($view);
         $view->registerJs($js, $pos, $key);
         if (!empty($this->pjaxContainerId) && ($pos === View::POS_LOAD || $pos === View::POS_READY)) {
             $pjax = 'jQuery("#' . $this->pjaxContainerId . '")';
             $evComplete = 'pjax:complete.' . hash('crc32', $js);
             $script = "setTimeout(function(){ {$js} }, 100);";
             $view->registerJs("{$pjax}.off('{$evComplete}').on('{$evComplete}',function(){ {$script} });");
-            // hack fix for browser back and forward buttons
-            if ($this->enablePopStateFix) {
-                $view->registerJs("window.addEventListener('popstate',function(){window.location.reload();});");
-            }
         }
     }
 }
