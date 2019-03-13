@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.5
+
+**Date:** 13-Mar-2019
+
+- (enh #108): Add new bootstrap CSS Class map `BS_HIDE`.
+
 ## Version 2.0.4
 
 **Date:** 04-Dec-2018

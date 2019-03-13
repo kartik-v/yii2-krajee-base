@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.4
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   2.0.5
  */
 
 namespace kartik\base;
@@ -98,11 +98,12 @@ trait BootstrapTrait
         self::BS_PULL_RIGHT => ['pull-right', 'float-right'],
         self::BS_PULL_LEFT => ['pull-left', 'float-left'],
         self::BS_CENTER_BLOCK => ['center-block', ['mx-auto', 'd-block']],
+        self::BS_HIDE => ['hide', 'd-none'],
         self::BS_HIDDEN_PRINT => ['hidden-print', 'd-print-none'],
-        self::BS_HIDDEN_XS => ['hidden-xs', 'd-none'],
-        self::BS_HIDDEN_SM => ['hidden-sm', 'd-sm-none'],
-        self::BS_HIDDEN_MD => ['hidden-md', 'd-md-none'],
-        self::BS_HIDDEN_LG => ['hidden-lg', 'd-lg-none'],
+        self::BS_HIDDEN_XS => ['hidden-xs', ['d-none', 'd-sm-block']],
+        self::BS_HIDDEN_SM => ['hidden-sm', ['d-sm-none', 'd-md-block']],
+        self::BS_HIDDEN_MD => ['hidden-md', ['d-md-none', 'd-lg-block']],
+        self::BS_HIDDEN_LG => ['hidden-lg', ['d-lg-none', 'd-xl-block']],
         self::BS_VISIBLE_PRINT => ['visible-print-block', ['d-print-block', 'd-none']],
         self::BS_VISIBLE_XS => ['visible-xs', ['d-block', 'd-sm-none']],
         self::BS_VISIBLE_SM => ['visible-sm', ['d-none', 'd-sm-block', 'd-md-none']],

@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
- * @version   2.0.4
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
+ * @version   2.0.5
  */
 
 namespace kartik\base;
@@ -45,7 +45,7 @@ trait WidgetTrait
 
     /**
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
-     * - DEPRECATED since v2.0.4 and replaced with [[pjaxDuplicationFix]]
+     * - DEPRECATED since v2.0.5 and replaced with [[pjaxDuplicationFix]]
      */
     public $enablePopStateFix = false;
 
