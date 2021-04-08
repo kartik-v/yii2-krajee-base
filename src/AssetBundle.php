@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   2.0.5
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @version   2.0.6
  */
 
 namespace kartik\base;

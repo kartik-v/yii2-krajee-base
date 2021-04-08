@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 2.0.6
+
+**Date:** 08-Apr-2021
+
+- (enh #112): Add new bootstrap CSS Class map `BS_PANEL_SECONDARY`.
+
 ## Version 2.0.5
 
 **Date:** 13-Mar-2019

@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2019
- * @version   2.0.5
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @version   2.0.6
  */
 
 namespace kartik\base;
@@ -37,6 +37,7 @@ trait BootstrapTrait
         self::BS_PANEL_BODY => ['panel-body', 'card-body'],
         self::BS_PANEL_FOOTER => ['panel-footer', 'card-footer'],
         self::BS_PANEL_DEFAULT => ['panel-default', ''],
+        self::BS_PANEL_SECONDARY => ['panel-default', ['bg-secondary', 'text-white']],
         self::BS_PANEL_PRIMARY => ['panel-primary', ['bg-primary', 'text-white']],
         self::BS_PANEL_SUCCESS => ['panel-success', ['bg-success', 'text-white']],
         self::BS_PANEL_INFO => ['panel-info', ['bg-info', 'text-white']],
