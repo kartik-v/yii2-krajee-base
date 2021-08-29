@@ -4,11 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version   2.0.6
+ * @version   3.0.0
  */
 
 namespace kartik\base;
 
+use Exception;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
@@ -43,6 +44,7 @@ class AssetBundle extends BaseAssetBundle implements BootstrapInterface
     /**
      * @inheritdoc
      * @throws InvalidConfigException
+     * @throws Exception
      */
     public function init()
     {
@@ -56,23 +58,35 @@ class AssetBundle extends BaseAssetBundle implements BootstrapInterface
     }
 
     /**
+     * Adds asset bundle dependency
+     * @param  string  $lib
+     */
+    protected function addDependency($lib)
+    {
+        $index = array_search($lib, $this->depends);
+        if ($index !== 0 && empty($index)) {
+            $this->depends[] = $lib;
+        }
+    }
+
+    /**
      * Initialize bootstrap assets dependencies
-     * @throws InvalidConfigException
      */
     protected function initBsAssets()
     {
-        $lib = 'bootstrap' . ($this->isBs4() ? '4' : '');
-        $this->depends[] = "yii\\{$lib}\\BootstrapAsset";
+        $lib = $this->getBsExtBasename();
+        $this->addDependency("yii\\{$lib}\\BootstrapAsset");
         if ($this->bsPluginEnabled) {
-            $this->depends[] = "yii\\{$lib}\\BootstrapPluginAsset";
+            $this->addDependency("yii\\{$lib}\\BootstrapPluginAsset");
         }
     }
 
     /**
      * Registers this asset bundle with a view after validating the bootstrap version
-     * @param View $view the view to be registered with
-     * @param string $bsVer the bootstrap version
+     * @param  View  $view  the view to be registered with
+     * @param  string  $bsVer  the bootstrap version
      * @return static the registered asset bundle instance
+     * @throws Exception
      */
     public static function registerBundle($view, $bsVer = null)
     {
@@ -85,6 +99,7 @@ class AssetBundle extends BaseAssetBundle implements BootstrapInterface
         if (!empty($currVer)) {
             Yii::$app->params['bsVersion'] = $currVer;
         }
+
         return $out;
     }
 }

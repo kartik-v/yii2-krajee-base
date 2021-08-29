@@ -3,7 +3,7 @@
  * @subpackage yii2-widget-activeform
  * @author     Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright  Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version    2.0.6
+ * @version    3.0.0
  *
  * HTML 5 input styling for [Bootstrap 3.x](http://getbootstrap.com)
  * Covers color and range inputs with embedded input group addons.
@@ -85,7 +85,9 @@
 }
 
 .kv-type-range.kv-range-vertical.is-bs4 input.form-control,
-.kv-type-range.kv-range-vertical.is-bs4 input[type=range] {
+.kv-type-range.kv-range-vertical.is-bs4 input[type=range],
+.kv-type-range.kv-range-vertical.is-bs5 input.form-control,
+.kv-type-range.kv-range-vertical.is-bs5 input[type=range] {
     width: 10px;
 }
 

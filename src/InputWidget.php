@@ -4,11 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version   2.0.6
+ * @version   3.0.0
  */
 
 namespace kartik\base;
 
+use ReflectionException;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\FormatConverter;
@@ -98,7 +99,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
     /**
      * @inheritdoc
      * @throws InvalidConfigException
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function init()
     {
@@ -111,7 +112,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
 
     /**
      * Initializes the input widget.
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     protected function initInputWidget()
     {
@@ -169,7 +170,6 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
      * @param string $assetPath the path to the assets
      * @param string $filePath the path to the JS file with the file name prefix
      * @param string $suffix the file name suffix - defaults to '.js'
-     * @throws \ReflectionException
      */
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js')
     {

@@ -4,11 +4,12 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version   2.0.6
+ * @version   3.0.0
  */
 
 namespace kartik\base;
 
+use Exception;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -28,9 +29,11 @@ trait BootstrapTrait
      * - `$value`: _array_, consists of 2 array items:
      *      - the first item represents the CSS class(es) for Bootstrap 3.x.
      *      - the second item represents the CSS class(es) for Bootstrap 4.x
+     *      - the third item represents the CSS class(es) for Bootstrap 5.x (if it does not exist will use bootstrap 4.x setting)
      *   If more than one CSS class is to be applied - it is represented as a sub array of the relevant CSS classes.
      */
     public static $bsCssMap = [
+        self::BS_SR_ONLY => ['sr-only', 'sr-only', 'visually-hidden'],
         self::BS_PANEL => ['panel', 'card'],
         self::BS_PANEL_HEADING => ['panel-heading', 'card-header'],
         self::BS_PANEL_TITLE => ['panel-title', 'card-title'],
@@ -44,13 +47,13 @@ trait BootstrapTrait
         self::BS_PANEL_WARNING => ['panel-warning', ['bg-warning', 'text-white']],
         self::BS_PANEL_DANGER => ['panel-danger', ['bg-danger', 'text-white']],
         self::BS_LABEL => ['label', 'badge'],
-        self::BS_BADGE => ['badge', ['badge', 'badge-pill']],
-        self::BS_LABEL_DEFAULT => ['label-default', 'badge-secondary'],
-        self::BS_LABEL_PRIMARY => ['label-primary', 'badge-primary'],
-        self::BS_LABEL_SUCCESS => ['label-success', 'badge-success'],
-        self::BS_LABEL_INFO => ['label-info', 'badge-info'],
-        self::BS_LABEL_WARNING => ['label-warning', 'badge-warning'],
-        self::BS_LABEL_DANGER => ['label-danger', 'badge-danger'],
+        self::BS_BADGE => ['badge', ['badge', 'badge-pill'], ['badge', 'rounded-pill']],
+        self::BS_LABEL_DEFAULT => ['label-default', 'badge-secondary', 'bg-secondary'],
+        self::BS_LABEL_PRIMARY => ['label-primary', 'badge-primary', 'bg-primary'],
+        self::BS_LABEL_SUCCESS => ['label-success', 'badge-success', 'bg-success'],
+        self::BS_LABEL_INFO => ['label-info', 'badge-info', 'bg-info'],
+        self::BS_LABEL_WARNING => ['label-warning', 'badge-warning', 'bg-warning'],
+        self::BS_LABEL_DANGER => ['label-danger', 'badge-danger', 'bg-danger'],
         self::BS_TABLE_ACTIVE => ['default', 'table-active'],
         self::BS_TABLE_PRIMARY => ['primary', 'table-primary'],
         self::BS_TABLE_SUCCESS => ['success', 'table-success'],
@@ -96,8 +99,8 @@ trait BootstrapTrait
         self::BS_CAROUSEL_CONTROL_LEFT => [['carousel-control', 'left'], 'carousel-control-left'],
         self::BS_CAROUSEL_CONTROL_RIGHT => [['carousel-control', 'right'], 'carousel-control-right'],
         self::BS_HELP_BLOCK => ['help-block', 'form-text'],
-        self::BS_PULL_RIGHT => ['pull-right', 'float-right'],
-        self::BS_PULL_LEFT => ['pull-left', 'float-left'],
+        self::BS_PULL_RIGHT => ['pull-right', 'float-right', 'float-start'],
+        self::BS_PULL_LEFT => ['pull-left', 'float-left', 'float-end'],
         self::BS_CENTER_BLOCK => ['center-block', ['mx-auto', 'd-block']],
         self::BS_HIDE => ['hide', 'd-none'],
         self::BS_HIDDEN_PRINT => ['hidden-print', 'd-print-none'],
@@ -137,14 +140,21 @@ trait BootstrapTrait
      * implement BootstrapInterface. If not set will default to:
      * ```php
      * [
-     *   '3' => [
+     *   3 => [
      *      self::SIZE_X_SMALL => 'col-xs-',
      *      self::SIZE_SMALL => 'col-sm-',
      *      self::SIZE_MEDIUM => 'col-md-',
      *      self::SIZE_LARGE => 'col-lg-',
      *      self::SIZE_X_LARGE => 'col-lg-',
      *   ],
-     *   '4' => [
+     *   4 => [
+     *      self::SIZE_X_SMALL => 'col-',
+     *      self::SIZE_SMALL => 'col-sm-',
+     *      self::SIZE_MEDIUM => 'col-md-',
+     *      self::SIZE_LARGE => 'col-lg-',
+     *      self::SIZE_X_LARGE => 'col-xl-',
+     *   ],
+     *   5 => [
      *      self::SIZE_X_SMALL => 'col-',
      *      self::SIZE_SMALL => 'col-sm-',
      *      self::SIZE_MEDIUM => 'col-md-',
@@ -168,12 +178,18 @@ trait BootstrapTrait
 
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
+     * @deprecated since 3.0.0 and replaced by [[_bsVer]] flag
      */
     protected $_isBs4;
 
     /**
+     * @var int current bootstrap version
+     */
+    protected $_bsVer;
+
+    /**
      * Initializes bootstrap versions for the widgets and asset bundles.
-     * Sets the [[_isBs4]] flag by parsing [[bsVersion]]
+     * Sets the [[_bsVer]] flag by parsing [[bsVersion]]
      *
      * @throws InvalidConfigException
      */
@@ -182,18 +198,18 @@ trait BootstrapTrait
         $ver = $this->configureBsVersion();
         $this->_defaultIconPrefix = 'glyphicon glyphicon-';
         $this->_defaultBtnCss = 'btn-default';
-        $ext = 'bootstrap' . ($this->_isBs4 ? '4' : '');
+        $ext = $this->getBsExtBasename();
         if (!class_exists("yii\\{$ext}\\Html")) {
-            $message = "You must install 'yiisoft/yii2-{$ext}' extension for Bootstrap {$ver}.x version support. " .
-                "Dependency to 'yii2-{$ext}' has not been included with 'yii2-krajee-base'. To resolve, you must add " .
-                "'yiisoft/yii2-{$ext}' to the 'require' section of your application's composer.json file and then " .
-                "run 'composer update'.\n\n" .
-                "NOTE: This dependency change has been done since v2.0 of 'yii2-krajee-base' because only one of " .
-                "'yiisoft/yii2-bootstrap' OR 'yiisoft/bootstrap4' bootstrap extensions can be installed. The " .
-                "developer can thus choose and control which bootstrap extension library to install.";
+            $message = "You must install 'yiisoft/yii2-{$ext}' extension for Bootstrap {$ver}.x version support. ".
+                "Dependency to 'yii2-{$ext}' has not been included with 'yii2-krajee-base'. To resolve, you must add ".
+                "'yiisoft/yii2-{$ext}' to the 'require' section of your application's composer.json file and then ".
+                "run 'composer update'.\n\n".
+                "NOTE: This dependency change has been done since v2.0 of 'yii2-krajee-base' because only one of ".
+                "'yiisoft/yii2-bootstrap' OR 'yiisoft/yii2-bootstrap4' OR 'yiisoft/yii2-bootstrap5' extensions can ".
+                "be installed. The developer can thus choose and control which bootstrap extension library to install.";
             throw new InvalidConfigException($message);
         }
-        if ($this->_isBs4) {
+        if ($this->getBsVer() > 3) {
             $this->_defaultIconPrefix = 'fas fa-';
             $this->_defaultBtnCss = 'btn-outline-secondary';
         }
@@ -204,19 +220,29 @@ trait BootstrapTrait
         }
         if (empty($this->bsColCssPrefixes)) {
             $this->bsColCssPrefixes = [
-                '3' => [
+                3 => [
                     self::SIZE_X_SMALL => 'col-xs-',
                     self::SIZE_SMALL => 'col-sm-',
                     self::SIZE_MEDIUM => 'col-md-',
                     self::SIZE_LARGE => 'col-lg-',
                     self::SIZE_X_LARGE => 'col-lg-',
+                    self::SIZE_XX_LARGE => 'col-lg-',
                 ],
-                '4' => [
+                4 => [
                     self::SIZE_X_SMALL => 'col-',
                     self::SIZE_SMALL => 'col-sm-',
                     self::SIZE_MEDIUM => 'col-md-',
                     self::SIZE_LARGE => 'col-lg-',
                     self::SIZE_X_LARGE => 'col-xl-',
+                    self::SIZE_XX_LARGE => 'col-xl-',
+                ],
+                5 => [
+                    self::SIZE_X_SMALL => 'col-',
+                    self::SIZE_SMALL => 'col-sm-',
+                    self::SIZE_MEDIUM => 'col-md-',
+                    self::SIZE_LARGE => 'col-lg-',
+                    self::SIZE_X_LARGE => 'col-xl-',
+                    self::SIZE_XX_LARGE => 'col-xxl-',
                 ],
             ];
         }
@@ -224,28 +250,60 @@ trait BootstrapTrait
 
     /**
      * Configures the bootstrap version settings
-     * @return string the bootstrap lib parsed version number
+     * @return int the bootstrap lib parsed version number (defaults to 3)
+     * @throws Exception
      */
     protected function configureBsVersion()
     {
-        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') : $this->bsVersion;
-        $ver = static::parseVer($v);
-        $this->_isBs4 = $ver === '4';
-        return $ver;
+        $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') :
+            $this->bsVersion;
+        $this->_bsVer = static::parseVer($v);
+        return $this->_bsVer;
+    }
+
+    /**
+     * Gets the yii2 bootstrap extension base name
+     * @return string
+     */
+    protected function getBsExtBasename()
+    {
+        $ver = $this->getBsVer();
+        return 'bootstrap'.($ver > 3 ? $ver : '');
+    }
+
+    /**
+     * Validate Bootstrap version
+     * @param  int  $ver
+     * @return bool
+     * @throws Exception
+     */
+    public function isBs($ver)
+    {
+        return $this->getBsVer() === $ver;
+    }
+
+    /**
+     * Get bootstrap version
+     * @return int
+     * @throws Exception
+     */
+    public function getBsVer()
+    {
+        if (empty($this->_bsVer)) {
+            $this->configureBsVersion();
+        }
+        return $this->_bsVer;
     }
 
     /**
      * Validate if Bootstrap 4.x version
      * @return bool
-     *
-     * @throws InvalidConfigException
+     * @throws Exception
+     * @deprecated since 3.0.0 and replaced by [[isBs($ver)]] function
      */
     public function isBs4()
     {
-        if (!isset($this->_isBs4)) {
-            $this->configureBsVersion();
-        }
-        return $this->_isBs4;
+        return $this->isBs(4);
     }
 
     /**
@@ -268,10 +326,10 @@ trait BootstrapTrait
 
     /**
      * Gets bootstrap css class by parsing the bootstrap version for the specified BS CSS type
-     * @param string $type the bootstrap CSS class type
-     * @param bool $asString whether to return classes as a string separated by space
+     * @param  string  $type  the bootstrap CSS class type
+     * @param  bool  $asString  whether to return classes as a string separated by space
      * @return string
-     * @throws InvalidConfigException
+     * @throws Exception
      */
     public function getCssClass($type, $asString = true)
     {
@@ -279,17 +337,22 @@ trait BootstrapTrait
             return '';
         }
         $config = static::$bsCssMap[$type];
-        $i = $this->isBs4() ? 1 : 0;
+        $ver = $this->getBsVer();
+        $i = $ver - 3;
+        if ($ver > 4 && !isset($config[$i])) {
+            $i = 1;
+        }
         $css = !empty($config[$i]) ? $config[$i] : '';
+
         return $asString && is_array($css) ? implode(' ', $css) : $css;
     }
 
     /**
      * Adds bootstrap CSS class to options by parsing the bootstrap version for the specified Bootstrap CSS type
-     * @param array $options the HTML attributes for the container element that will be modified
-     * @param string $type the bootstrap CSS class type
-     * @return \kartik\base\Widget|mixed current object instance that uses this trait
-     * @throws InvalidConfigException
+     * @param  array  $options  the HTML attributes for the container element that will be modified
+     * @param  string  $type  the bootstrap CSS class type
+     * @return Widget|mixed current object instance that uses this trait
+     * @throws Exception
      */
     public function addCssClass(&$options, $type)
     {
@@ -297,15 +360,16 @@ trait BootstrapTrait
         if (!empty($css)) {
             Html::addCssClass($options, $css);
         }
+
         return $this;
     }
 
     /**
      * Removes bootstrap CSS class from options by parsing the bootstrap version for the specified Bootstrap CSS type
-     * @param array $options the HTML attributes for the container element that will be modified
-     * @param string $type the bootstrap CSS class type
-     * @return \kartik\base\Widget|mixed current object instance that uses this trait
-     * @throws InvalidConfigException
+     * @param  array  $options  the HTML attributes for the container element that will be modified
+     * @param  string  $type  the bootstrap CSS class type
+     * @return Widget|mixed current object instance that uses this trait
+     * @throws Exception
      */
     public function removeCssClass(&$options, $type)
     {
@@ -313,24 +377,26 @@ trait BootstrapTrait
         if (!empty($css)) {
             Html::removeCssClass($options, $css);
         }
+
         return $this;
     }
 
     /**
      * Parses and returns the major BS version
-     * @param string $ver
-     * @return bool|string
+     * @param  string  $ver
+     * @return int
      */
     protected static function parseVer($ver)
     {
-        $ver = (string)$ver;
-        return substr(trim($ver), 0, 1);
+        $ver = substr(trim((string)$ver), 0, 1);
+
+        return is_numeric($ver) ? (int)$ver : 3;
     }
 
     /**
      * Compares two versions and checks if they are of the same major BS version
-     * @param int|string $ver1 first version
-     * @param int|string $ver2 second version
+     * @param  int|string  $ver1  first version
+     * @param  int|string  $ver2  second version
      * @return bool whether major versions are equal
      */
     protected static function isSameVersion($ver1, $ver2)
@@ -338,6 +404,7 @@ trait BootstrapTrait
         if ($ver1 === $ver2 || (empty($ver1) && empty($ver2))) {
             return true;
         }
+
         return static::parseVer($ver1) === static::parseVer($ver2);
     }
 }
