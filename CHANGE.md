@@ -3,10 +3,10 @@ Change Log: `yii2-krajee-base`
 
 ## Version 3.0.0
 
-**Date:** _under development_
+**Date:** 01-Sep-2021
 
 - (enh #113): Add bootstrap 5.x support.
-- Create new major release for Bootstrap v5.x support (significant changes)
+- Create new major release for Bootstrap v5.x support
 
 ## Version 2.0.6
 

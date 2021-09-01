@@ -199,7 +199,7 @@ trait BootstrapTrait
         $this->_defaultIconPrefix = 'glyphicon glyphicon-';
         $this->_defaultBtnCss = 'btn-default';
         $ext = $this->getBsExtBasename();
-        if (!class_exists("yii\\{$ext}\\Html")) {
+        if (!class_exists("yii\\{$ext}\\Alert")) {
             $message = "You must install 'yiisoft/yii2-{$ext}' extension for Bootstrap {$ver}.x version support. ".
                 "Dependency to 'yii2-{$ext}' has not been included with 'yii2-krajee-base'. To resolve, you must add ".
                 "'yiisoft/yii2-{$ext}' to the 'require' section of your application's composer.json file and then ".
@@ -258,16 +258,19 @@ trait BootstrapTrait
         $v = empty($this->bsVersion) ? ArrayHelper::getValue(Yii::$app->params, 'bsVersion', '3') :
             $this->bsVersion;
         $this->_bsVer = static::parseVer($v);
+
         return $this->_bsVer;
     }
 
     /**
      * Gets the yii2 bootstrap extension base name
      * @return string
+     * @throws Exception
      */
     protected function getBsExtBasename()
     {
         $ver = $this->getBsVer();
+
         return 'bootstrap'.($ver > 3 ? $ver : '');
     }
 
@@ -292,6 +295,7 @@ trait BootstrapTrait
         if (empty($this->_bsVer)) {
             $this->configureBsVersion();
         }
+
         return $this->_bsVer;
     }
 
@@ -304,6 +308,49 @@ trait BootstrapTrait
     public function isBs4()
     {
         return $this->isBs(4);
+    }
+
+    /**
+     * Gets bootstrap dropdown class
+     * @param  bool  $isBtn whether to get the Button Dropdown widget class
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getDropdownClass($isBtn = false)
+    {
+        $ver = $this->getBsVer();
+        $btn = $isBtn ? 'Button' : '';
+        if ($ver == 3) {
+            $class = "\\yii\\bootstrap\\{$btn}Dropdown";
+            $repo = "'yiisoft/yii2-bootstrap' extension is";
+        } else {
+            $class = "\\kartik\\bs{$ver}dropdown\\{$btn}Dropdown";
+            $repo = "'kartik-v/yii2-bootstrap{$ver}-dropdown' and 'yiisoft/yii2-bootstrap{$ver}' extensions are";
+        }
+        if (!class_exists($class)) {
+            throw new InvalidConfigException("The {$btn}Dropdown class '{$class}' does not exist. " .
+            "Ensure the {$repo} installed on your application.");
+        }
+
+        return $class;
+    }
+
+    /**
+     * Gets the Bootstrap  class
+     * @var string $className
+     * @throws InvalidConfigException
+     */
+    public function getBSClass($className)
+    {
+        $ver = $this->getBsVer();
+        $bootstrap = 'bootstrap' . ($ver == 3 ? '' : $ver);
+        $class = "\\yii\\{$bootstrap}\\{$className}";
+
+        if (!class_exists($class)) {
+            throw new InvalidConfigException("The Bootstrap class '{$class}' does not exist. " .
+                "Ensure the 'yiisoft/yii2-{$bootstrap}' extension is installed on your application.");
+        }
+        return $class;
     }
 
     /**

@@ -224,7 +224,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
         if ($type == 'radio' || $type == 'checkbox') {
             $checked = ArrayHelper::remove($this->options, 'checked', '');
             if (empty($checked) && !empty($this->value)) {
-                $checked = ($this->value == 0) ? false : true;
+                $checked = !(($this->value == 0));
             } elseif (empty($checked)) {
                 $checked = false;
             }
@@ -307,7 +307,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
             return;
         }
         $attrib = $type . 'Format';
-        $format = isset(Yii::$app->formatter->$attrib) ? Yii::$app->formatter->$attrib : '';
+        $format = Yii::$app->formatter->$attrib ?? '';
         if (empty($format)) {
             throw new InvalidConfigException("Error parsing '{$type}' format.");
         }

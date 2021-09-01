@@ -10,7 +10,6 @@
 namespace kartik\base;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
@@ -102,7 +101,6 @@ class Html5Input extends InputWidget
 
     /**
      * @inheritdoc
-     * @throws InvalidConfigException
      */
     public function run()
     {
@@ -146,15 +144,15 @@ class Html5Input extends InputWidget
     protected function renderInput()
     {
         Html::addCssClass($this->options, 'form-control');
-        $bsVer = $this->_bsVer;
+        $n = $this->isBs(3) ? 3 : 4;
         Html::addCssClass($this->containerOptions,
-            ['input-group', 'input-group-html5', 'kv-type-' . $this->type, "is-{$bsVer}"]);
+            ['input-group', 'input-group-html5', "kv-type-{$this->type}", "is-{$n}"]);
         if (!empty($this->size)) {
             Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }
-        $prepend = $this->getAddonContent('prepend', $bsVer);
-        $preCaption = $this->getAddonContent('preCaption', $bsVer);
-        $append = $this->getAddonContent('append', $bsVer);
+        $prepend = $this->getAddonContent('prepend');
+        $preCaption = $this->getAddonContent('preCaption');
+        $append = $this->getAddonContent('append');
         $caption = $this->getInput('textInput');
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
         Html::addCssClass($this->html5Options, 'form-control-' . $this->type);

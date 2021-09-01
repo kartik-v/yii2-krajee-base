@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
- * AddonTrait includes methods to render addons based on `addon` setting
+ * AddonTrait includes methods to render bootstrap styled addons based on `addon` setting
  *
  * @property array $addon
  *
@@ -26,13 +26,16 @@ trait AddonTrait
      * Parses and returns addon content.
      *
      * @param  string  $type  the addon type `prepend` or `append`. If any other value is set, it will default to `prepend`
-     * @param  int  $bsVer  bootstrap version
+     * @param  int|null  $bsVer  bootstrap version
      * @return string
      * @throws Exception
      */
-    protected function getAddonContent($type, int $bsVer)
+    protected function getAddonContent($type, $bsVer = null)
     {
         $addon = ArrayHelper::getValue($this->addon, $type, '');
+        if (empty($bsVer) && method_exists($this, 'getBsVer')) {
+            $bsVer = $this->getBsVer();
+        }
         if (!is_array($addon)) {
             return $addon;
         }
@@ -46,7 +49,7 @@ trait AddonTrait
                 }
             }
         }
-        if ($bsVer !== 4) {
+        if ($bsVer != 4) {
             return $out;
         }
         $pos = $type === 'append' ? 'append' : 'prepend';
@@ -58,11 +61,11 @@ trait AddonTrait
      * Renders an addon item based on its configuration
      *
      * @param  array  $config  the addon item configuration
-     * @param  int  $bsVer  bootstrap version
+     * @param  int|null  $bsVer  bootstrap version
      * @return string
      * @throws Exception
      */
-    protected static function renderAddonItem($config, $bsVer)
+    protected static function renderAddonItem($config, $bsVer = null)
     {
         $content = ArrayHelper::getValue($config, 'content', '');
         $options = ArrayHelper::getValue($config, 'options', []);

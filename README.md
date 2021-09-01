@@ -20,10 +20,10 @@
 
 This is a base library with set of foundation classes and components used by all [Yii2 extensions by Krajee](http://demos.krajee.com). One can use this base library during creation of one's own extensions if needed.
 
-> NOTE: This extension depends on the [yiisoft/yii2-bootstrap](https://github.com/yiisoft/yii2-bootstrap) and/or [yiisoft/yii2-bootstrap4](https://github.com/yiisoft/yii2-bootstrap4) extensions. Check the [composer.json](https://github.com/kartik-v/yii2-krajee-base/blob/master/composer.json) for this extension's requirements and dependencies. 
+> NOTE: This extension depends on the [yiisoft/yii2-bootstrap](https://github.com/yiisoft/yii2-bootstrap) and/or [yiisoft/yii2-bootstrap4](https://github.com/yiisoft/yii2-bootstrap4) extensions. Check the [composer.json](https://github.com/kartik-v/yii2-krajee-base/blob/master/composer.json) for this extension's requirements and dependencies.
 
 ## Why this extension?
-To ensure a leaner code base / foundation component for use in all Krajee extensions (e.g. yii2-widgets, yii2-datecontrol, yii2-grid, yii2-dynagrid etc.). This should allow most developers to plug and play components only they need, without needing the complete suite of widgets. For example, this mitigates [this issue](https://github.com/kartik-v/yii2-grid/issues/123). 
+To ensure a leaner code base / foundation component for use in all Krajee extensions (e.g. yii2-widgets, yii2-datecontrol, yii2-grid, yii2-dynagrid etc.). This should allow most developers to plug and play components only they need, without needing the complete suite of widgets. For example, this mitigates [this issue](https://github.com/kartik-v/yii2-grid/issues/123).
 
 ## Release Changes
 
@@ -32,10 +32,10 @@ To ensure a leaner code base / foundation component for use in all Krajee extens
 ## Extension Classes
 
 ### [Module](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Module.php)
-Extends [Yii Module](https://github.com/yiisoft/yii2/blob/master/framework/base/Module.php) class for Krajee's Yii2 widgets and usage with translation properties enabled. 
+Extends [Yii Module](https://github.com/yiisoft/yii2/blob/master/framework/base/Module.php) class for Krajee's Yii2 widgets and usage with translation properties enabled.
 
 ### [Widget](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Widget.php)
-Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/Widget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. 
+Extends [Yii Widget](https://github.com/yiisoft/yii2/blob/master/framework/base/Widget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework.
 
 ### [InputWidget](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/InputWidget.php)
 Extends [Yii InputWidget](https://github.com/yiisoft/yii2/blob/master/framework/widgets/InputWidget.php) class for Krajee's Yii2 widgets and usage with bootstrap CSS framework. With release v1.3.0, the Input widget automatically now attaches the following HTML5 data attribute for each input that registers jQuery plugins via `registerPlugin` method:
@@ -52,11 +52,11 @@ The interface that defines the constants and method signatures for bootstrap 3.x
 A trait for bootstrap 3.x, 4.x, and 5.x version parsing functionality for Krajee extensions (the class using this trait must implement `BootstrapInterface`).
 
 ### [AddonTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AddonTrait.php)
-A trait for rendering bootstrap 3.x, 4.x, or 5.x input group addons. 
+A trait for rendering bootstrap 3.x, 4.x, or 5.x input group addons.
 
 ### [WidgetTrait](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/WidgetTrait.php)
 A trait for Krajee widgets including prebuilt methods for plugin registration.
-	
+
 ### [AssetBundle](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/AssetBundle.php)
 Extends [Yii AssetBundle](https://github.com/yiisoft/yii2/blob/master/framework/web/AssetBundle.php) class for Krajee's Yii2 widgets with enhancements for using minimized CSS and JS based on debug mode.
 
