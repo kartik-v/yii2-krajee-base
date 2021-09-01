@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version   3.0.0
+ * @version   3.0.1
  */
 
 namespace kartik\base;
@@ -178,7 +178,7 @@ trait BootstrapTrait
 
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
-     * @deprecated since 3.0.0 and replaced by [[_bsVer]] flag
+     * @deprecated since 3.0.1 and replaced by [[_bsVer]] flag
      */
     protected $_isBs4;
 
@@ -303,7 +303,7 @@ trait BootstrapTrait
      * Validate if Bootstrap 4.x version
      * @return bool
      * @throws Exception
-     * @deprecated since 3.0.0 and replaced by [[isBs($ver)]] function
+     * @deprecated since 3.0.1 and replaced by [[isBs($ver)]] function
      */
     public function isBs4()
     {

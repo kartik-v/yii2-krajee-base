@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version   3.0.0
+ * @version   3.0.1
  */
 
 namespace kartik\base;
@@ -144,9 +144,10 @@ class Html5Input extends InputWidget
     protected function renderInput()
     {
         Html::addCssClass($this->options, 'form-control');
-        $n = $this->isBs(3) ? 3 : 4;
+        $isBs3 = $this->isBs(3);
+        $n = $isBs3 ? 3 : 4;
         Html::addCssClass($this->containerOptions,
-            ['input-group', 'input-group-html5', "kv-type-{$this->type}", "is-{$n}"]);
+            ['input-group', 'input-group-html5', "kv-type-{$this->type}", "is-bs{$n}"]);
         if (!empty($this->size)) {
             Html::addCssClass($this->containerOptions, "input-group-{$this->size}");
         }
@@ -157,13 +158,13 @@ class Html5Input extends InputWidget
         $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->value;
         Html::addCssClass($this->html5Options, 'form-control-' . $this->type);
         $input = Html::input($this->type, $this->html5Options['id'], $value, $this->html5Options);
-        if ($this->isBs(3)) {
+        if ($isBs3) {
             Html::addCssClass($this->html5Container, ['input-group-addon']);
             $prepend .= Html::tag('span', $input, $this->html5Container);
         } else {
             Html::addCssClass($this->html5Container, 'input-group-text');
             $out = Html::tag('span', $input, $this->html5Container);
-            $prepend .= Html::tag('span', $out, ['class' => 'input-group-prepend']);
+            $prepend .= $this->isBs(4) ? Html::tag('span', $out, ['class' => 'input-group-prepend']) : $out;
         }
         $content = Html::tag('div', $prepend . $preCaption . $caption . $append, $this->containerOptions);
         Html::addCssClass($this->noSupportOptions, 'alert alert-warning');
