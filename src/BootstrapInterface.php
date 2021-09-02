@@ -85,6 +85,11 @@ interface BootstrapInterface
     /**
      * @var string Bootstrap panel default contextual color
      */
+    const BS_PANEL_DARK = 'panel-dark';
+
+    /**
+     * @var string Bootstrap panel default contextual color
+     */
     const BS_PANEL_DEFAULT = 'panel-default';
 
     /**
@@ -126,6 +131,16 @@ interface BootstrapInterface
      * @var string Bootstrap label
      */
     const BS_LABEL = 'label';
+
+    /**
+     * @var string Bootstrap label default contextual color
+     */
+    const BS_LABEL_LIGHT = 'label-light';
+
+    /**
+     * @var string Bootstrap label default contextual color
+     */
+    const BS_LABEL_DARK = 'label-dark';
 
     /**
      * @var string Bootstrap label default contextual color
