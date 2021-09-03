@@ -5,7 +5,8 @@ Change Log: `yii2-krajee-base`
 
 **Date:** 01-Sep-2021
 
-- (enh #113): Enhancements to support Bootstrap v5.x.
+- Add BootstrapIconsAsset bundle.
+- Enhancements to support Bootstrap v5.x.
 
 ## Version 3.0.0
 
