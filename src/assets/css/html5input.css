@@ -3,7 +3,7 @@
  * @subpackage yii2-widget-activeform
  * @author     Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright  Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
- * @version    3.0.1
+ * @version    3.0.2
  *
  * HTML 5 input styling for [Bootstrap 3.x](http://getbootstrap.com)
  * Covers color and range inputs with embedded input group addons.
@@ -30,18 +30,6 @@
 
 .input-group-sm input[type="color"] {
     height: 14px !important;
-}
-
-.input-group-html5 .input-group-addon + .input-group-addon {
-    border-left: 0 !important;
-}
-
-.input-group-html5 .input-group-addon + .form-control {
-    border-left: 0 !important;
-}
-
-.input-group-html5 .input-group-addon:first-child {
-    border-right: 1px solid #ccc !important;
 }
 
 .input-group-html5 input[disabled] {

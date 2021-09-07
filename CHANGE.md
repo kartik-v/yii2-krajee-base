@@ -1,6 +1,12 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 3.0.2
+
+**Date:** _under development_
+
+- (enh #114): Enhancements to HTML 5 input CSS.
+
 ## Version 3.0.1
 
 **Date:** 03-Sep-2021
