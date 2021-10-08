@@ -307,7 +307,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
             return;
         }
         $attrib = $type . 'Format';
-        $format = Yii::$app->formatter->$attrib ?? '';
+        $format = isset(Yii::$app->formatter->$attrib) ? Yii::$app->formatter->$attrib : '';
         if (empty($format)) {
             throw new InvalidConfigException("Error parsing '{$type}' format.");
         }
