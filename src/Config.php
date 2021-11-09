@@ -93,7 +93,7 @@ class Config
     /**
      * Validate multiple extension dependencies.
      *
-     * @param array $extensions the configuration of extensions with each array item setup as required in
+     * @param  array  $extensions  the configuration of extensions with each array item setup as required in
      * `checkDependency` method. The following keys can be setup:
      *
      * - `name`: _string_, the extension class name (without vendor namespace prefix)
@@ -115,9 +115,9 @@ class Config
     /**
      * Validate a single extension dependency
      *
-     * @param string $name the extension class name (without vendor namespace prefix)
-     * @param mixed $repo the extension package repository names (without vendor name prefix)
-     * @param string $reason a user friendly message for dependency validation failure
+     * @param  string  $name  the extension class name (without vendor namespace prefix)
+     * @param  mixed  $repo  the extension package repository names (without vendor name prefix)
+     * @param  string  $reason  a user friendly message for dependency validation failure
      *
      * @throws InvalidConfigException if extension fails dependency validation
      */
@@ -126,22 +126,29 @@ class Config
         if (empty($name)) {
             return;
         }
-        $command = 'php composer.phar require ' . self::VENDOR_NAME;
+        $command = 'php composer.phar require ';
         $version = ' \'@dev\'';
-        $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX . $name;
+        $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX.$name;
 
         if (is_array($repo)) {
-            $repos = "one of '" . implode("' OR '", $repo) . "' extensions. ";
-            $installs = $command . implode("{$version}\n\n--- OR ---\n\n{$command}", $repo) . $version;
+            $repos = "one of '".implode("' OR '", $repo)."' extensions. ";
+            $installs = $command;
+            foreach ($repo as $r) {
+                $sep = $installs === $command ? '' : "{$version}\n\n--- OR ---\n\n{$command}";
+                $r = strpos($r, '/') === false ? self::VENDOR_NAME.$r : $r;
+                $installs .= $sep.$r;
+            }
+            $installs .= $version;
         } else {
-            $repos = "the '" . $repo . "' extension. ";
-            $installs = $command . $repo . $version;
+            $repo = strpos($repo, '/') === false ? self::VENDOR_NAME.$repo : $repo;
+            $repos = "the '".$repo."' extension. ";
+            $installs = $command.$repo.$version;
         }
 
         if (!class_exists($class)) {
             throw new InvalidConfigException(
-                "The class '{$class}' was not found and is required {$reason}.\n\n" .
-                "Please ensure you have installed {$repos}" .
+                "The class '{$class}' was not found and is required {$reason}.\n\n".
+                "Please ensure you have installed {$repos}".
                 "To install, you can run this console command from your application root:\n\n{$installs}"
             );
         }
@@ -161,7 +168,7 @@ class Config
     /**
      * Check if a type of input is any possible valid input (html or widget)
      *
-     * @param string $type the type of input
+     * @param  string  $type  the type of input
      *
      * @return boolean
      */
@@ -173,7 +180,7 @@ class Config
     /**
      * Check if a input type is a valid Html Input
      *
-     * @param string $type the type of input
+     * @param  string  $type  the type of input
      *
      * @return boolean
      */
@@ -185,7 +192,7 @@ class Config
     /**
      * Check if a type of input is a valid input widget
      *
-     * @param string $type the type of input
+     * @param  string  $type  the type of input
      *
      * @return boolean
      */
@@ -197,7 +204,7 @@ class Config
     /**
      * Check if a input type is a valid dropdown input
      *
-     * @param string $type the type of input
+     * @param  string  $type  the type of input
      *
      * @return boolean
      */
@@ -209,8 +216,8 @@ class Config
     /**
      * Check if a namespaced widget is valid or installed.
      *
-     * @param string $type the widget type
-     * @param string $reason the message to be displayed for dependency failure
+     * @param  string  $type  the widget type
+     * @param  string  $reason  the message to be displayed for dependency failure
      *
      * @throws InvalidConfigException
      */
@@ -224,20 +231,21 @@ class Config
     /**
      * Convert a language string in yii\i18n format to a ISO-639 format (2 or 3 letter code).
      *
-     * @param string $language the input language string
+     * @param  string  $language  the input language string
      *
      * @return string
      */
     public static function getLang($language)
     {
         $pos = strpos($language, '-');
+
         return $pos > 0 ? substr($language, 0, $pos) : $language;
     }
 
     /**
      * Get the current directory of the extended class object
      *
-     * @param object $object the called object instance
+     * @param  object  $object  the called object instance
      *
      * @return string
      */
@@ -247,26 +255,28 @@ class Config
             return '';
         }
         $child = new ReflectionClass($object);
+
         return dirname($child->getFileName());
     }
 
     /**
      * Check if a file exists
      *
-     * @param string $file the file with path in URL format
+     * @param  string  $file  the file with path in URL format
      *
      * @return bool
      */
     public static function fileExists($file)
     {
         $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+
         return file_exists($file);
     }
 
     /**
      * Initializes and validates the module (deprecated since v1.9.0 - use `getModule` instead directly)
      *
-     * @param string $class the Module class name
+     * @param  string  $class  the Module class name
      *
      * @return \yii\base\Module
      *
@@ -279,6 +289,7 @@ class Config
         if ($module === null || !$module instanceof $class) {
             throw new InvalidConfigException("The '{$m}' module MUST be setup in your Yii configuration file and must be an instance of '{$class}'.");
         }
+
         return $module;
     }
 
@@ -286,12 +297,12 @@ class Config
      * Gets the module instance by validating the module name. The check is first done for a submodule of the same name
      * and then the check is done for the module within the current Yii2 application.
      *
-     * @param string $m the module identifier
-     * @param string $class the module class name
-     *
-     * @throws InvalidConfigException
+     * @param  string  $m  the module identifier
+     * @param  string  $class  the module class name
      *
      * @return yii\base\Module
+     * @throws InvalidConfigException
+     *
      */
     public static function getModule($m, $class = '')
     {
@@ -310,13 +321,14 @@ class Config
         if (!empty($class) && !$module instanceof $class) {
             throw new InvalidConfigException("The '{$m}' module MUST be an instance of '{$class}'.");
         }
+
         return $module;
     }
 
     /**
      * Check if HTML options has specified CSS class
-     * @param array $options the HTML options
-     * @param string $cssClass the css class to test
+     * @param  array  $options  the HTML options
+     * @param  string  $cssClass  the css class to test
      * @return bool
      */
     public static function hasCssClass($options, $cssClass)
@@ -326,6 +338,7 @@ class Config
         }
         $classes = is_array($options['class']) ? $options['class'] :
             preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+
         return in_array($cssClass, $classes);
     }
 }

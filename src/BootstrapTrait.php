@@ -325,16 +325,14 @@ trait BootstrapTrait
         $btn = $isBtn ? 'Button' : '';
         if ($ver == 3) {
             $class = "\\yii\\bootstrap\\{$btn}Dropdown";
-            $repo = "'yiisoft/yii2-bootstrap' extension is";
+            $repo = "yiisoft/yii2-bootstrap";
         } else {
             $class = "\\kartik\\bs{$ver}dropdown\\{$btn}Dropdown";
-            $repo = "'kartik-v/yii2-bootstrap{$ver}-dropdown' and 'yiisoft/yii2-bootstrap{$ver}' extensions are";
+            $repo = "yii2-bootstrap{$ver}-dropdown";
         }
         if (!class_exists($class)) {
-            throw new InvalidConfigException("The {$btn}Dropdown class '{$class}' does not exist. " .
-            "Ensure the {$repo} installed on your application.");
+            Config::checkDependency($class, $repo, 'for enabling dropdown functionality.');
         }
-
         return $class;
     }
 

@@ -5,6 +5,8 @@ Change Log: `yii2-krajee-base`
 
 **Date:** _under development_
 
+- (enh #116): Enhance dependency exception messaging for `getDropdownClass`.
+- (enh #115): Fix code for older PHP version support.
 - (enh #114): Enhancements to HTML 5 input CSS.
 
 ## Version 3.0.1
