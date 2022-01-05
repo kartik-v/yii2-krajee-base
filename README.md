@@ -6,10 +6,12 @@
     yii2-krajee-base
     <hr>
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DTP3NZQ6G2AYU"
-       title="Donate via Paypal" target="_blank">
-        <img src="http://kartik-v.github.io/bootstrap-fileinput-samples/samples/donate.png" alt="Donate"/>
-    </a>
+       title="Donate via Paypal" target="_blank"><img height="60" src="https://kartik-v.github.io/bootstrap-fileinput-samples/samples/donate.png" alt="Donate"/></a>
+    &nbsp; &nbsp; &nbsp;
+    <a href="https://www.buymeacoffee.com/kartikv" title="Buy me a coffee" ><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60" alt="kartikv" /></a>
 </h1>
+
+<div align="center">
 
 [![Stable Version](https://poser.pugx.org/kartik-v/yii2-krajee-base/v/stable)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
 [![Unstable Version](https://poser.pugx.org/kartik-v/yii2-krajee-base/v/unstable)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
@@ -17,6 +19,8 @@
 [![Total Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/downloads)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
 [![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/monthly)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
 [![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-krajee-base/d/daily)](https://packagist.org/packages/kartik-v/yii2-krajee-base)
+
+</div>
 
 This is a base library with set of foundation classes and components used by all [Yii2 extensions by Krajee](http://demos.krajee.com). One can use this base library during creation of one's own extensions if needed.
 

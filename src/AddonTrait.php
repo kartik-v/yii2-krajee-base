@@ -3,7 +3,7 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
  * @version   3.0.2
  */
 
@@ -14,7 +14,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
- * AddonTrait includes methods to render bootstrap styled addons based on `addon` setting
+ * AddonTrait includes methods to render bootstrap styled addons based on the `addon` property in classes that
+ * use this trait.
  *
  * @property array $addon
  *
@@ -22,6 +23,29 @@ use yii\helpers\Html;
  */
 trait AddonTrait
 {
+    /**
+     * @var array addon to prepend or append to the widget (based on bootstrap input group styling).
+     *
+     * - `prepend`: _array_|_string_, the prepend addon configuration. If set as a string will be rendered as is. If set
+     *   as an array, the following properties can be set:
+     *    - `content`: _string_, the prepend addon content.
+     *    - `asButton`: _boolean`, whether the addon is a button or button group. Defaults to `false`.
+     * - `append`: _array_|_string_, the append addon configuration. If set as a string will be rendered as is. If set
+     *   as an array, the following properties can be set:
+     *    - `content`: _string_, the append addon content.
+     *    - `asButton`: _boolean`, whether the addon is a button or button group. Defaults to `false`.
+     * - `preCaption `: _array_|_string_, the addon content placed before the caption. Note that this property is
+     *    applicable for [[Html5Input]] widget only. If set as a _string_, will be rendered as a raw markup without HTML
+     *    encoding. If set as an _array_, the following options can be set:
+     *   - `content `: _string_, the append addon content
+     *   - `asButton `: _boolean_, whether the addon is a button
+     *   - `options `: _array the HTML attributes for the append addon
+     * - `contentBefore`: _string_, content placed before the addon
+     * - `contentAfter`: _string_, content placed after the addon
+     * - `groupOptions`: _array_, HTML options for the input group
+     */
+    public $addon = [];
+
     /**
      * Parses and returns addon content.
      *

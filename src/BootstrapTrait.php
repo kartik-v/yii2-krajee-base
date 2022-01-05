@@ -3,7 +3,7 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
  * @version   3.0.2
  */
 
@@ -19,18 +19,28 @@ use yii\base\InvalidConfigException;
  * BootstrapTrait includes bootstrap library init and parsing methods. The class which uses this trait, must also
  * necessarily implement the [[BootstrapInterface]].
  *
+ * @property-read int $bsExtBasename The yii2 bootstrap extension base name (**readonly** property available via getter method [[getBsExtBasename()]])
+ * @property-read int $bsVer Bootstrap version number currently set (**readonly** property available via getter method [[getBsVer()]])
+ * @property-read string $defaultBtnCss Default bootstrap button CSS (**readonly** property available via getter method [[getDefaultBtnCss()]])
+ * @property-read string $defaultIconPrefix Default icon prefix (**readonly** property available via getter method [[getDefaultIconPrefix()]])
+ * @property-read string $dropdownClass Bootstrap dropdown class name based on currently configured bootstrap version
+ * (**readonly** property available via getter method [[getDropdownClass()]])
+ *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
 trait BootstrapTrait
 {
     /**
-     * @var array CSS conversion mappings for BS3.x and BS4.x. This is set as `$key => $value` pairs where:
+     * @var array CSS conversion mappings across bootstrap library versions.
+     *
+     * This is set as `$key => $value` pairs where:
+     *
      * - `$key`: _string_, is the style type to be configured (one of the constants starting with `BS_`)
-     * - `$value`: _array_, consists of 2 array items:
+     * - `$value`: _array_, consists of 3 rows / items, each of which can be setup either as  _string_
+     *    (single CSS class) or an _array_ (multiple CSS classes). Each of the row items indicate the following:
      *      - the first item represents the CSS class(es) for Bootstrap 3.x.
      *      - the second item represents the CSS class(es) for Bootstrap 4.x
      *      - the third item represents the CSS class(es) for Bootstrap 5.x (if it does not exist will use bootstrap 4.x setting)
-     *   If more than one CSS class is to be applied - it is represented as a sub array of the relevant CSS classes.
      */
     public static $bsCssMap = [
         self::BS_SR_ONLY => ['sr-only', 'sr-only', 'visually-hidden'],
@@ -122,18 +132,25 @@ trait BootstrapTrait
     ];
 
     /**
-     * @var int|string the bootstrap library version.
+     * @var int|string the bootstrap library version that you wish to use for this specific extension / widget.
      *
-     * To use with bootstrap 3 - you can set this to any string starting with 3 (e.g. `3` or `3.3.7` or `3.x`)
-     * To use with bootstrap 4 - you can set this to any string starting with 4 (e.g. `4` or `4.1.1` or `4.x`)
+     * - To use with bootstrap 3 - you can set this to any string starting with 3 (e.g. `3` or `3.3.7` or `3.x`)
+     * - To use with bootstrap 4 - you can set this to any string starting with 4 (e.g. `4` or `4.6.0` or `4.x`)
+     * - To use with bootstrap 5 - you can set this to any string starting with 5 (e.g. `5` or `5.1.0` or `5.x`)
      *
      * This property can be set up globally in Yii application params in your Yii2 application config file.
      *
      * For example:
-     * `Yii::$app->params['bsVersion'] = '4.x'` to use with Bootstrap 4.x globally
      *
-     * If this property is set, this setting will override the `Yii::$app->params['bsVersion']`. If this is not set, and
-     * `Yii::$app->params['bsVersion']` is also not set, this will default to `3.x` (Bootstrap 3.x version).
+     * ```php
+     * 'params' = [
+     *     'bsVersion' => '5.x' // will enable Bootstrap 5.x globally
+     * ]
+     * ```
+     *
+     * Note that if this property is set as part of this extension class, then the extension setting will override the
+     * `Yii::$app->params['bsVersion']`. This property will default to `3.x` (Bootstrap 3.x version) if it is not
+     * set anywhere (extension or module or Yii params).
      */
     public $bsVersion;
 
@@ -141,33 +158,39 @@ trait BootstrapTrait
      * @var array the bootstrap grid column css prefixes mapping, the key is the bootstrap versions, and the value is
      * an array containing the sizes and their corresponding grid column css prefixes. The class using this trait, must
      * implement BootstrapInterface. If not set will default to:
+     *
      * ```php
      * [
-     *   3 => [
-     *      self::SIZE_X_SMALL => 'col-xs-',
-     *      self::SIZE_SMALL => 'col-sm-',
-     *      self::SIZE_MEDIUM => 'col-md-',
-     *      self::SIZE_LARGE => 'col-lg-',
-     *      self::SIZE_X_LARGE => 'col-lg-',
-     *   ],
-     *   4 => [
-     *      self::SIZE_X_SMALL => 'col-',
-     *      self::SIZE_SMALL => 'col-sm-',
-     *      self::SIZE_MEDIUM => 'col-md-',
-     *      self::SIZE_LARGE => 'col-lg-',
-     *      self::SIZE_X_LARGE => 'col-xl-',
-     *   ],
-     *   5 => [
-     *      self::SIZE_X_SMALL => 'col-',
-     *      self::SIZE_SMALL => 'col-sm-',
-     *      self::SIZE_MEDIUM => 'col-md-',
-     *      self::SIZE_LARGE => 'col-lg-',
-     *      self::SIZE_X_LARGE => 'col-xl-',
-     *   ],
+     *     3 => [
+     *         self::SIZE_X_SMALL => 'col-xs-',
+     *         self::SIZE_SMALL => 'col-sm-',
+     *         self::SIZE_MEDIUM => 'col-md-',
+     *         self::SIZE_LARGE => 'col-lg-',
+     *         self::SIZE_X_LARGE => 'col-lg-',
+     *     ],
+     *     4 => [
+     *         self::SIZE_X_SMALL => 'col-',
+     *         self::SIZE_SMALL => 'col-sm-',
+     *         self::SIZE_MEDIUM => 'col-md-',
+     *         self::SIZE_LARGE => 'col-lg-',
+     *         self::SIZE_X_LARGE => 'col-xl-',
+     *     ],
+     *     5 => [
+     *         self::SIZE_X_SMALL => 'col-',
+     *         self::SIZE_SMALL => 'col-sm-',
+     *         self::SIZE_MEDIUM => 'col-md-',
+     *         self::SIZE_LARGE => 'col-lg-',
+     *         self::SIZE_X_LARGE => 'col-xl-',
+     *     ],
      * ];
      * ```
      */
     public $bsColCssPrefixes = [];
+
+    /**
+     * @var int current bootstrap version number
+     */
+    protected $_bsVer;
 
     /**
      * @var string default icon CSS prefix
@@ -181,18 +204,16 @@ trait BootstrapTrait
 
     /**
      * @var bool flag to detect whether bootstrap 4.x version is set
-     * @deprecated since 3.0.2 and replaced by [[_bsVer]] flag
+     *
+     * This property is deprecated since v3.0.2 and replaced by the more flexible [[_bsVer]] flag.
+     *
+     * @deprecated since v3.0.2 and replaced by [[_bsVer]] flag
      */
     protected $_isBs4;
 
     /**
-     * @var int current bootstrap version
-     */
-    protected $_bsVer;
-
-    /**
-     * Initializes bootstrap versions for the widgets and asset bundles.
-     * Sets the [[_bsVer]] flag by parsing [[bsVersion]]
+     * Initializes bootstrap versions for the widgets and asset bundles. Sets the [[_bsVer]] flag by parsing
+     * [[bsVersion]].
      *
      * @throws InvalidConfigException
      */
@@ -266,7 +287,11 @@ trait BootstrapTrait
     }
 
     /**
-     * Gets the yii2 bootstrap extension base name
+     * The yii2-bootstrap extension base name.
+     *
+     * Based on the currently set bootstrap version (3, 4, or 5), returns one of `bootstrap`, `bootstrap4`
+     * or `bootstrap5`.
+     *
      * @return string
      * @throws Exception
      */
@@ -289,7 +314,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Get bootstrap version
+     * Gets the current set bootstrap version number.
+     *
      * @return int
      * @throws Exception
      */
@@ -303,10 +329,14 @@ trait BootstrapTrait
     }
 
     /**
-     * Validate if Bootstrap 4.x version
+     * Validate if Bootstrap 4.x version.
+     *
+     * This property is deprecated since v3.0.2 and replaced by the [[isBs]] method.
+     *
+     * @deprecated since v3.0.2 and replaced by the [[isBs]] method
+     *
      * @return bool
      * @throws Exception
-     * @deprecated since 3.0.2 and replaced by [[isBs($ver)]] function
      */
     public function isBs4()
     {
@@ -314,7 +344,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Gets bootstrap dropdown class
+     * Gets the respective bootstrap dropdown class name based on currently configured bootstrap version.
+     *
      * @param  bool  $isBtn whether to get the Button Dropdown widget class
      * @return string
      * @throws InvalidConfigException
@@ -337,7 +368,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Gets the Bootstrap  class
+     * Gets the respective Bootstrap class based on currently configured bootstrap version.
+     *
      * @var string $className
      * @throws InvalidConfigException
      */
@@ -373,7 +405,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Gets bootstrap css class by parsing the bootstrap version for the specified BS CSS type
+     * Gets bootstrap css class by parsing the bootstrap version for the specified BS CSS type.
+     *
      * @param  string  $type  the bootstrap CSS class type
      * @param  bool  $asString  whether to return classes as a string separated by space
      * @return string
@@ -396,7 +429,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Adds bootstrap CSS class to options by parsing the bootstrap version for the specified Bootstrap CSS type
+     * Adds bootstrap CSS class to options by parsing the bootstrap version for the specified Bootstrap CSS type.
+     *
      * @param  array  $options  the HTML attributes for the container element that will be modified
      * @param  string  $type  the bootstrap CSS class type
      * @return Widget|mixed current object instance that uses this trait
@@ -413,7 +447,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Removes bootstrap CSS class from options by parsing the bootstrap version for the specified Bootstrap CSS type
+     * Removes bootstrap CSS class from options by parsing the bootstrap version for the specified Bootstrap CSS type.
+     *
      * @param  array  $options  the HTML attributes for the container element that will be modified
      * @param  string  $type  the bootstrap CSS class type
      * @return Widget|mixed current object instance that uses this trait
@@ -442,7 +477,8 @@ trait BootstrapTrait
     }
 
     /**
-     * Compares two versions and checks if they are of the same major BS version
+     * Compares two versions and checks if they are of the same major BS version.
+     *
      * @param  int|string  $ver1  first version
      * @param  int|string  $ver2  second version
      * @return bool whether major versions are equal

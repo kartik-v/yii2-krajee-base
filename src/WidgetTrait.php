@@ -3,7 +3,7 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
  * @version   3.0.2
  */
 
@@ -27,8 +27,6 @@ use yii\web\View;
  */
 trait WidgetTrait
 {
-    use BootstrapTrait;
-
     /**
      * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
      * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
@@ -78,7 +76,7 @@ trait WidgetTrait
     public $pluginOptions = [];
 
     /**
-     * @var array widget plugin options.
+     * @var array default plugin options for the widget
      */
     public $defaultPluginOptions = [];
 

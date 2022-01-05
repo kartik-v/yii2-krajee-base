@@ -3,7 +3,7 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
  * @version   3.0.2
  */
 
@@ -60,27 +60,6 @@ class Html5Input extends InputWidget
      * - For BS 4.x: 'lg', 'sm'
      */
     public $size;
-
-    /**
-     * @var array the addon content configuration. The following array keys can be configured:
-     *
-     * - `prepend `: _array|_string_, the prepend addon content. If set as a _string_, will be rendered raw as is without
-     *    HTML encoding. If set as an _array_, the following options can be set:
-     *   - `content `: _string_, the prepend addon content
-     *   - `asButton `: _boolean_, whether the addon is a button
-     *   - `options `: _array the HTML attributes for the prepend addon
-     * - `append `: _array_|_string_, the append addon content.If set as a _string_, will be rendered raw as is without
-     *    HTML encoding. If set as an _array_, the following options can be set:
-     *   - `content `: _string_, the append addon content
-     *   - `asButton `: _boolean_, whether the addon is a button
-     *   - `options `: _array the HTML attributes for the append addon
-     * - `preCaption `: _array_|_string_, the addon content placed before the caption.If set as a _string_, will be
-     *    rendered raw as is without HTML encoding. If set as an _array_, the following options can be set:
-     *   - `content `: _string_, the append addon content
-     *   - `asButton `: _boolean_, whether the addon is a button
-     *   - `options `: _array the HTML attributes for the append addon
-     */
-    public $addon = [];
 
     /**
      * @var string the width in 'px' or '%' of the HTML5 input container. This property is DEPRECATED since

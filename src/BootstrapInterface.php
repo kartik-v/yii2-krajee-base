@@ -3,15 +3,16 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
  * @version   3.0.2
  */
 
 namespace kartik\base;
 
 /**
- * BootstrapInterface includes bootstrap constants and any common method signatures
- *
+ * BootstrapInterface includes all Bootstrap library specific constants implemented by all Krajee extension
+ * classes. These constants are used in configuration of Bootstrap version specific configurations as set via
+ * [[BootstrapTrait::$bsCssMap]].
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  */
