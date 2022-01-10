@@ -21,7 +21,8 @@
   ],
   "suggest": {
     "yiisoft/yii2-bootstrap": "for Krajee extensions to work with Bootstrap 3.x version",
-    "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version"
+    "yiisoft/yii2-bootstrap4": "for Krajee extensions to work with Bootstrap 4.x version",
+    "yiisoft/yii2-bootstrap5": "for Krajee extensions to work with Bootstrap 5.x version"
   },
   "autoload": {
     "psr-4": {

@@ -3,7 +3,7 @@ Change Log: `yii2-krajee-base`
 
 ## Version 3.0.2
 
-**Date:** 05-Jan-2022
+**Date:** 10-Jan-2022
 
 - Enhance & standardize php docs for new website https://docs.krajee.com.
 - (enh #116): Enhance dependency exception messaging for `getDropdownClass`.
