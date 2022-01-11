@@ -28,8 +28,9 @@ use yii\web\View;
 trait WidgetTrait
 {
     /**
-     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
-     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * @var string the module identifier if this widget is part of a module.
+     *
+     * If not set, the module identifier will be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
      * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
      * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
      */
@@ -37,6 +38,7 @@ trait WidgetTrait
 
     /**
      * @var boolean prevent duplication of pjax containers when browser back & forward buttons are pressed.
+     *
      * - If this property is not set, it will be defaulted from Yii::$app->params['pjaxDuplicationFix'].
      * - If `Yii::$app->params['pjaxDuplicationFix']` is not set, then this property will default to `true`.
      */
@@ -59,7 +61,9 @@ trait WidgetTrait
     public $pluginDestroyJs;
 
     /**
-     * @var array widget JQuery events. You must define events in `event-name => event-function` format. For example:
+     * @var array widget JQuery events.
+     *
+     * You must define events in `event-name => event-function` format. For example:
      *
      * ~~~
      * pluginEvents = [
@@ -86,14 +90,16 @@ trait WidgetTrait
     public $defaultOptions = [];
 
     /**
-     * @var string the identifier for the PJAX widget container if the editable widget is to be rendered inside a PJAX
-     * container. This will ensure the PopoverX plugin is initialized correctly after a PJAX request is completed.
+     * @var string the identifier for the PJAX widget container if the widget is to be rendered inside a PJAX container.
+     *
+     * This will ensure the any jQuery plugin using the widget is initialized correctly after a PJAX request is completed.
      * If this is not set, no re-initialization will be done for pjax.
      */
     public $pjaxContainerId;
 
     /**
      * @var integer the position where the client JS hash variables for the input widget will be loaded.
+     *
      * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
      * rendering the widget via `renderAjax`.
      */
@@ -176,12 +182,14 @@ trait WidgetTrait
     }
 
     /**
-     * Generates a hashed variable to store the pluginOptions. The following special data attributes will also be setup
-     * for the input widget, that can be accessed through javascript :
+     * Generates a hashed variable to store the pluginOptions.
      *
-     * - 'data-krajee-{name}' will store the hashed variable storing the plugin options. The `{name}` token will be
-     *   replaced with the plugin name (e.g. `select2`, ``typeahead etc.). This fixes
-     *   [issue #6](https://github.com/kartik-v/yii2-krajee-base/issues/6).
+     * The following special data attributes will also be setup for the input widget, that can be accessed through javascript :
+     *
+     * - `data-krajee-{name}` will store the hashed variable storing the plugin options. The `{name}` token will be
+     *   replaced with the plugin name (e.g. `select2`, `typeahead` etc.).
+     *
+     * @see https://github.com/kartik-v/yii2-krajee-base/issues/6
      *
      * @param string $name the name of the plugin
      */

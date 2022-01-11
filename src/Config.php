@@ -21,17 +21,17 @@ use yii\base\InvalidConfigException;
 class Config
 {
     /**
-     * @var string the Krajee repo vendor name
+     * Krajee repo vendor name
      */
     const VENDOR_NAME = 'kartik-v/';
 
     /**
-     * @var string the Krajee extension namespace
+     * Krajee extension namespace
      */
     const NAMESPACE_PREFIX = '\\kartik\\';
 
     /**
-     * @var string the default reason appended for exceptions
+     * default reason appended for exceptions
      */
     const DEFAULT_REASON = 'for your selected functionality';
 

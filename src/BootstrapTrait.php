@@ -212,8 +212,9 @@ trait BootstrapTrait
     protected $_isBs4;
 
     /**
-     * Initializes bootstrap versions for the widgets and asset bundles. Sets the [[_bsVer]] flag by parsing
-     * [[bsVersion]].
+     * Initializes bootstrap versions for the widgets and asset bundles.
+     *
+     * Sets the [[_bsVer]] flag by parsing [[bsVersion]].
      *
      * @throws InvalidConfigException
      */
