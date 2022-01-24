@@ -19,8 +19,6 @@ use yii\web\View;
 /**
  * WidgetTrait manages all methods used by Krajee widgets and input widgets.
  *
- * @property array $options
- *
  * @method View getView()
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>

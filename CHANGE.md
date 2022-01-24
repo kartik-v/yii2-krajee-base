@@ -6,7 +6,6 @@ Change Log: `yii2-krajee-base`
 
 - Enhance & standardize php docs for new website https://docs.krajee.com.
 
-
 ## Version 3.0.2
 
 **Date:** 10-Jan-2022
