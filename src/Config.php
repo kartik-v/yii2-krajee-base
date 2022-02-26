@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
- * @version   3.0.2
+ * @version   3.0.3
  */
 
 namespace kartik\base;
@@ -128,19 +128,19 @@ class Config
         }
         $command = 'php composer.phar require ';
         $version = ' \'@dev\'';
-        $class = (substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX.$name;
+        $class = (Lib::substr($name, 0, 8) == self::NAMESPACE_PREFIX) ? $name : self::NAMESPACE_PREFIX.$name;
 
         if (is_array($repo)) {
             $repos = "one of '".implode("' OR '", $repo)."' extensions. ";
             $installs = $command;
             foreach ($repo as $r) {
                 $sep = $installs === $command ? '' : "{$version}\n\n--- OR ---\n\n{$command}";
-                $r = strpos($r, '/') === false ? self::VENDOR_NAME.$r : $r;
+                $r = Lib::strpos($r, '/') === false ? self::VENDOR_NAME.$r : $r;
                 $installs .= $sep.$r;
             }
             $installs .= $version;
         } else {
-            $repo = strpos($repo, '/') === false ? self::VENDOR_NAME.$repo : $repo;
+            $repo = Lib::strpos($repo, '/') === false ? self::VENDOR_NAME.$repo : $repo;
             $repos = "the '".$repo."' extension. ";
             $installs = $command.$repo.$version;
         }
@@ -237,9 +237,9 @@ class Config
      */
     public static function getLang($language)
     {
-        $pos = strpos($language, '-');
+        $pos = Lib::strpos($language, '-');
 
-        return $pos > 0 ? substr($language, 0, $pos) : $language;
+        return $pos > 0 ? Lib::substr($language, 0, $pos) : $language;
     }
 
     /**
@@ -268,7 +268,7 @@ class Config
      */
     public static function fileExists($file)
     {
-        $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+        $file = Lib::str_replace('/', DIRECTORY_SEPARATOR, $file);
 
         return file_exists($file);
     }
@@ -337,7 +337,7 @@ class Config
             return false;
         }
         $classes = is_array($options['class']) ? $options['class'] :
-            preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
+            Lib::preg_split('/\s+/', $options['class'], -1, PREG_SPLIT_NO_EMPTY);
 
         return in_array($cssClass, $classes);
     }

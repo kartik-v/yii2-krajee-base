@@ -76,6 +76,9 @@ A modified input widget for rendering HTML5 inputs with bootstrap styling and in
 ### [Config](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Config.php)
 A global configuration and validation helper class for usage across Krajee's Yii 2 extensions.
 
+### [Lib](https://github.com/kartik-v/yii2-krajee-base/blob/master/src/Lib.php)
+A base class for modified standard PHP internal functions. It is specifically built to address warnings in PHP v8.1 and above due to null arguments passed to PHP internal functions which results in deprecation errors in PHP  v8.1 and beyond.
+
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
