@@ -1,6 +1,13 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 3.0.4
+
+**Date:** 26-Feb-2022
+
+- (enh #118): Correct `substr` function use and add new `strncmp` method.
+- Enhance PHP Documentation.
+
 ## Version 3.0.3
 
 **Date:** 26-Feb-2022

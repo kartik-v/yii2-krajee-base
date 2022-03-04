@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
- * @version   3.0.3
+ * @version   3.0.4
  */
 
 namespace kartik\base;
@@ -302,7 +302,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
         }
         if (isset($this->pluginOptions['format'])) {
             $format = $this->pluginOptions['format'];
-            $format = strncmp($format, 'php:', 4) === 0 ? Lib::substr($format, 4) :
+            $format = Lib::strncmp($format, 'php:', 4) === 0 ? Lib::substr($format, 4) :
                 FormatConverter::convertDateIcuToPhp($format, $type);
             $this->pluginOptions['format'] = static::convertDateFormat($format);
             return;
@@ -312,7 +312,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
         if (empty($format)) {
             throw new InvalidConfigException("Error parsing '{$type}' format.");
         }
-        $format = strncmp($format, 'php:', 4) === 0 ? Lib::substr($format, 4) :
+        $format = Lib::strncmp($format, 'php:', 4) === 0 ? Lib::substr($format, 4) :
             FormatConverter::convertDateIcuToPhp($format, $type);
         $this->pluginOptions['format'] = static::convertDateFormat($format);
     }

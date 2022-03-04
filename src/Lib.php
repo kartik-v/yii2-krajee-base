@@ -34,13 +34,14 @@ class Lib
      * @link https://php.net/manual/en/function.substr.php
      *
      * @param  string|null  $string  The input string.
-     * @param  int  $offset  If start is non-negative, the returned string will start at the start'th position in
+     * @param  int  $offset  The starting offset position.
+     * - If the start is non-negative, the returned string will start at the start'th position in
      * string, counting from zero. For instance, in the string 'abcdef', the character at position `0` is 'a', the
-     * character at position `2` is 'c', and so forth. If start is negative, the returned string will start at the
-     * start'th character from the end of string. If string is less than or equal to start characters long, `false`
-     * will be returned.
+     * character at position `2` is 'c', and so forth.
+     * - If start is negative, the returned string will start at the start'th character from the end of string.
+     * - If string is less than or equal to start characters long, `false` will be returned.
      *
-     * Using a negative start:
+     * Example(s) of using a negative start:
      *
      * ```php
      * $rest = Lib::substr("abcdef", -1);    // returns "f"
@@ -48,13 +49,15 @@ class Lib
      * $rest = Lib::substr("abcdef", -3, 1); // returns "d"
      * ```
      *
-     * @param  int|null  $length If length is given and is positive, the string returned will contain at
-     * most length characters beginning from start (depending on the length of string). If length is given and is
-     * negative, then that many characters will be omitted from the end of string (after the start position has
-     * been calculated when a start is negative). If start denotes a position beyond this truncation, an empty
-     * string will be returned. If length is given and is `0`, false or null an empty string will be returned.
+     * @param  int|null  $length  The length of characters to return.
+     * - If length is given and is positive, the string returned will contain at most length characters beginning
+     * from start (depending on the length of string).
+     * - If length is given and is negative, then that many characters will be omitted from the end of string (after
+     * the start position has been calculated when a start is negative). If start denotes a position beyond this
+     * truncation, an empty _string_ will be returned.
+     * - If length is given and is `0`, then `false` or `null` or an empty _string_ will be returned.
      *
-     * Using a negative length:
+     * Example(s) of using a negative length:
      *
      * ```php
      * $rest = Lib::substr("abcdef", 0, -1);  // returns "abcde"
@@ -65,13 +68,34 @@ class Lib
      *
      * @return string|false the extracted part of string or false on failure.
      */
-    public static function substr($string, int $offset, $length = null)
+    public static function substr($string, $offset, $length = null)
     {
         if (!isset($string)) {
             return '';
         }
+        $string = (string)$string;
 
-        return substr((string)$string, $offset, $length);
+        return isset($length) ? substr($string, $offset, $length) : substr($string, $offset);
+    }
+
+    /**
+     * Binary safe string comparison of the first n characters
+     *
+     * @link https://php.net/manual/en/function.strncmp.php
+     *
+     * @param  string  $string1  The first string.
+     * @param  string  $string2  The second string.
+     * @param  int  $length  Number of characters to use in the comparison.
+     *
+     * @return int `< 0` if `str1` is less than `str2`, `> 0` if `str1` is greater than `str2`, and `= 0` if they are
+     * equal.
+     */
+    public static function strncmp($string1, $string2, $length)
+    {
+        $string1 = isset($string1) ? (string)$string1 : '';
+        $string2 = isset($string2) ? (string)$string2 : '';
+
+        return strncmp($string1, $string2, $length);
     }
 
     /**
@@ -81,20 +105,23 @@ class Lib
      *
      * @param  string  $separator  The boundary string.
      * @param  string  $string  The input string.
-     * @param  int|null  $limit If limit is set and positive, the returned array will contain a maximum of
+     * @param  int|null  $limit  If limit is set and positive, the returned _array_ will contain a maximum of
      * limit elements with the last element containing the rest of string. If the limit parameter is negative, all
      * components except the last -limit are returned. If the limit parameter is zero, then this is treated as `1`.
-     * @return string[]|false If delimiter is an empty string (`""`), explode will return false. If delimiter contains a
-     * value that is not contained in string and a negative limit is used, then an empty array will be returned.
-     * For any other limit, an array containing string will be returned.
+     *
+     * @return string[]|false If delimiter is an empty _string_ (`""`), explode will return false. If delimiter contains a
+     * value that is not contained in string and a negative limit is used, then an empty _array_ will be returned.
+     * For any other limit, an _array_ containing string will be returned.
      */
     public static function explode($separator, $string, $limit = null)
     {
         if (!isset($string) || !isset($separator)) {
             return [];
         }
+        $separator = (string)$separator;
+        $string = (string)$string;
 
-        return explode((string)$separator, (string)$string, $limit);
+        return isset($limit) ? explode($separator, $string, $limit) : explode($separator, $string);
     }
 
     /**
@@ -109,9 +136,10 @@ class Lib
      * ```
      *
      * @param  string|null  $string  The string that will be trimmed.
-     * @param  string  $characters  Optionally, the stripped characters can also be specified using the
-     * charlist parameter. Simply list all characters that you want to be stripped. With `..` you can specify a range
-     * of characters.
+     * @param  string  $characters  Optionally, the stripped characters can also be specified using the charlist
+     * parameter. Simply list all characters that you want to be stripped. With `..` you can specify a range of
+     * characters.
+     *
      * @return string The trimmed string.
      */
     public static function trim($string, $characters = null)
@@ -131,6 +159,7 @@ class Lib
      * ```
      *
      * @param  string|null  $string  The input string.
+     *
      * @return string the lowercased string.
      */
     public static function strtolower($string)
@@ -150,6 +179,7 @@ class Lib
      * ```
      *
      * @param  string|null  $string  The input string.
+     *
      * @return string the uppercased string.
      */
     public static function strtoupper($string)
@@ -171,6 +201,7 @@ class Lib
      * ```
      *
      * @param  string  $string  The string being measured for length.
+     *
      * @return int The length of the _string_ on success, and `0` if the _string_ is empty.
      */
     public static function strlen($string)
@@ -184,13 +215,14 @@ class Lib
      * @link https://php.net/manual/en/function.str-repeat.php
      *
      * @param  string  $string  The string to be repeated.
-     * @param  int  $times  Number of time the input string should be repeated. The multiplier has to be greater than
-     * or equal to `0`. If the multiplier is set to `0`, the function will return an empty string.
+     * @param  int|null  $times  Number of time the input string should be repeated. The multiplier has to be greater than
+     * or equal to `0`. If the multiplier is set to `0`, the function will return an empty _string_.
+     *
      * @return string the repeated string.
      */
-    public static function str_repeat($string, $times)
+    public static function str_repeat($string, $times = null)
     {
-        if (empty($times)) {
+        if (empty($times) || $times < 0) {
             $times = 0;
         }
 
@@ -203,13 +235,14 @@ class Lib
      * @link https://php.net/manual/en/function.strpos.php
      *
      * @param  string  $haystack  The string to search in
-     * @param  string  $needle  If `needle` is not a string, it is converted to an integer and applied as the ordinal
+     * @param  string  $needle  If `needle` is not a _string_, it is converted to an _integer_ and applied as the ordinal
      * value of a character.
-     * @param  int  $offset If specified, search will start this number of characters counted from the
+     * @param  int  $offset  If specified, search will start this number of characters counted from the
      * beginning of the string. Unlike [[strrpos()]] and [[stripos()]], the offset cannot be negative.
-     * @return int|false Returns the position where the needle exists relative to the beginning of the `haystack `
+     *
+     * @return int|false Returns the position where the `needle` exists relative to the beginning of the `haystack `
      * string (independent of search direction or offset). Also note that string positions start at `0`, and not `1`.
-     * Returns `FALSE` if the needle was not found.
+     * Returns `FALSE` if the `needle` was not found.
      */
     public static function strpos($haystack, $needle, $offset = 0)
     {
@@ -224,14 +257,15 @@ class Lib
      * @link https://php.net/manual/en/function.strrpos.php
      *
      * @param  string  $haystack  The string to search in
-     * @param  string  $needle  If `needle` is not a string, it is converted to an integer and applied as the ordinal
+     * @param  string  $needle  If `needle` is not a _string_, it is converted to an _integer_ and applied as the ordinal
      * value of a character.
-     * @param  int  $offset If specified, search will start this number of characters counted from the
+     * @param  int  $offset  If specified, search will start this number of characters counted from the
      * beginning of the string. If the value is negative, search will instead start from that many characters from
      * the end of the string, searching backwards.
-     * @return int|false Returns the position where the needle exists relative to the beginning of the `haystack `
+     *
+     * @return int|false Returns the position where the `needle` exists relative to the beginning of the `haystack `
      * string (independent of search direction or offset). Also note that string positions start at `0`, and not `1`.
-     * Returns `FALSE` if the needle was not found.
+     * Returns `FALSE` if the `needle` was not found.
      */
     public static function stripos($haystack, $needle, $offset = 0)
     {
@@ -246,14 +280,14 @@ class Lib
      * @link https://php.net/manual/en/function.strrpos.php
      *
      * @param  string  $haystack  The string to search in
-     * @param  string  $needle  If `needle` is not a string, it is converted to an integer and applied as the ordinal
+     * @param  string  $needle  If `needle` is not a _string_, it is converted to an _integer_ and applied as the ordinal
      * value of a character.
-     * @param  int  $offset If specified, search will start this number of characters counted from the
-     * beginning of the string. If the value is negative, search will instead start from that many characters from
-     * the end of the string, searching backwards.
-     * @return int|false Returns the position where the needle exists relative to the beginning of the `haystack `
+     * @param  int  $offset  If specified, search will start this number of characters counted from the beginning of the
+     * string. If the value is negative, search will instead start from that many characters from the end of the string, searching backwards.
+     *
+     * @return int|false Returns the position where the `needle` exists relative to the beginning of the `haystack `
      * string (independent of search direction or offset). Also note that string positions start at `0`, and not `1`.
-     * Returns `FALSE` if the needle was not found.
+     * Returns `FALSE` if the `needle` was not found.
      */
     public static function strrpos($haystack, $needle, $offset = 0)
     {
@@ -273,15 +307,16 @@ class Lib
      * $replaced = Lib::str_replace('ell', '-', 'Hello');
      * ```
      *
-     * @param  string|string[]  $search  The value being searched for, otherwise known as the needle. An array may be
-     * used to designate multiple needles.
-     * @param  string|string[]  $replace  The replacement value that replaces found search values. An array may be used
+     * @param  string|string[]  $search  The value being searched for, otherwise known as the `needle`. An _array_ may be
+     * used to designate multiple `needles`.
+     * @param  string|string[]  $replace  The replacement value that replaces found search values. An _array_ may be used
      * to designate multiple replacements.
-     * @param  string|string[]  $subject  The string or array being searched and replaced on, otherwise known as the
-     * haystack. If subject is an array, then the search and replace is performed with every entry of subject, and
-     * the return value is an array as well.
-     * @param  int $count If passed, this will hold the number of matched and replaced needles.
-     * @return string|string[] This function returns a string or an array with the replaced values.
+     * @param  string|string[]  $subject  The _string_ or _array_ being searched and replaced on, otherwise known as the
+     * `haystack`. If `subject` is an _array_, then the search and replace is performed with every entry of `subject`, and
+     * the return value is an _array_ as well.
+     * @param  int  $count  If passed, this will hold the number of matched and replaced `needles`.
+     *
+     * @return string|string[] This function returns a _string_ or an _array_ with the replaced values.
      */
     public static function str_replace($search, $replace, $subject, &$count = null)
     {
@@ -309,15 +344,16 @@ class Lib
      * $replaced = Lib::str_replace('ell', '-', 'Hello');
      * ```
      *
-     * @param  string|string[]  $search  The value being searched for, otherwise known as the needle. An array may be
-     * used to designate multiple needles.
-     * @param  string|string[]  $replace  The replacement value that replaces found search values. An array may be used
-     * to designate multiple replacements.
-     * @param  string|string[]  $subject  The string or array being searched and replaced on, otherwise known as the
-     * haystack. If subject is an array, then the search and replace is performed with every entry of subject, and
-     * the return value is an array as well.
-     * @param  int $count If passed, this will hold the number of matched and replaced needles.
-     * @return string|string[] This function returns a string or an array with the replaced values.
+     * @param  string|string[]  $search  The value being searched for, otherwise known as the `needle`. An _array_ may be
+     * used to designate multiple `needles`.
+     * @param  string|string[]  $replace  The replacement value that replaces found search values. An _array_ may be used
+     * to designate multiple `replacements`.
+     * @param  string|string[]  $subject  The _string_ or _array_ being searched and replaced on, otherwise known as the
+     * `haystack`. If `subject` is an _array_, then the search and replace is performed with every entry of `subject`, and
+     * the return value is an _array_ as well.
+     * @param  int  $count  If passed, this will hold the number of matched and replaced `needles`.
+     *
+     * @return string|string[] This function returns a _string_ or an _array_ with the replaced values.
      */
     public static function str_ireplace($search, $replace, $subject, &$count = null)
     {
@@ -347,9 +383,10 @@ class Lib
      *
      * @param  string  $string  The string being translated.
      * @param  array  $replace_pairs  The replace_pairs parameter may be used as a substitute for to and from in which
-     * case it's an array in the form array('from' => 'to', ...).
-     * @return string A copy of str, translating all occurrences of each character in from to the corresponding
-     * character in to.
+     * case it's an _array_ in the form `['from' => 'to', ...]`.
+     *
+     * @return string A copy of str, translating all occurrences of each character in `from` to the corresponding
+     * character in `to`.
      */
     public static function strtr($string, $replace_pairs = [])
     {
@@ -364,11 +401,11 @@ class Lib
      *
      * @param  string  $string  The string to be encoded.
      *
-     * @return string a string in which all non-alphanumeric characters except `*`,` `,`-`,`_`,`.` have been replaced with a
+     * @return string a string in which all non-alphanumeric characters except `'*'`,`' '`,`'-'`,`'_'`,`'.'` have been replaced with a
      * percent (`%`) sign followed by two hex digits and spaces encoded as plus (`+`) signs. It is encoded the same way
      * that the posted data from a WWW form is encoded, that is the same way as in application/x-www-form-urlencoded
      * media type. This differs from the RFC 3986 encoding (see [[rawurlencode()]]) in that for historical reasons, spaces
-     * are encoded as plus (+) signs.
+     * are encoded as plus (`+`) signs.
      */
     public static function urlencode($string)
     {
@@ -377,8 +414,11 @@ class Lib
 
     /**
      * Decodes URL-encoded string
+     *
      * @link https://php.net/manual/en/function.urldecode.php
+     *
      * @param  string  $string  The string to be decoded.
+     *
      * @return string the decoded string.
      */
     public static function urldecode($string)
@@ -423,6 +463,7 @@ class Lib
      * @link https://php.net/manual/en/function.lcfirst.php
      *
      * @param  string  $string  The input string.
+     *
      * @return string the resulting string.
      */
     public static function lcfirst($string)
@@ -436,6 +477,7 @@ class Lib
      * @link https://php.net/manual/en/function.ucfirst.php
      *
      * @param  string  $string  The input string.
+     *
      * @return string the resulting string.
      */
     public static function ucfirst($string)
@@ -449,7 +491,8 @@ class Lib
      * @link https://php.net/manual/en/function.ucwords.php
      *
      * @param  string  $string  The input string.
-     * @param  string  $separators The optional separators contains the word separator characters.
+     * @param  string  $separators  The optional separators contains the word separator characters.
+     *
      * @return string the modified string.
      */
     public static function ucwords($string, $separators = " \t\r\n\f\v")
@@ -463,7 +506,8 @@ class Lib
      * @link https://php.net/manual/en/function.nl2br.php
      *
      * @param  string  $string  The input string.
-     * @param  bool  $use_xhtml Whenever to use XHTML compatible line breaks or not.
+     * @param  bool  $use_xhtml  Whenever to use XHTML compatible line breaks or not.
+     *
      * @return string the altered string.
      */
     public static function nl2br($string, $use_xhtml = true)
@@ -477,7 +521,7 @@ class Lib
      * @link https://php.net/manual/en/function.strip-tags.php
      *
      * @param  string  $string  The input string.
-     * @param  string[]|string|null  $allowed_tags You can use the optional second parameter to specify
+     * @param  string[]|string|null  $allowed_tags  You can use the optional second parameter to specify
      * tags which should not be stripped. HTML comments and PHP tags are also stripped. This is hardcoded and can
      * not be changed with allowable_tags.
      *
@@ -494,15 +538,16 @@ class Lib
      * @link https://php.net/manual/en/function.html-entity-decode.php
      *
      * @param  string  $string  The input string.
-     * @param  int  $flags The optional second quote_style parameter lets you define what will be done with
+     * @param  int  $flags  The optional second quote_style parameter lets you define what will be done with
      * 'single' and "double" quotes. It takes on one of three constants with the default being `ENT_COMPAT `.
      * Available quote_style constants:
-     * - `ENT_COMPAT `: Will convert double-quotes and leave single-quotes alone.
-     * - `ENT_QUOTES `: Will convert both double and single quotes.
-     * - `ENT_NOQUOTES `: Will leave both double and single quotes unconverted.
-     * @param  string|null  $encoding The ISO-8859-1 character set is used as default for the optional
+     * - `ENT_COMPAT`: Will convert double-quotes and leave single-quotes alone.
+     * - `ENT_QUOTES`: Will convert both double and single quotes.
+     * - `ENT_NOQUOTES`: Will leave both double and single quotes unconverted.
+     * @param  string|null  $encoding  The ISO-8859-1 character set is used as default for the optional
      * third
      * charset. This defines the character set used in conversion.
+     *
      * @return string the decoded string.
      */
     public static function html_entity_decode($string, $flags = ENT_COMPAT, $encoding = null)
@@ -512,17 +557,18 @@ class Lib
 
     /**
      * Perform a regular expression match
+     *
      * @link https://php.net/manual/en/function.preg-match.php
      *
      * @param  string  $pattern  The pattern to search for, as a string.
      * @param  string  $subject  The input string.
-     * @param  string[] $matches If `matches` is provided, then it is filled with the results of search.
+     * @param  string[]  $matches  If `matches` is provided, then it is filled with the results of search.
      * $matches[0] will contain the text that matched the full pattern, $matches[1] will have the text that matched
      * the first captured parenthesized subpattern, and so on.
-     * @param  int  $flags _flags_ can be the following flags:
-     * - `PREG_OFFSET_CAPTURE `: If this flag is passed, for every occurring match the appendant string offset will
-     * also be returned. Note that this changes the value of `matches` into an array where every element is an
-     * array consisting of the matched string at offset `0` and its string offset into `subject` at offset `1`.
+     * @param  int  $flags  _flags_ can be the following flags:
+     * - `PREG_OFFSET_CAPTURE`: If this flag is passed, for every occurring match the appendant string offset will
+     * also be returned. Note that this changes the value of `matches` into an _array_ where every element is an
+     * _array_ consisting of the matched string at offset `0` and its string offset into `subject` at offset `1`.
      *
      * ```php
      * Lib::preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
@@ -561,7 +607,7 @@ class Lib
      * ~~~
      *
      * - `PREG_UNMATCHED_AS_NULL `: If this flag is passed, unmatched subpatterns are reported as NULL; otherwise they
-     * are reported as an empty string.
+     * are reported as an empty _string_.
      *
      * ```php
      * Lib::preg_match('/(a)(b)*(c)/', 'ac', $matches);
@@ -587,10 +633,10 @@ class Lib
      * }
      * ~~~
      *
-     * @param  int  $offset Normally, the search starts from the beginning of the subject string. The
+     * @param  int  $offset  Normally, the search starts from the beginning of the `subject` string. The
      * optional parameter `offset` can be used to specify the alternate place from which to start the search (in
      * bytes). Using `offset` is not equivalent to passing substr($subject, $offset) to `preg_match` in place of
-     * the subject string, because `pattern` can contain assertions such as `^`, `$` or (`?`, `&lt;`, `=`, `x`).
+     * the `subject` string, because `pattern` can contain assertions such as `^`, `$` or `(?<=x)`.
      *
      * Compare:
      *
@@ -618,7 +664,7 @@ class Lib
      * print_r($matches);
      * ```
      *
-     * will produce
+     * will produce:
      *
      * ~~~
      * Array
@@ -631,7 +677,7 @@ class Lib
      * )
      * ~~~
      *
-     * Alternatively, to avoid using `substr()`, use the \G assertion rather than the `^` anchor, or the `A` modifier
+     * Alternatively, to avoid using `substr()`, use the `\G` assertion rather than the `^` anchor, or the `A` modifier
      * instead, both of which work with the offset parameter.
      *
      * @return int|false `preg_match` returns `1` if the `pattern` matches given `subject `, `0` if it does not, or
@@ -646,24 +692,151 @@ class Lib
         return preg_match((string)$pattern, (string)$subject, $matches, $flags, $offset);
     }
 
-
     /**
      * Perform a global regular expression match.
      *
      * @link https://php.net/manual/en/function.preg-match-all.php
      *
-     * @param  string  $pattern  The pattern to search for, as a string.
-     * @param  string  $subject  The input string.
-     * @param  string[][] $matches Array of all matches in multi-dimensional array ordered according to
-     * flags.
-     * @param  int  $flags Can be a combination of the following flags (note that it doesn't make sense to
-     * use `PREG_PATTERN_ORDER` together with `PREG_SET_ORDER `): `PREG_PATTERN_ORDER `: Orders results so that
-     * $matches[0] is an array of full pattern matches, $matches[1] is an array of strings matched by the first
-     * parenthesized subpattern, and so on.
-     * @param  int  $offset Normally, the search starts from the beginning of the subject string. The
+     * @param  string  $pattern  The pattern to search for, as a _string_.
+     * @param  string  $subject  The input _string_.
+     * @param  string[][]  $matches  _Array_ of all matches in multi-dimensional _array_ ordered according to flags.
+     * @param  int  $flags  Can be a combination of the following flags (note that it doesn't make sense to
+     * use `PREG_PATTERN_ORDER` together with `PREG_SET_ORDER`):
+     * - `PREG_PATTERN_ORDER`: Orders results so that `$matches[0]` is an _array_ of full pattern matches, `$matches[1]`
+     * is an _array_ of strings matched by the first parenthesized subpattern, and so on. For example:
+     *
+     * ```php
+     * preg_match_all(
+     *     "|<[^>]+>(.*)</[^>]+>|U",
+     *     "<b>example: </b><div align=left>this is a test</div>",
+     *     $out, PREG_PATTERN_ORDER
+     * );
+     * echo $out[0][0] . ", " . $out[0][1] . "\n";
+     * echo $out[1][0] . ", " . $out[1][1] . "\n";
+     * ```
+     *
+     * The above example will output:
+     *
+     * ~~~
+     * <b>example: </b>, <div align=left>this is a test</div>
+     * example: , this is a test
+     * ~~~
+     *
+     * So, `$out[0]` contains _array_ of _strings_ that matched full pattern, and `$out[1]` contains _array_ of _strings_
+     * enclosed by tags.
+     *
+     * If the pattern contains named subpatterns, $matches additionally contains entries for keys with the subpattern
+     * name.
+     *
+     * If the pattern contains duplicate named subpatterns, only the rightmost subpattern is stored in `$matches[NAME]`.
+     *
+     * ```php
+     * preg_match_all(
+     *     '/(?J)(?<match>foo)|(?<match>bar)/',
+     *     'foo bar',
+     *     $matches,
+     *     PREG_PATTERN_ORDER
+     * );
+     * print_r($matches['match'])
+     * ```
+     *
+     * The above example will output:
+     *
+     * ~~~
+     * Array
+     * (
+     *     [0] =>
+     *     [1] => bar
+     * )
+     * ~~~
+     *
+     * - `PREG_SET_ORDER`: Orders results so that `$matches[0]` is an _array_ of first set of matches, `$matches[1]`
+     * is an _array_ of second set of matches, and so on. For example:
+     *
+     * ```php
+     * preg_match_all(
+     *     "|<[^>]+>(.*)</[^>]+>|U",
+     *     "<b>example: </b><div align=left>this is a test</div>",
+     *     $out, PREG_SET_ORDER
+     * );
+     * echo $out[0][0] . ", " . $out[0][1] . "\n";
+     * echo $out[1][0] . ", " . $out[1][1] . "\n";
+     * ```
+     *
+     * The above example will output
+     *
+     * ~~~
+     * <b>example: </b>, example:
+     * <div align="left">this is a test</div>, this is a test
+     * ~~~
+     *
+     * - `PREG_OFFSET_CAPTURE`: If this flag is passed, for every occurring match the appendant string offset
+     * (in bytes) will also be returned. Note that this changes the value of matches into an _array_ of _arrays_
+     * where every element is an _array_ consisting of the matched string at offset `0` and its string offset into
+     * `subject` at offset `1`.
+     *
+     * ```php
+     * preg_match_all('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
+     * print_r($matches);
+     * ```
+     *
+     * The above example will output
+     *
+     * ~~~
+     * Array
+     * (
+     *     [0] => Array
+     *         (
+     *             [0] => Array
+     *                 (
+     *                     [0] => foobarbaz
+     *                     [1] => 0
+     *                 )
+     *
+     *         )
+     *
+     *     [1] => Array
+     *         (
+     *             [0] => Array
+     *                 (
+     *                     [0] => foo
+     *                     [1] => 0
+     *                 )
+     *
+     *         )
+     *
+     *     [2] => Array
+     *         (
+     *             [0] => Array
+     *                 (
+     *                     [0] => bar
+     *                     [1] => 3
+     *                 )
+     *
+     *         )
+     *
+     *     [3] => Array
+     *         (
+     *             [0] => Array
+     *                 (
+     *                     [0] => baz
+     *                     [1] => 6
+     *                 )
+     *
+     *         )
+     *
+     * )
+     * ~~~
+     *
+     * - `PREG_UNMATCHED_AS_NULL`: If this flag is passed, unmatched subpatterns are reported as `NULL`; otherwise they
+     * are reported as an empty _string_.
+     *
+     * If no order flag is given, `PREG_PATTERN_ORDER` is assumed.
+     *
+     * @param  int  $offset  Normally, the search starts from the beginning of the `subject` string. The
      * optional parameter `offset` can be used to specify the alternate place from which to start the search (in bytes).
-     * Using `offset` is not equivalent to passing substr($subject, $offset) to `preg_match_all` in place of the subject
-     * string, because `pattern` can contain assertions such as `^`, `$` or (`?``&lt;``=``x`). See [[preg_match()]] for
+     * Using `offset` is not equivalent to passing substr($subject, $offset) to `preg_match_all` in place of the `subject`
+     * string, because `pattern` can contain assertions such as `^`, `$` or `(?<=x)`. See [[preg_match()]] for
      * examples.
      *
      * ```php
@@ -679,7 +852,7 @@ class Lib
      * example: , this is a test
      * ~~~
      *
-     * So, `$out[0]` contains array of strings that matched full pattern, and `$out[1]` contains array of strings
+     * So, `$out[0]` contains _array_ of _strings_ that matched full pattern, and `$out[1]` contains _array_ of _strings_
      * enclosed by tags.
      *
      * @return int|false|null the number of full pattern matches (which might be zero), or `FALSE` if an error
@@ -700,40 +873,39 @@ class Lib
      *
      * @link https://php.net/manual/en/function.preg-replace.php
      *
-     * @param  string|string[]  $pattern  The pattern to search for. It can be either a string or an array with
+     * @param  string|string[]  $pattern  The pattern to search for. It can be either a _string_ or an _array_ with
      * strings. Several PCRE modifiers are also available, including the deprecated 'e' (PREG_REPLACE_EVAL), which
      * is specific to this function.
-     * @param  string|string[]  $replacement  The string or an array with strings to replace. If this parameter is a
-     * string and the `pattern` parameter is an array, all patterns will be replaced by that string. If both
-     * `pattern` and `replacement ` parameters are arrays, each `pattern` will be replaced by the `replacement`
-     * counterpart.
-     *
-     * If there are fewer elements in the `replacement` array than in the `pattern` array, any extra
-     * `pattern`s will be replaced by an empty string. `replacement` may contain references of the form `\\n` or
-     * (since PHP 4.0.4) `$n`, with the latter form being the preferred one. Every such reference will be replaced by
+     * @param  string|string[]  $replacement  The _string_ or an _array_ with strings to replace.
+     * - If this parameter is a _string_ and the `pattern` parameter is an _array_, all patterns will be replaced by
+     * that string.
+     * - If both `pattern` and `replacement ` parameters are _arrays_, each `pattern` will be replaced by the
+     * `replacement` counterpart.
+     * - If there are fewer elements in the `replacement` _array_ than in the `pattern` _array_, any extra
+     * `pattern`s will be replaced by an empty _string_.
+     * - `replacement` may contain references of the form `\\n` or (since PHP 4.0.4) `$n`, with the latter form being the preferred one. Every such reference will be replaced by
      * the text captured by the `n`'th parenthesized pattern. `n` can be from `0` to `99`, and `\\0` or `$0` refers to the text
      * matched by the whole pattern. Opening parentheses are counted from left to right (starting from `1`) to obtain
      * the number of the capturing subpattern. To use backslash in replacement, it must be doubled (`"\\\\"` PHP
      * string).
-     *
-     * When working with a replacement pattern where a backreference is immediately followed by another
+     * - When working with a replacement pattern where a backreference is immediately followed by another
      * number (i.e.: placing a literal number immediately after a matched pattern), you cannot use the familiar `\\1`
      * notation for your backreference. `\\11`, for example, would confuse `preg_replace` since it does not know
      * whether you want the `\\1` backreference followed by a literal 1, or the `\\11` backreference followed by
      * nothing. In this case the solution is to use `\${1}1`. This creates an isolated `$1` backreference, leaving the
      * `1` as a literal.
-     *
-     * When using the deprecated `e` modifier, this function escapes some characters (namely `'`, `"`, `\`
+     * - When using the deprecated `e` modifier, this function escapes some characters (namely `'`, `"`, `\`
      * and `NULL`) in the strings that replace the backreferences. This is done to ensure that no syntax errors arise
      * from backreference usage with either single or double quotes (e.g. `strlen(\'$1\') + strlen("$2")`). Make sure
-     * you are aware of PHP's string syntax to know exactly how the interpreted string will look.
-     * @param  string|string[]  $subject  The string or an array with strings to search and replace. If `subject` is an
-     * array, then the search and replace is performed on every entry of `subject `, and the return value is an
-     * array as well.
-     * @param  int  $limit The maximum possible replacements for each pattern in each `subject` string.
+     * you are aware of PHP's _string_ syntax to know exactly how the interpreted string will look.
+     * @param  string|string[]  $subject  The _string_ or an _array_ with strings to search and replace. If `subject` is an
+     * _array_, then the search and replace is performed on every entry of `subject `, and the return value is an
+     * _array_ as well.
+     * @param  int  $limit  The maximum possible replacements for each pattern in each `subject` string.
      * Defaults to `-1` (no limit).
-     * @param  int $count If specified, this variable will be filled with the number of replacements done.
-     * @return string|string[]|null `preg_replace` returns an array if the `subject` parameter is an array, or a string
+     * @param  int  $count  If specified, this variable will be filled with the number of replacements done.
+     *
+     * @return string|string[]|null `preg_replace` returns an _array_ if the `subject` parameter is an _array_, or a string
      * otherwise. If matches are found, the new `subject` will be returned, otherwise `subject` will be returned
      * unchanged or `NULL` if an error occurred.
      */
@@ -752,13 +924,13 @@ class Lib
      *
      * @link https://php.net/manual/en/function.preg-replace-callback.php
      *
-     * @param  string|string[]  $pattern  The pattern to search for. It can be either a string or an array with
+     * @param  string|string[]  $pattern  The pattern to search for. It can be either a _string_ or an _array_ with
      * strings.     *
-     * @param  callable  $callback  A callback that will be called and passed an array of matched elements in the
+     * @param  callable  $callback  A callback that will be called and passed an _array_ of matched elements in the
      * `subject` string. The callback should return the replacement string. This is the callback signature:
      *
      * ```php
-     * string `handler` `array `matches`.
+     * handler(array $matches): string
      * ```
      *
      * You'll often need the `callback` function for a `preg_replace_callback` in  just one place. In this case you
@@ -773,21 +945,23 @@ class Lib
      * // letters at the beginning of paragraphs to lowercase
      * $fp = fopen("php://stdin", "r") or die("can't read stdin");
      * while (!feof($fp)) {
-     * $line = fgets($fp);
-     * $line = Lib::preg_replace_callback( '|<p>\s*\w|', function ($matches) {
-     *      return Lib::strtolower($matches[0]);
-     * }, $line);
-     * echo $line;
+     *     $line = fgets($fp);
+     *     $line = Lib::preg_replace_callback( '|\s*\w|', function ($matches) {
+     *          return Lib::strtolower($matches[0]);
+     *     }, $line);
+     *     echo $line;
      * }
      * fclose($fp);
      * ```
-     * @param  string|string[]  $subject  The string or an array with strings to search and replace.
-     * @param  int  $limit The maximum possible replacements for each pattern in each `subject` string.
-     * Defaults to `-1` (no limit).
-     * @param  int $count  If specified, this variable will be filled with the number of replacements done.
-     * @param  int  $flags  similar to preg_match `flags` parameter
-     * @return string|string[]|null `preg_replace_callback` returns an array if the `subject` parameter is an array, or
-     * a string otherwise. On errors the return value is `NULL` If matches are found, the new subject will be
+     * @param  string|string[]  $subject  The _string_ or an _array_ with strings to search and replace.
+     * @param  int  $limit  The maximum possible replacements for each pattern in each `subject` string. Defaults to
+     * `-1` (no limit).
+     * @param  int  $count  If specified, this variable will be filled with the number of replacements done.
+     * @param  int  $flags  can be a combination of the `PREG_OFFSET_CAPTURE` and `PREG_UNMATCHED_AS_NULL` flags,
+     * which influence the format of the `matches` _array_. See the description in [[preg_match]] for more details.
+     *
+     * @return string|string[]|null `preg_replace_callback` returns an _array_ if the `subject` parameter is an _array_, or
+     * a string otherwise. On errors the return value is `NULL` If matches are found, the new `subject` will be
      * returned, otherwise `subject` will be returned unchanged.
      */
     public static function preg_replace_callback($pattern, $callback, $subject, $limit = -1, &$count = null, $flags = 0)
@@ -804,15 +978,17 @@ class Lib
      *
      * @link https://php.net/manual/en/function.preg-replace-callback-array.php
      *
-     * @param  array|callable[]  $pattern  An associative array mapping patterns (keys) to callbacks (values)
-     * @param  string|string[]  $subject  The string or an array with strings to search and replace.
-     * @param  int  $limit  The maximum possible replacements for each pattern in each `subject` string.
-     * Defaults to `-1` (no limit).
-     * @param  int $count  If specified, this variable will be filled with the number of replacements done.
-     * @param  int  $flags  similar to preg_match `flags` parameter
-     * @return string|string[]|null  `preg_replace_callback_array()` returns an array if the subject parameter is an
-     * array, or a string otherwise. On errors the return value is NULL. If matches are found, the new subject will be
-     * returned, otherwise subject will be returned unchanged.
+     * @param  array|callable[]  $pattern  An associative _array_ mapping patterns (keys) to callbacks (values)
+     * @param  string|string[]  $subject  The _string_ or an _array_ with strings to search and replace.
+     * @param  int  $limit  The maximum possible replacements for each pattern in each `subject` string. Defaults to
+     * `-1` (no limit).
+     * @param  int  $count  If specified, this variable will be filled with the number of replacements done.
+     * @param  int  $flags  can be a combination of the `PREG_OFFSET_CAPTURE` and `PREG_UNMATCHED_AS_NULL` flags,
+     * which influence the format of the `matches` _array_. See the description in [[preg_match]] for more details.
+     *
+     * @return string|string[]|null  `preg_replace_callback_array()` returns an _array_ if the `subject` parameter is an
+     * _array_, or a string otherwise. On errors the return value is NULL. If matches are found, the new `subject` will be
+     * returned, otherwise `subject` will be returned unchanged.
      */
     public static function preg_replace_callback_array($pattern, $subject, $limit = -1, &$count = null, $flags = 0)
     {
@@ -829,43 +1005,41 @@ class Lib
      *
      * @link https://php.net/manual/en/function.preg-filter.php
      *
-     * @param  string|string[]  $pattern  The pattern to search for. It can be either a string or an array with
+     * @param  string|string[]  $pattern  The pattern to search for. It can be either a _string_ or an _array_ with
      * strings. Several PCRE modifiers are also available, including the deprecated `e` (`PREG_REPLACE_EVAL`), which is specific
      * to this function.
-     * @param  string|string[]  $replacement  The string or an array with strings to replace. If this parameter is a
-     * string and the `pattern` parameter is an array, all patterns will be replaced by that string. If both
-     * `pattern` and `replacement ` parameters are arrays, each `pattern` will be replaced by the `replacement`
-     * counterpart.
-     *
-     * If there are fewer elements in the `replacement` array than in the `pattern` array, any extra
-     * `pattern`s will be replaced by an empty string. `replacement` may contain references of the form `\\n` or
-     * (since PHP 4.0.4) `$n`, with the latter form being the preferred one. Every such reference will be replaced by
+     * @param  string|string[]  $replacement  The _string_ or an _array_ with strings to replace.
+     * - If this parameter is a _string_ and the `pattern` parameter is an _array_, all patterns will be replaced by
+     * that string.
+     * - If both `pattern` and `replacement ` parameters are _arrays_, each `pattern` will be replaced by the
+     * `replacement` counterpart.
+     * - If there are fewer elements in the `replacement` _array_ than in the `pattern` _array_, any extra
+     * `pattern`s will be replaced by an empty _string_.
+     * - `replacement` may contain references of the form `\\n` or (since PHP 4.0.4) `$n`, with the latter form being the preferred one. Every such reference will be replaced by
      * the text captured by the `n`'th parenthesized pattern. `n` can be from `0` to `99`, and `\\0` or `$0` refers to the text
      * matched by the whole pattern. Opening parentheses are counted from left to right (starting from `1`) to obtain
      * the number of the capturing subpattern. To use backslash in replacement, it must be doubled (`"\\\\"` PHP
      * string).
-     *
-     * When working with a replacement pattern where a backreference is immediately followed by another
+     * - When working with a replacement pattern where a backreference is immediately followed by another
      * number (i.e.: placing a literal number immediately after a matched pattern), you cannot use the familiar `\\1`
      * notation for your backreference. `\\11`, for example, would confuse `preg_replace` since it does not know
      * whether you want the `\\1` backreference followed by a literal 1, or the `\\11` backreference followed by
      * nothing. In this case the solution is to use `\${1}1`. This creates an isolated `$1` backreference, leaving the
      * `1` as a literal.
-     *
-     * When using the deprecated `e` modifier, this function escapes some characters (namely `'`, `"`, `\`
+     * - When using the deprecated `e` modifier, this function escapes some characters (namely `'`, `"`, `\`
      * and `NULL`) in the strings that replace the backreferences. This is done to ensure that no syntax errors arise
      * from backreference usage with either single or double quotes (e.g. `strlen(\'$1\') + strlen("$2")`). Make sure
-     * you are aware of PHP's string syntax to know exactly how the interpreted string will look.
-     * @param  string|string[]  $subject  The string or an array with strings to search and replace. If `subject` is an
-     * array, then the search and replace is performed on every entry of `subject `, and the return value is an
-     * array as well.
+     * you are aware of PHP's _string_ syntax to know exactly how the interpreted string will look.
+     * @param  string|string[]  $subject  The _string_ or an _array_ with strings to search and replace. If `subject` is an
+     * _array_, then the search and replace is performed on every entry of `subject `, and the return value is an
+     * _array_ as well.
      * @param  int  $limit  The maximum possible replacements for each pattern in each `subject` string.
      * Defaults to `-1` (no limit).
-     * @param  int $count  If specified, this variable will be filled with the number of replacements done.
+     * @param  int  $count  If specified, this variable will be filled with the number of replacements done.
      *
-     * @return string|string[]|null an array if the `subject` parameter is an array, or a string otherwise. If no
-     * matches are found or an error occurred, an empty array is returned when `subject` is an array or
-     * `NULL`otherwise.
+     * @return string|string[]|null an _array_ if the `subject` parameter is an _array_, or a string otherwise. If no
+     * matches are found or an error occurred, an empty _array_ is returned when `subject` is an _array_ or
+     * `NULL` otherwise.
      */
     public static function preg_filter($pattern, $replacement, $subject, $limit = -1, &$count = null)
     {
@@ -890,7 +1064,8 @@ class Lib
      * @param  int  $flags  `flags` can be any combination of the following flags (combined with the |
      * bitwise operator): `PREG_SPLIT_NO_EMPTY` If this flag is set, only non-empty pieces will be returned by
      * `preg_split`.
-     * @return string[]|false an array containing substrings of `subject` split along boundaries matched by `pattern`,
+     *
+     * @return string[]|false an _array_ containing substrings of `subject` split along boundaries matched by `pattern`,
      * or `FALSE` if an error occurred.
      */
     public static function preg_split($pattern, $subject, $limit = -1, $flags = 0)
