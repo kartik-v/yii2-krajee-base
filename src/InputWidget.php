@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2022
- * @version   3.0.4
+ * @version   3.0.5
  */
 
 namespace kartik\base;
@@ -113,11 +113,12 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
 
     /**
      * Initializes the input widget.
+     *
      * @throws ReflectionException
      */
     protected function initInputWidget()
     {
-        $this->initI18N(__DIR__, 'kvbase');
+        $this->initI18N($this->getBaseSourcePath(), 'kvbase');
         if (!isset($this->language)) {
             $this->language = Yii::$app->language;
         }
@@ -137,7 +138,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
     /**
      * Validates and sets disabled or readonly inputs.
      *
-     * @param array $options the HTML attributes for the input
+     * @param  array  $options  the HTML attributes for the input
      */
     protected function initDisability(&$options)
     {
@@ -152,8 +153,8 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
     /**
      * Initialize the plugin language.
      *
-     * @param string $property the name of language property in [[pluginOptions]].
-     * @param boolean $full whether to use the full language string. Defaults to `false`
+     * @param  string  $property  the name of language property in [[pluginOptions]].
+     * @param  boolean  $full  whether to use the full language string. Defaults to `false`
      * which is the 2 (or 3) digit ISO-639 format.
      * Defaults to 'language'.
      */
@@ -167,14 +168,14 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
     /**
      * Sets the language JS file if it exists.
      *
-     * @param string $prefix the language filename prefix
-     * @param string $assetPath the path to the assets
-     * @param string $filePath the path to the JS file with the file name prefix
-     * @param string $suffix the file name suffix - defaults to '.js'
+     * @param  string  $prefix  the language filename prefix
+     * @param  string  $assetPath  the path to the assets
+     * @param  string  $filePath  the path to the JS file with the file name prefix
+     * @param  string  $suffix  the file name suffix - defaults to '.js'
      */
     protected function setLanguage($prefix, $assetPath = null, $filePath = null, $suffix = '.js')
     {
-        $pwd = Config::getCurrentDir($this);
+        $pwd = $this->getBaseSourcePath();
         $s = DIRECTORY_SEPARATOR;
         if ($assetPath === null) {
             $assetPath = "{$pwd}{$s}assets{$s}";
@@ -186,16 +187,16 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
         } elseif (Lib::substr($filePath, -1) != $s) {
             $filePath .= $s;
         }
-        $full = $filePath . $prefix . $this->language . $suffix;
-        $fullLower = $filePath . $prefix . strtolower($this->language) . $suffix;
-        $short = $filePath . $prefix . $this->_lang . $suffix;
-        if (Config::fileExists($assetPath . $full)) {
+        $full = $filePath.$prefix.$this->language.$suffix;
+        $fullLower = $filePath.$prefix.strtolower($this->language).$suffix;
+        $short = $filePath.$prefix.$this->_lang.$suffix;
+        if (Config::fileExists($assetPath.$full)) {
             $this->_langFile = $full;
             $this->pluginOptions['language'] = $this->language;
-        } elseif (Config::fileExists($assetPath . $fullLower)) {
+        } elseif (Config::fileExists($assetPath.$fullLower)) {
             $this->_langFile = $fullLower;
             $this->pluginOptions['language'] = strtolower($this->language);
-        } elseif (Config::fileExists($assetPath . $short)) {
+        } elseif (Config::fileExists($assetPath.$short)) {
             $this->_langFile = $short;
             $this->pluginOptions['language'] = $this->_lang;
         } else {
@@ -207,15 +208,16 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
     /**
      * Generates an input.
      *
-     * @param string $type the input type
-     * @param boolean $list whether the input is of dropdown list type
+     * @param  string  $type  the input type
+     * @param  boolean  $list  whether the input is of dropdown list type
      *
      * @return string the rendered input markup
      */
     protected function getInput($type, $list = false)
     {
         if ($this->hasModel()) {
-            $input = 'active' . ucfirst($type);
+            $input = 'active'.ucfirst($type);
+
             return $list ?
                 Html::$input($this->model, $this->attribute, $this->data, $this->options) :
                 Html::$input($this->model, $this->attribute, $this->options);
@@ -230,6 +232,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
                 $checked = false;
             }
         }
+
         return $list ?
             Html::$input($this->name, $this->value, $this->data, $this->options) :
             (($type == 'checkbox' || $type == 'radio') ?
@@ -243,7 +246,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
      * @see http://php.net/manual/en/function.date.php
      * @see http://bootstrap-datetimepicker.readthedocs.org/en/release/options.html#format
      *
-     * @param string $format the PHP date format string
+     * @param  string  $format  the PHP date format string
      *
      * @return string
      */
@@ -291,7 +294,7 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
      * Parses and sets plugin date format based on attribute type using [[FormatConverter]]. Currently this method is
      * used only within the [[\kartik\date\DatePicker]] and [[\kartik\datetime\DateTimePicker\]] widgets.
      *
-     * @param string $type the attribute type whether date, datetime, or time.
+     * @param  string  $type  the attribute type whether date, datetime, or time.
      *
      * @throws InvalidConfigException
      */
@@ -305,9 +308,10 @@ class InputWidget extends YiiInputWidget implements BootstrapInterface
             $format = Lib::strncmp($format, 'php:', 4) === 0 ? Lib::substr($format, 4) :
                 FormatConverter::convertDateIcuToPhp($format, $type);
             $this->pluginOptions['format'] = static::convertDateFormat($format);
+
             return;
         }
-        $attrib = $type . 'Format';
+        $attrib = $type.'Format';
         $format = isset(Yii::$app->formatter->$attrib) ? Yii::$app->formatter->$attrib : '';
         if (empty($format)) {
             throw new InvalidConfigException("Error parsing '{$type}' format.");

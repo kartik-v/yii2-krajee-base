@@ -1,6 +1,40 @@
 Change Log: `yii2-krajee-base`
 ==============================
 
+## Version 3.0.5
+
+**Date:** 01-Jun-2022
+
+- (enh #119): Allow translations to work better when widget is extended (new widget property sourcePath).
+New property `sourcePath` added to `WidgetTrait` and used in `Widget` and `InputWidget`.
+```php
+/**
+ * @var string directory path to the original widget source. If not set, will default to the working directory for
+ * the current widget's class. Setting this property can be useful in specific cases, like when you are extending
+ * the Krajee widget with your own custom namespaced class. In that case, set this property to the original Krajee
+ * Widget Base path. Yii path alias parsing is supported (using `@` symbols). For example:
+ * ~~~
+ * // your custom extended widget
+ * namespace myapp\widgets;
+ * class MyDateRangePicker extends kartik\daterange\DateRangePicker {
+ *     // directly set the property to the original Krajee base widget directory
+ *     // you can use Yii path aliases
+ *     public $sourcePath = '@vendor/kartik-v/yii2-date-range/src';
+ * }
+ *
+ * // Alternatively you can also override this property while rendering the widget
+ * // view.php: where widget is rendered
+ * use myapp\widgets\MyDateRangePicker;
+ *
+ * echo MyDateRangePicker::widget([
+ *     'name' => 'custom',
+ *     'sourcePath' => '@vendor/kartik-v/yii2-date-range/src'
+ * ]);
+ * ~~~
+ */
+public $sourcePath;
+```
+ 
 ## Version 3.0.4
 
 **Date:** 26-Feb-2022
